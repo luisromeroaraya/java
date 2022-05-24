@@ -1,0 +1,137 @@
+IntelliJ
+There are snippets with shortcuts like: main, sout
+
+--
+
+Variables
+Variables -> camelCase
+Primitive variables are declared in lowercase like: byte, short, int, long, float, double, boolean, char
+String variables are declared with the first letter in Uppercase like this: String
+This is because a String is a class (an object) with preassigned methods.
+
+Constants
+Always in capital letters -> CONSTANT
+--
+
+Constant
+Constants are declared adding "final" at the beginning -> final int a = 5;
+
+-- 
+
+Conversions
+int i = 123; byte b = (byte) i; String s = String.valueOf(i);
+Byte.parseByte(i); Short.parseShort(i); Integer.parseInt(i); Long.parseLong(i); Float.parseFloat(i); Double.parseDouble(i);
+
+-- 
+Print something in the console:
+System.out.println("Input your" + "First Name");
+System.out.printf("%s days, %s hours, %s minutes, %s seconds", days, hours, minutes, seconds);
+
+Get input from user:
+Scanner input = new Scanner(System.in);
+Store input in a variable:
+String name = input.nextLine();
+
+--
+
+Logical operators
+&& AND 
+|| OR inclusif
+! negation
+^ OR exclusif (XOR)
+
+--
+
+Compare strings: string1.equals(string2);
+
+--
+
+Iterators
+
+while is going to execute the loop if the condition is true
+while (condition) {
+}
+
+
+do while is always going to execute the first loop
+do {
+} while (condition)
+
+for (int i=0; (condition with i); i++) {
+}
+
+--
+
+TABLES
+Array
+int[] array = new int[5]; // this creates an array named array with 5 empty int elements
+array[2] = 5; // to define the value of an element
+to copy an array you should clone it with array.clone();
+for (int i=0; ;i++){
+	System.out.println(array[i]);
+}
+for (int elem: array) {
+	System.out.println(elem);
+}
+
+COLLECTIONS
+Lists
+Array List (list where you can have repeated elements)
+ArrayList<Integer> arrayList = new ArrayList<>();
+arrayList.add(5); // to add a value to the end of the array
+arraylist.add(0,5); // to insert a value at an specific index. it pushes the other values, it doesn't replace them.
+arrayList.set(0,5); // to modify the value at an specific index
+arrayList.size(); // gives you the length of the array list
+arrayList.get(1); // gives you the element at index 1
+for (int elem: arrayList) {
+	System.out.println(elem);
+}
+System.out.println(arrayList);
+
+Set (non ordered list where you can't have repeated elements)
+Set<String> set = new HashSet<>();
+set.add("Hola");
+set.add("Hola"); // the second Hola is not going to be added because it already exists
+System.out.println("Set : " + mySet);
+
+Map (list with key + element)
+Map<Integer, String> map = new HashMap<>();
+map.put(3, "hola"); // is going to define an element at the index 3 with the value "hola"
+System.out.println(map);
+for (Map.Entry<Integer, String> entry : map.entrySet()) {
+	System.out.println(entry);
+}
+
+Stack ("dish tower" with repeated elements. Last in / First out)
+Stack<Integer> stack = new Stack<>();
+stack.push(5);
+stack.push(6);
+stack.push(7);
+stack.pop();
+System.out.println(stack);
+
+Queue (First in / First out)
+Queue<Integer> queue = new LinkedList<>();
+queue.add(5);
+queue.poll();
+System.out.println(queue);
+
+ArrayDeque
+ArrayDeque<String> arrayDeque = new ArrayDeque<>();
+arrayDeque.add("hola");
+arrayDeque.add("chao");
+arrayDeque.removeLast();
+
+---
+
+Functions
+
+public class void sayHello(String name) {
+	System.out.println("Hello " + name);
+}
+// in void functions the variables used as parameters are copies so if they change inside the function they normally remain the same EXCEPT for tables. 
+
+
+public class int calculate(int value1, int value2) {
+	return value1+value2;
+}
