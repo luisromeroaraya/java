@@ -1,0 +1,12 @@
+- Fonction qui renvoie l'inverse d'une chaine de caractère
+
+- Fonction qui renvoie vrai si la chaine de caractère entré en 
+paramètre est un palindrome, et faux si ce n'est pas le cas (en utilisant la fonction coder précédemment)
+
+
+- Fonction qui écrit tous les nombres pairs compris entre 2 valeur entières
+
+- Fonction qui renvoie la valeur à l'index envoyé en parametre de la suite de Fibonnacci
+
+- Procédure qui prend en paramètre une liste d'invité et qui affiche des couples de donneurs/receveur (par exemple
+pour des cadeaux de noël)
