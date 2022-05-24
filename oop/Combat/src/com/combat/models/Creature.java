@@ -51,17 +51,9 @@ public class Creature {
     public void setHealth(int health) {
         this.health = health;
     }
-
     // methods
-
     @Override
     public String toString() {
-        return "Creature{" +
-                "name='" + name + '\'' +
-                ", strength=" + strength +
-                ", armor=" + armor +
-                ", speed=" + speed +
-                ", health=" + health +
-                '}';
+        return String.format("Name: %s, Strength: %s, Armor: %s, Speed: %s, Health: %s", this.getName(), this.getStrength(), this.getArmor(), this.getSpeed(), this.getHealth());
     }
 }
