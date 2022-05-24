@@ -45,6 +45,6 @@ public class Dog extends Animal {
     }
     @Override
     public String toString() {
-        return String.format("Name: %s, Weight: %s, Height: %s, Sex: %s, Age: %s, Human Age: %s, Date of Arrival: %s, Race: %s, Collar Color: %s, Trained: %s.", this.getName(), this.getWeight(), this.getHeight(), this.getSex(), this.getAge(), this.getHumanAge(), this.getDate(), this.getRace(), this.getCollar(), this.isTrained());
+        return String.format("Name: %s, Weight: %skg, Height: %scm, Sex: %s, Age: %sy, Human Age: %sy, Date of Arrival: %s, Race: %s, Collar Color: %s, Trained: %s.", this.getName(), this.getWeight(), this.getHeight(), this.getSex(), this.getAge(), this.getHumanAge(), this.getDate(), this.getRace(), this.getCollar(), this.isTrained());
     }
 }

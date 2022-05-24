@@ -27,6 +27,6 @@ public class Bird extends Animal {
     }
     @Override
     public String toString() {
-        return String.format("Name: %s, Weight: %s, Height: %s, Sex: %s, Age: %s, Human Age: %s, Date of Arrival: %s, Color: %s, Cage Size: %s.", this.getName(), this.getWeight(), this.getHeight(), this.getSex(), this.getAge(), this.getHumanAge(), this.getDate(), this.getColor(), this.getSize());
+        return String.format("Name: %s, Weight: %skg, Height: %scm, Sex: %s, Age: %sy, Human Age: %sy, Date of Arrival: %s, Color: %s, Cage Size: %s.", this.getName(), this.getWeight(), this.getHeight(), this.getSex(), this.getAge(), this.getHumanAge(), this.getDate(), this.getColor(), this.getSize());
     }
 }
