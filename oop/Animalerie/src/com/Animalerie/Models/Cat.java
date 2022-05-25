@@ -12,16 +12,16 @@ public class Cat extends Animal {
         this.paws = paws;
         this.longHair = longHair;
         if (age == 1 ) {
-            this.setHumanAge(15);
+            super.setHumanAge(15);
         }
         else if (age == 2) {
-            this.setHumanAge(25);
+            super.setHumanAge(25);
         }
         else {
-            this.setHumanAge(25+((age-2)*4));
+            super.setHumanAge(25+((age-2)*4));
         }
-        this.setDeath(25); // 25 -> 100/25 = 4 -> 1 in 4
-        // this.setDeath(0.5); // 0.5 -> 100/0.5 = 200 -> 1 in 200
+        super.setDeath(25); // 25 -> 100/25 = 4 -> 1 in 4
+        // super.setDeath(0.5); // 0.5 -> 100/0.5 = 200 -> 1 in 200
     }
     // getters
     public String getCharacter() {
@@ -50,6 +50,6 @@ public class Cat extends Animal {
     }
     @Override
     public String toString() {
-        return String.format("Name: %s, Weight: %skg, Height: %scm, Sex: %s, Age: %sy, Human Age: %sy, Date of Arrival: %s, Character: %s, Paws: %s, Long hair: %s.", this.getName(), this.getWeight(), this.getHeight(), this.getSex(), this.getAge(), this.getHumanAge(), this.getDate(), this.getCharacter(), this.hasPaws(), this.hasLongHair());
+        return super.toString() + String.format(", Character: %s, Paws: %s, Long hair: %s.", this.getName(), this.getWeight(), this.getHeight(), this.getSex(), this.getAge(), this.getHumanAge(), this.getDate(), this.getCharacter(), this.hasPaws(), this.hasLongHair());
     }
 }

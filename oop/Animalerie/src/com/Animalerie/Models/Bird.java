@@ -9,9 +9,9 @@ public class Bird extends Animal {
         super(name, weight, height, sex, age, date);
         this.color = color;
         this.size = size;
-        this.setHumanAge(age*4);
-        this.setDeath(33); // 33 -> 100/33 = 3 -> 1 in 3
-        // this.setDeath(3); // 3 -> 100/3 = 33 -> 1 in 33
+        super.setHumanAge(age*4);
+        super.setDeath(33); // 33 -> 100/33 = 3 -> 1 in 3
+        // super.setDeath(3); // 3 -> 100/3 = 33 -> 1 in 33
     }
     // getters
     public String getColor() {
@@ -27,6 +27,6 @@ public class Bird extends Animal {
     }
     @Override
     public String toString() {
-        return String.format("Name: %s, Weight: %skg, Height: %scm, Sex: %s, Age: %sy, Human Age: %sy, Date of Arrival: %s, Color: %s, Cage Size: %s.", this.getName(), this.getWeight(), this.getHeight(), this.getSex(), this.getAge(), this.getHumanAge(), this.getDate(), this.getColor(), this.getSize());
+        return super.toString() + String.format(", Color: %s, Cage Size: %s.", this.getName(), this.getWeight(), this.getHeight(), this.getSex(), this.getAge(), this.getHumanAge(), this.getDate(), this.getColor(), this.getSize());
     }
 }

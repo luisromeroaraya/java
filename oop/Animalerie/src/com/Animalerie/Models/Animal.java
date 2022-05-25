@@ -2,7 +2,7 @@ package com.Animalerie.Models;
 import java.time.LocalDate;
 import java.util.Random;
 
-public class Animal {
+public abstract class Animal { // we put abstract when a class is never going to be used by itself but by its children
     private String name;
     private int weight;
     private int height;
@@ -57,7 +57,7 @@ public class Animal {
     public String isAlive() {
         Random random = new Random();
         int temp = random.nextInt(1,100/(int)this.getDeath()+1);
-        System.out.printf("Probability of death: %s%% (1 in %s). Random number = %s => ", this.getDeath(), 100/this.getDeath(), temp);
+        System.out.printf("Probability of death: %s%% (1 in %s). Random number = %s => ", this.getDeath(), (int)(100/this.getDeath()), temp);
         if (temp == 1 ) {
             return "No";
         }
@@ -65,11 +65,9 @@ public class Animal {
             return "Yes";
         }
     }
-    public void cry() {
-        System.out.println("...");
-    }
+    public abstract void cry(); // we put abstract because we will never have an animal.cry(), they will be always cats, dogs or birds
     @Override
     public String toString() {
-        return String.format("Name: %s, Weight: %skg, Height: %scm, Sex: %s, Age: %sy, Human Age: %sy, Date of Arrival: %s.", this.getName(), this.getWeight(), this.getHeight(), this.getSex(), this.getAge(), this.getHumanAge(), this.getDate());
+        return String.format("Name: %s, Weight: %skg, Height: %scm, Sex: %s, Age: %sy, Human Age: %sy, Date of Arrival: %s", this.getName(), this.getWeight(), this.getHeight(), this.getSex(), this.getAge(), this.getHumanAge(), this.getDate());
     }
 }

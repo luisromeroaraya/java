@@ -12,13 +12,13 @@ public class Dog extends Animal {
         this.collar = collar;
         this.trained = trained;
         if (age == 1 ) {
-            this.setHumanAge(15);
+            super.setHumanAge(15);
         }
         else if (age == 2) {
-            this.setHumanAge(24);
+            super.setHumanAge(24);
         }
         else {
-            this.setHumanAge(24+((age-2)*4));
+            super.setHumanAge(24+((age-2)*4));
         }
         this.setDeath(50); // 50 -> 100/50 = 2 -> 1 in 2
         // this.setDeath(1); // 1 -> 100/1 = 100 -> 1 in 100
@@ -45,6 +45,6 @@ public class Dog extends Animal {
     }
     @Override
     public String toString() {
-        return String.format("Name: %s, Weight: %skg, Height: %scm, Sex: %s, Age: %sy, Human Age: %sy, Date of Arrival: %s, Race: %s, Collar Color: %s, Trained: %s.", this.getName(), this.getWeight(), this.getHeight(), this.getSex(), this.getAge(), this.getHumanAge(), this.getDate(), this.getRace(), this.getCollar(), this.isTrained());
+        return super.toString() + String.format(", Race: %s, Collar Color: %s, Trained: %s.", this.getName(), this.getWeight(), this.getHeight(), this.getSex(), this.getAge(), this.getHumanAge(), this.getDate(), this.getRace(), this.getCollar(), this.isTrained());
     }
 }
