@@ -67,7 +67,7 @@ public abstract class Character {
     }
 
     // Methods
-    public void attack(Character enemy) {
+    public void attacks(Character enemy) {
         int damage = getDamage(this.getStrength());
         System.out.println(String.format("%s (Health: %s) attacks %s (Health: %s) and does %s points of damage.", this.getName(), this.getHealth(), enemy.getName(), enemy.getHealth(), damage));
         enemy.setHealth(enemy.getHealth()-damage);
@@ -77,10 +77,10 @@ public abstract class Character {
         System.out.println(String.format("%s steps into %s and prepares to fight.", this.getName(), enemy.getName()));
         while (this.getHealth() > 0 && enemy.getHealth() > 0) {
             if (turn) {
-                this.attack(enemy);
+                this.attacks(enemy);
             }
             else {
-                enemy.attack(this);
+                enemy.attacks(this);
             }
             turn = !turn;
         }
@@ -92,8 +92,10 @@ public abstract class Character {
             return false;
         }
     }
-    public void adventure(Battleground battleground) {
+    public void battleRoyal(Battleground battleground) {
     };
+    public void adventure(Battleground battleground) {
+    }
     private int getDamage(int strength) {
         int damage = Battleground.rollDice(4);
         if (strength < 5) {

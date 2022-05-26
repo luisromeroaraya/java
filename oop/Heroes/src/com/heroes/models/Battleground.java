@@ -13,11 +13,9 @@ public class Battleground {
         this.monsters = new ArrayList<>();
     }
     // Getters
-
     public String getName() {
         return name;
     }
-
     public ArrayList<Character> getHeroes() {
         return heroes;
     }
@@ -113,31 +111,45 @@ public class Battleground {
         return health;
     }
     public void showMap() {
-        ArrayList<Character> monsters = this.getMonsters();
-        for (int posX = 0; posX < 15; posX++) {
-            for (int posY = 0; posY < 15; posY++) {
-                for (Character monster : monsters) {
-                    if (posX < monsters.size() && posY < monsters.size()) {
-                        if (monster.getPosX() == posX && monster.getPosY() == posY){
-                            if (monster instanceof Hero) {
-                                System.out.printf(" H ");
-                            }
-                            else if (monster instanceof Dragon) {
-                                System.out.printf(" D ");
-                            }
-                            else if (monster instanceof Orc) {
-                                System.out.printf(" O ");
-                            }
-                            else {
-                                System.out.printf(" W ");
-                            }
-                        }
-                    } else {
-                        System.out.printf(" X ");
-                    }
-                }
+        for (int posY = 14; posY >= 0; posY--) {
+            for (int posX = 0; posX < 15; posX++) {
+                System.out.printf(printCharacter(posX, posY));
             }
             System.out.println("");
         }
+    }
+    private String printCharacter(int posX, int posY) {
+        String output = " X ";
+        for (Character monster : this.getMonsters()) {
+            if (monster.getPosX() == posX && monster.getPosY() == posY){
+                if (monster instanceof Hero) {
+                    output = " H ";
+                }
+                else if (monster instanceof Dragon) {
+                    output = " D ";
+                }
+                else if (monster instanceof Orc) {
+                    output = " O ";
+                }
+                else {
+                    output = " W ";
+                }
+            }
+        }
+        for (Character hero : this.getHeroes()) {
+            if (hero.getPosX() == posX && hero.getPosY() == posY){
+                output = " H ";
+            }
+        }
+        return output;
+    }
+    public Character isMonster(int posX, int posY){
+        Character character = null;
+        for (Character monster : this.getMonsters()) {
+            if (monster.getPosX() == posX && monster.getPosY() == posY){
+                character = monster;
+            }
+        }
+        return character;
     }
 }

@@ -20,7 +20,8 @@ public class Main {
         // shorewood.inputCharacter();
         // shorewood.showCharacters();
         // System.out.println("----------------------------------");
-        // shorewood.getHeroes().get(0).adventure(shorewood);
-        shorewood.showMap();
+        // shorewood.getHeroes().get(0).battleRoyal(shorewood);
+        shorewood.getHeroes().get(0).adventure(shorewood);
+
     }
 }
