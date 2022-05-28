@@ -111,15 +111,25 @@ public class Battleground {
         return health;
     }
     public void showMap() {
+        for (int i=0; i<16; i++) {
+            System.out.print(" _ ");
+        }
+        System.out.println("");
         for (int posY = 14; posY >= 0; posY--) {
+            System.out.print("|");
             for (int posX = 0; posX < 15; posX++) {
                 System.out.printf(printCharacter(posX, posY));
             }
+            System.out.print("|");
             System.out.println("");
         }
+        for (int i=0; i<16; i++) {
+            System.out.print(" _ ");
+        }
+        System.out.println("");
     }
     private String printCharacter(int posX, int posY) {
-        String output = " X ";
+        String output = "   ";
         for (Character monster : this.getMonsters()) {
             if (monster.getPosX() == posX && monster.getPosY() == posY){
                 if (monster instanceof Hero) {
