@@ -4,11 +4,13 @@ import com.heroes.interfaces.Gold;
 
 public class Orc extends Monster implements Gold {
     private int gold;
+
     // Constructors
-    public Orc(String name, int stamina, int strength, int health) {
-        super(name, stamina, strength, health);
+    public Orc(String name, int stamina, int strength, int health, int posX, int posY) {
+        super(name, stamina, strength, health, posX, posY);
         this.gold = Battleground.rollDice(6);
     }
+
     // Getters
     @Override
     public int getStrength() {

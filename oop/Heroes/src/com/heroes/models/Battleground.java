@@ -6,12 +6,14 @@ public class Battleground {
     String name;
     private ArrayList<Character> heroes;
     private ArrayList<Character> monsters;
+
     // Constructors
     public Battleground(String name) {
         this.name = name;
         this.heroes = new ArrayList<>();
         this.monsters = new ArrayList<>();
     }
+
     // Getters
     public String getName() {
         return name;
@@ -22,7 +24,9 @@ public class Battleground {
     public ArrayList<Character> getMonsters() {
         return monsters;
     }
+
     // Setters
+
     // Methods
     public void showCharacters() {
         System.out.println("Heroes:");
@@ -46,25 +50,31 @@ public class Battleground {
         this.getMonsters().remove(monster);
     }
     public void createCharacter(String name, String race) {
-        int stamina = this.getRandom();
-        int strength = this.getRandom();
+        int stamina = this.getRandomStaminaStrength();
+        int strength = this.getRandomStaminaStrength();
         int health = this.getHealth(stamina);
+        int posX = 0;
+        int posY = 0;
+        if (race.toLowerCase().equals("dragon") || race.toLowerCase().equals("orc") || race.toLowerCase().equals("wolf")) {
+            posX = this.rollDice(14);
+            posY = this.getRandomPosY(posX);
+        }
         Character character = null;
         switch (race.toLowerCase()) {
             case "dragon":
-                character = new Dragon(name, stamina, strength, health);
+                character = new Dragon(name, stamina, strength, health, posX, posY);
                 break;
             case "dwarf":
-                character = new Dwarf(name, stamina, strength, health);
+                character = new Dwarf(name, stamina, strength, health, posX, posY);
                 break;
             case "human":
-                character = new Human(name, stamina, strength, health);
+                character = new Human(name, stamina, strength, health, posX, posY);
                 break;
             case "orc":
-                character = new Orc(name, stamina, strength, health);
+                character = new Orc(name, stamina, strength, health, posX, posY);
                 break;
             case "wolf":
-                character = new Wolf(name, stamina, strength, health);
+                character = new Wolf(name, stamina, strength, health, posX, posY);
                 break;
         }
         this.addCharacter(character);
@@ -82,7 +92,7 @@ public class Battleground {
         Random dice = new Random();
         return dice.nextInt(1,max+1);
     }
-    private int getRandom(){
+    private int getRandomStaminaStrength(){
         int random = 0;
         ArrayList<Integer> dices = new ArrayList<>();
         for (int i=0; i <4; i++){
@@ -110,12 +120,25 @@ public class Battleground {
         }
         return health;
     }
+    private int getRandomPosY(int posX){
+        int posY = this.rollDice(14);
+        if (this.getMonsters().size() > 1) {
+            for(Character monster : this.getMonsters()){
+                if (Math.abs(monster.getPosX()-posX) < 2) { // let's imagine a monster in (2, 3) and our new monster is in (1,*)
+                    while (Math.abs(monster.getPosY()-posY) < 2) { // imagine posY is 3 then our monster is in (1,3) so it will re-roll the dice
+                        posY = this.rollDice(14);
+                    }
+                }
+            }
+        }
+        return posY;
+    }
     public void showMap() {
         for (int i=0; i<16; i++) {
             System.out.print(" _ ");
         }
         System.out.println("");
-        for (int posY = 14; posY >= 0; posY--) {
+        for (int posY = 0; posY < 15; posY++) {
             System.out.print("|");
             for (int posX = 0; posX < 15; posX++) {
                 System.out.printf(printCharacter(posX, posY));

@@ -8,12 +8,14 @@ import java.util.Scanner;
 public abstract class Hero extends Character implements Gold, Leather {
     private int gold;
     private int leather;
+
     // Constructors
-    public Hero(String name, int stamina, int strength, int health) {
-        super(name, stamina, strength, health);
+    public Hero(String name, int stamina, int strength, int health, int posX, int posY) {
+        super(name, stamina, strength, health, posX, posY);
         this.gold = 0;
         this.leather = 0;
     }
+
     // Getters
     @Override
     public int getGold() {
@@ -23,6 +25,7 @@ public abstract class Hero extends Character implements Gold, Leather {
     public int getLeather() {
         return leather;
     }
+
     // Setters
     @Override
     public void setGold(int gold) {
@@ -32,10 +35,12 @@ public abstract class Hero extends Character implements Gold, Leather {
     public void setLeather(int leather) {
         this.leather = this.leather + leather;
     }
+
     // Methods
     @Override
     public void battleRoyal(Battleground battleground) {
         System.out.println(String.format("Welcome to %s. Be prepared to fight %s monsters!", battleground.getName(), battleground.getMonsters().size()));
+        System.out.println(this.toString());
         Character enemy;
         boolean alive = true;
         int kills = 0;
@@ -75,6 +80,7 @@ public abstract class Hero extends Character implements Gold, Leather {
     }
     public void adventure(Battleground battleground) {
         System.out.println(String.format("Welcome to %s. Be prepared to fight %s monsters!", battleground.getName(), battleground.getMonsters().size()));
+        System.out.println(this.toString());
         Character enemy = null;
         boolean alive = true;
         int kills = 0;
@@ -102,6 +108,7 @@ public abstract class Hero extends Character implements Gold, Leather {
                     kills++;
                     battleground.showMap();
                     System.out.println(String.format("%s sets a campfire and heals himself. Now he can continue his adventure.", this.getName()));
+                    System.out.println(String.format("You have %s gold and %s leather.", this.getGold(), this.getLeather()));
                     this.setHealth(health);
                 }
                 else {
@@ -117,57 +124,8 @@ public abstract class Hero extends Character implements Gold, Leather {
         }
         System.out.println(String.format("You had %s gold and %s leather", this.getGold(), this.getLeather()));
     }
-    private void move(Battleground battleground){
-        Scanner input = new Scanner(System.in);
-        String direction = "x";
-        while (!"lrdu".contains(direction)){
-            System.out.printf("Where do you want to move (Left, Right, Up, Down)?: ");
-            direction = String.valueOf(input.nextLine().toLowerCase().charAt(0));
-            switch (direction) {
-                case "l":
-                    if (this.getPosX() == 0) {
-                        System.out.println("You can't move left. Please choose again.");
-                    }
-                    else {
-                        this.setPosX(this.getPosX()-1);
-                        battleground.showMap();
-                    }
-                    break;
-                case "r":
-                    if (this.getPosX() == 14) {
-                        System.out.println("You can't move right. Please choose again.");
-                    }
-                    else {
-                        this.setPosX(this.getPosX()+1);
-                        battleground.showMap();
-                    }
-                    break;
-                case "u":
-                    if (this.getPosY() == 14) {
-                        System.out.println("You can't move up. Please choose again.");
-                    }
-                    else {
-                        this.setPosY(this.getPosY()+1);
-                        battleground.showMap();
-                    }
-                    break;
-                case "d":
-                    if (this.getPosY() == 0) {
-                        System.out.println("You can't move down. Please choose again.");
-                    }
-                    else {
-                        this.setPosY(this.getPosY()-1);
-                        battleground.showMap();
-                    }
-                    break;
-                default:
-                    System.out.println("This is not a valid direction. Please choose again.");
-                    break;
-            }
-        }
-    }
     @Override
     public String toString() {
-        return super.toString() + String.format(", Gold: %s, Leather: %s", this.gold, this.leather);
+        return super.toString() + String.format(", Gold: %s, Leather: %s", this.getGold(), this.getLeather());
     }
 }

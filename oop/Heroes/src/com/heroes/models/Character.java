@@ -1,5 +1,7 @@
 package com.heroes.models;
 
+import java.util.Scanner;
+
 public abstract class Character {
     private String name;
     private int stamina;
@@ -7,15 +9,17 @@ public abstract class Character {
     private int health;
     private int posX;
     private int posY;
+
     // Constructors
-    public Character(String name, int stamina, int strength, int health) {
+    public Character(String name, int stamina, int strength, int health, int posX, int posY) {
         this.name = name;
         this.stamina = stamina;
         this.strength = strength;
         this.health = health;
-        this.posX = Battleground.rollDice(14);
-        this.posY = Battleground.rollDice(14);
+        this.posX = posX;
+        this.posY = posY;
     }
+
     // Getters
     public String getName() {
         return name;
@@ -55,6 +59,7 @@ public abstract class Character {
     public int getPosY() {
         return posY;
     }
+
     // Setters
     public void setHealth(int health) {
         this.health = health;
@@ -95,6 +100,55 @@ public abstract class Character {
     public void battleRoyal(Battleground battleground) {
     };
     public void adventure(Battleground battleground) {
+    }
+    public void move(Battleground battleground){
+        Scanner input = new Scanner(System.in);
+        String direction = "x";
+        while (!"lrdu".contains(direction)){
+            System.out.printf("Position: (%s,%s). Where do you want to move (Left, Right, Up, Down)?: ", this.getPosX(), this.getPosY());
+            direction = String.valueOf(input.nextLine().toLowerCase().charAt(0));
+            switch (direction) {
+                case "l":
+                    if (this.getPosX() == 0) {
+                        System.out.println("You can't move left. Please choose again.");
+                    }
+                    else {
+                        this.setPosX(this.getPosX()-1);
+                        battleground.showMap();
+                    }
+                    break;
+                case "r":
+                    if (this.getPosX() == 14) {
+                        System.out.println("You can't move right. Please choose again.");
+                    }
+                    else {
+                        this.setPosX(this.getPosX()+1);
+                        battleground.showMap();
+                    }
+                    break;
+                case "u":
+                    if (this.getPosY() == 0) {
+                        System.out.println("You can't move up. Please choose again.");
+                    }
+                    else {
+                        this.setPosY(this.getPosY()-1);
+                        battleground.showMap();
+                    }
+                    break;
+                case "d":
+                    if (this.getPosY() == 14) {
+                        System.out.println("You can't move down. Please choose again.");
+                    }
+                    else {
+                        this.setPosY(this.getPosY()+1);
+                        battleground.showMap();
+                    }
+                    break;
+                default:
+                    System.out.println("This is not a valid direction. Please choose again.");
+                    break;
+            }
+        }
     }
     private int getDamage(int strength) {
         int damage = Battleground.rollDice(4);

@@ -4,10 +4,12 @@ import com.heroes.interfaces.Gold;
 import com.heroes.interfaces.Leather;
 
 public class Human extends Hero {
+
     // Constructors
-    public Human(String name, int stamina, int strength, int health) {
-        super(name, stamina, strength, health);
+    public Human(String name, int stamina, int strength, int health, int posX, int posY) {
+        super(name, stamina, strength, health, posX, posY);
     }
+
     // Getters
     @Override
     public int getStamina() {

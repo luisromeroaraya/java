@@ -6,12 +6,14 @@ import com.heroes.interfaces.Leather;
 public class Dragon extends Monster implements Gold, Leather {
     private int gold;
     private int leather;
+
     // Constructors
-    public Dragon(String name, int stamina, int strength, int health) {
-        super(name, stamina, strength, health);
+    public Dragon(String name, int stamina, int strength, int health, int posX, int posY) {
+        super(name, stamina, strength, health, posX, posY);
         this.gold = Battleground.rollDice(6);
         this.leather = Battleground.rollDice(4);
     }
+
     // Getters
     @Override
     public int getStamina() {
@@ -25,6 +27,7 @@ public class Dragon extends Monster implements Gold, Leather {
     public int getLeather() {
         return leather;
     }
+
     // Setters
     @Override
     public void setGold(int gold) {
@@ -34,6 +37,7 @@ public class Dragon extends Monster implements Gold, Leather {
     public void setLeather(int leather) {
         this.leather = this.leather + leather;
     }
+
     // Methods
     @Override
     public String toString() {
