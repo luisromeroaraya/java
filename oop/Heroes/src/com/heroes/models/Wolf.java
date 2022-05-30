@@ -1,8 +1,8 @@
 package com.heroes.models;
 
-import com.heroes.interfaces.Leather;
+import com.heroes.interfaces.ILeather;
 
-public class Wolf extends Monster implements Leather {
+public class Wolf extends Monster implements ILeather {
     private int leather;
 
     // Constructors

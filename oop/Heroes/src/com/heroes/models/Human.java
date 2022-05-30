@@ -1,8 +1,5 @@
 package com.heroes.models;
 
-import com.heroes.interfaces.Gold;
-import com.heroes.interfaces.Leather;
-
 public class Human extends Hero {
 
     // Constructors

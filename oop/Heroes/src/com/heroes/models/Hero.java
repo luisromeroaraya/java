@@ -1,11 +1,9 @@
 package com.heroes.models;
 
-import com.heroes.interfaces.Gold;
-import com.heroes.interfaces.Leather;
+import com.heroes.interfaces.IGold;
+import com.heroes.interfaces.ILeather;
 
-import java.util.Scanner;
-
-public abstract class Hero extends Character implements Gold, Leather {
+public abstract class Hero extends Character implements IGold, ILeather {
     private int gold;
     private int leather;
 

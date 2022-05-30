@@ -1,9 +1,9 @@
 package com.heroes.models;
 
-import com.heroes.interfaces.Gold;
-import com.heroes.interfaces.Leather;
+import com.heroes.interfaces.IGold;
+import com.heroes.interfaces.ILeather;
 
-public class Dragon extends Monster implements Gold, Leather {
+public class Dragon extends Monster implements IGold, ILeather {
     private int gold;
     private int leather;
 

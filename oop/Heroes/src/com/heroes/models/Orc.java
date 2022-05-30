@@ -1,8 +1,8 @@
 package com.heroes.models;
 
-import com.heroes.interfaces.Gold;
+import com.heroes.interfaces.IGold;
 
-public class Orc extends Monster implements Gold {
+public class Orc extends Monster implements IGold {
     private int gold;
 
     // Constructors

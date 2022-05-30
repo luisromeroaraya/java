@@ -1,6 +1,6 @@
 package com.heroes.interfaces;
 
-public interface Leather {
+public interface ILeather {
     // Getters
     public int getLeather();
     // Setters

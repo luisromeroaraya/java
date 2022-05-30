@@ -1,6 +1,6 @@
 package com.heroes.interfaces;
 
-public interface Gold {
+public interface IGold {
     // Getters
     public int getGold();
     // Setters
