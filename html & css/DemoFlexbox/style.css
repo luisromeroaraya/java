@@ -11,8 +11,13 @@
 }
 
 .box {
-    width: 100px;
+    flex-grow: 1;
     height: 100px;
+    min-width: 100px;
     margin: 1%;
     background-color: lightgreen;
+}
+
+#box2 {
+    flex-grow: 2;
 }
