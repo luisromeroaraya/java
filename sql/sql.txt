@@ -1,0 +1,56 @@
+https://www.mariadbtutorial.com/mariadb-basics/mariadb-alter-table/
+
+// create a table
+CREATE TABLE tablename(
+	id INT,
+	name VARCHAR(50)
+);
+
+// create a table with more automatic functionalities
+CREATE TABLE realisateur (
+    id int PRIMARY KEY AUTO_INCREMENT,
+    name varchar(50) DEFAULT "No name"
+);
+
+// create a table with restriction NOT NULL
+CREATE TABLE realisateur (
+    id int PRIMARY KEY AUTO_INCREMENT,
+    name varchar(50) NOT NULL
+);
+
+// create a table with foreign key
+CREATE TABLE movie( 
+	id int PRIMARY KEY AUTO_INCREMENT, 
+	name varchar(50) NOT NULL, 
+	realisateur int NOT NULL, 
+	CONSTRAINT FK_realisateur FOREIGN KEY(realisateur) 
+	REFERENCES realisateur(id) 
+);
+
+// insert values
+INSERT INTO realisateur(name) VALUES("Steven Spielberg");
+
+// alter tables
+ALTER TABLE movie MODIFY COLUMN name VARCHAR(40);
+ALTER TABLE realisateur CHANGE COLUMN nom name VARCHAR(50);
+ALTER TABLE movie RENAME COLUMN realisateur director;
+
+// erase table
+DROP TABLE realisateur;
+
+// search the db
+SELECT professor_id,professor_name FROM professor;
+
+// select with alias to get a personalized view of the data
+SELECT 
+	first_name AS "Prénom",
+	last_name "Nom de famille",
+	section_id "Section",
+	year_result "Résultat annuel",
+	birth_date "Date de naissance"
+FROM student;
+
+// select with arithmethic operations
+SELECT first_name, year_result,
+	(year_result/20)*100 AS "Nouveau Résultat"
+FROM student;

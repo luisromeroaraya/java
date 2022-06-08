@@ -1,0 +1,18 @@
+.container {
+    height: 500px;
+    padding: 3%;
+    background-color: lightblue;
+    display: flex;
+    flex-direction: row;
+    justify-content: center; /* justificado eje principal */
+    /* align-items: space-between; justificado eje secundario */
+    align-content: space-between; /* justificado eje secundario PERO cuando estamos en wrap*/
+    flex-wrap: wrap;
+}
+
+.box {
+    width: 100px;
+    height: 100px;
+    margin: 1%;
+    background-color: lightgreen;
+}
