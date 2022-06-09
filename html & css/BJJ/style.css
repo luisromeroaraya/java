@@ -1,0 +1,185 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+h1 {
+    font-size: 4em;
+    color: snow;
+    padding: 10px;
+    text-transform: uppercase;
+}
+
+h2 {
+    font-size: 3em;
+    text-align: center;
+    padding: 10px;
+    text-transform: uppercase;
+}
+
+h3 {
+    font-size: 2.5em;
+    text-align: center;
+    padding: 10px;
+}
+
+p {
+    font-size: 2em;
+    padding: 10px;
+}
+
+header {
+    position: fixed;
+    width: 100vw;
+}
+
+nav {
+    background-color: black;
+    font-size: 1.2em;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: solid 2px gold;
+}
+
+.menu {
+    display: flex;
+    justify-content: flex-end;
+    list-style-type: none;
+    padding-right: 30px;
+}
+
+.rrss {
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+    padding-right: 30px;
+}
+
+li {
+    padding: 10px;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+a:hover {
+    color: lightgrey;
+}
+
+#home {
+    height: 420px;
+    background: url("https://startbjjmn.com/wp-content/uploads/2019/10/Start-BJJ-MN-header-banner-1024x474.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+}
+
+section {
+    padding: 50px;
+    border: solid 2px gold;
+}
+
+#about {
+    background: white;
+    text-align: center;
+}
+
+#info {
+    background: lightgrey;
+}
+
+.course {
+    display: flex;
+    justify-content: center;
+}
+
+.kids,
+.adult {
+    flex-grow: 1;
+    text-align: center;
+}
+
+img {
+    max-width: 400px;
+    justify-self: center;
+}
+
+table {
+    font-size: 2em;
+    text-align: center;
+    margin: auto;
+    margin-bottom: 50px;
+    border: solid 2px gold;
+    padding: 10px;
+    border: 1px solid;
+    border-collapse: collapse;
+}
+
+tr, th, td {
+    padding: 10px;
+    border: 1px solid;
+}
+
+
+.adresse {
+    display: flex;
+    flex-direction: column;
+}
+
+.adresse iframe {
+    flex-grow: 1;
+}
+
+#contact {
+    display: block;
+    position: relative;
+}
+
+#contact::after {
+    content: "";
+    background-image: url(https://wallpaperaccess.com/full/236559.jpg);
+    opacity: 0.5;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+}
+
+form {
+    width: 50%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 5px;
+}
+
+input, textarea {
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 3px;
+}
+
+input[type=submit] {
+    background-color: gold;
+}
+
+footer {
+    background-color: black;
+    color: snow;
+    text-align: center;
+}
+
+#contact ul a {
+    font-size: 2em;
+}

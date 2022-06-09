@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css">
+    <title>Form</title>
+</head>
+
+<body>
+    <main>
+        <h1>Formulaire de Contact</h1>
+        <form action="index.html" method="get">
+            <fieldset>
+                <legend>Coordonnés</legend>
+                <div class="input-container">
+                    <input type="text" name="name" id="name" placeholder="Nom" />
+                    <div class="marge"></div>
+                    <input type="text" name="firstname" id="firstname" placeholder="Prénom" />
+                </div>
+                <div class="radio-container">
+                    <label>Sexe:</label>
+                    <input type="radio" name="homme" id="homme">
+                    <label for="homme">Homme</label>
+                    <input type="radio" name="homme" id="homme">
+                    <label for="femme">Femme</label>
+                    <input type="radio" name="femme" id="femme">
+                    <label for="autre">Autre</label>
+                    <input type="radio" name="autre" id="autre">
+                </div>
+                <div class="input-container">
+                    <input type="email" name="email" id="email" placeholder="Email" />
+                </div>
+                <div class="input-container">
+                    <input type="tel" name="phone" id="mobile" placeholder="N° mobile" />
+                    <div class="marge"></div>
+                    <input type="tel" name="phone" id="fixe" placeholder="N° fixe" />
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Vos besoins</legend>
+                <div class="input-container">
+                    <select name="language" id="language">
+                        <option value="html-css">HTML-CSS</option>
+                        <option value="javascript">Javascript</option>
+                        <option value="php">PHP</option>
+                    </select>
+                    <div class="marge"></div>
+                    <textarea name="message" id="message" cols="30" rows="3" placeholder="Description"></textarea>
+                </div>
+            </fieldset>
+            <div class="button-container">
+                <input type="submit" value="Envoyer" />
+                <div class="marge"></div>
+                <input type="reset" value="Reset" />
+            </div>
+            <div class="button-container">
+                <a href="index.html">
+                    <input type="button" value="Retour au CV">
+                </a>
+            </div>
+        </form>
+    </main>
+</body>
+
+</html>
