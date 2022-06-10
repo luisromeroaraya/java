@@ -8,33 +8,55 @@ html {
 }
 
 h1 {
-    font-size: 4em;
+    font-size: 400%;
     color: snow;
+    text-shadow: 1px 1px 2px goldenrod;
     padding: 10px;
-    text-transform: uppercase;
 }
 
 h2 {
-    font-size: 3em;
+    font-size: 300%;
     text-align: center;
+    text-shadow: 1px 1px 2px goldenrod;
     padding: 10px;
-    text-transform: uppercase;
+}
+
+h2:after {
+    display: inline-block;
+    margin: 0 0 8px 20px;
+    height: 3px;
+    content: " ";
+    text-shadow: none;
+    background-color: gold;
+    width: 80px;
+}
+
+h2:before {
+    display: inline-block;
+    margin: 0 20px 8px 0;
+    height: 3px;
+    content: " ";
+    text-shadow: none;
+    background-color: gold;
+    width: 80px;
 }
 
 h3 {
-    font-size: 2.5em;
+    font-size: 200%;
     text-align: center;
+    text-shadow: 1px 1px 2px goldenrod;
     padding: 10px;
 }
 
 p {
-    font-size: 2em;
+    font-size: 150%;
     padding: 10px;
 }
 
 header {
     position: fixed;
     width: 100vw;
+    z-index: 10;
 }
 
 nav {
@@ -50,6 +72,7 @@ nav {
 .menu {
     display: flex;
     justify-content: flex-end;
+    align-items: center;
     list-style-type: none;
     padding-right: 30px;
 }
@@ -92,51 +115,129 @@ section {
 #about {
     background: white;
     text-align: center;
+    display: flex;
+    flex-direction: row;
 }
 
+.text, .valeurs {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    padding: 10px;
+}
+
+.text img {
+    width: 100%;
+}
+
+.imgVal {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+
+.left, .right {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+.container{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.box{
+    width: 100%;
+    height: 100%;          
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0.8;
+}
+
+.stack-top{
+    width: 100%;
+    padding: 50% 0;
+    height: auto;
+    color: snow;
+    text-shadow: 1px 1px 2px black;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.stack-top:hover {
+    opacity:1;
+}
+
+
 #info {
-    background: lightgrey;
+    background:white;
 }
 
 .course {
     display: flex;
     justify-content: center;
+    align-items: stretch;
 }
 
-.kids,
-.adult {
-    flex-grow: 1;
+.kids, .adult, .tarifs {
+    width: 33%;
     text-align: center;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
 }
 
-img {
-    max-width: 400px;
-    justify-self: center;
+.imgInfos img {
+    display: flex;
+    max-width: 100%;
+}
+
+.txtInfos {
+    background-color: gold;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 table {
-    font-size: 2em;
+    height: 100%;
     text-align: center;
-    margin: auto;
-    margin-bottom: 50px;
-    border: solid 2px gold;
-    padding: 10px;
-    border: 1px solid;
+    border-style: hidden;
     border-collapse: collapse;
 }
 
 tr, th, td {
     padding: 10px;
-    border: 1px solid;
 }
-
 
 .adresse {
     display: flex;
     flex-direction: column;
+    padding: 20px 10px;
+}
+
+.adresse-info {
+    display: flex;
+    flex-direction: row;
+    margin-top: 30px;
+    padding: 10px 30px;
+    background-color: gold;
+}
+
+.adresse-left, .adresse-right {
+    flex-grow: 1;
 }
 
 .adresse iframe {
+    height: 400px;
+    border: none;
     flex-grow: 1;
 }
 
@@ -174,12 +275,77 @@ input[type=submit] {
     background-color: gold;
 }
 
+#contact ul a {
+    font-size: 2em;
+}
+
+#logos {
+    padding: 10px;
+    background-color: gold;
+    display: flex;
+    justify-content: space-around;
+}
+
+#logos img {
+    height: 100px;
+}
+
 footer {
     background-color: black;
     color: snow;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-#contact ul a {
-    font-size: 2em;
+@media screen and (max-width: 1080px){
+    section {
+        padding: 0;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    #about {
+        flex-direction: column;
+    }
+    .text, .valeurs {
+        width: auto;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .course {
+        flex-direction: column;
+    }
+    .text, .valeurs, .kids, .adult, .tarifs, .adresse {
+        width: 100%;
+        padding: 0;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .menu li {
+        font-size: 90%;
+        padding: 5px;
+    }
+    h1 {
+        font-size: 300%;
+    }
+    h2 {
+        font-size: 200%;
+    }
+    h2:after, h2:before {
+        width: 50px;
+    }
+    .adresse-left p, .adresse-right p {
+        font-size: 100%;
+    }
+    #logos img {
+        width: 100px;
+        height: auto;
+    }
+}
+
+@media screen and (max-width: 500px) {
+
 }
