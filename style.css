@@ -321,6 +321,12 @@ footer {
         width: 100%;
         padding: 0;
     }
+    .adresse-left p, .adresse-right p {
+        font-size: 100%;
+    }
+    form {
+        width: 90%;
+    }
 }
 
 @media screen and (max-width: 500px) {
@@ -329,7 +335,7 @@ footer {
         padding: 5px;
     }
     h1 {
-        font-size: 300%;
+        font-size: 280%;
     }
     h2 {
         font-size: 200%;
@@ -337,15 +343,11 @@ footer {
     h2:after, h2:before {
         width: 50px;
     }
-    .adresse-left p, .adresse-right p {
-        font-size: 100%;
-    }
     #logos img {
         width: 100px;
         height: auto;
     }
-}
-
-@media screen and (max-width: 500px) {
-
+    footer p {
+        font-size: 100%;
+    }
 }
