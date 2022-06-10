@@ -249,6 +249,8 @@ tr, th, td {
 #contact::after {
     content: "";
     background-image: url(https://wallpaperaccess.com/full/236559.jpg);
+    background-size: cover;
+    background-position: bottom;
     opacity: 0.5;
     top: 0;
     left: 0;
@@ -325,7 +327,7 @@ footer {
         font-size: 100%;
     }
     form {
-        width: 90%;
+        width: 80%;
     }
 }
 
