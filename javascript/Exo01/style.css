@@ -1,0 +1,16 @@
+th {
+    text-align: center;
+    width: 100px;
+}
+
+td {
+    text-align: right;
+}
+
+.red {
+    color: red;
+}
+
+.blue {
+    color: blue;
+}
