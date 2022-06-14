@@ -4,21 +4,58 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Calculator 2000</title>
 </head>
 <body>
-    <h1>Calculator 2000</h1>
-    <input type="number" id="number1">
-    <select id="operator">
-        <option value="+">+</option>
-        <option value="-">-</option>
-        <option value="*">*</option>
-        <option value="/">/</option>
-        <option value="**">**</option>
-    </select>
-    <input type="number" id="number2">
-    <button>Result</button>
-    <input id="result" readonly></input>
+    <header class="column">
+        <h1>Calculator 2000</h1>
+    </header>
+    <section class="row">
+        <input type="number" id="number1">
+        <select id="operator">
+            <option value="+">+</option>
+            <option value="-">-</option>
+            <option value="*">*</option>
+            <option value="/">/</option>
+            <option value="**">**</option>
+        </select>
+        <input type="number" id="number2">
+    </section>
+    <section class="row">
+        <button id="equals">Result</button>
+        <input id="result" readonly></input>
+    </section>
+    <section class="column blue">
+        <input type="text" id="calculator-history" value="" readonly>
+        <input type="text" id="calculator-result" value="" readonly>
+        <div class="column">
+            <div class="row">
+                <button class="calculator-button">1</button>
+                <button class="calculator-button">2</button>
+                <button class="calculator-button">3</button>
+                <button class="calculator-button yellow">+</button>
+            </div>
+            <div class="row">
+                <button class="calculator-button">4</button>
+                <button class="calculator-button">5</button>
+                <button class="calculator-button">6</button>
+                <button class="calculator-button yellow">-</button>
+            </div>
+            <div class="row">
+                <button class="calculator-button">7</button>
+                <button class="calculator-button">8</button>
+                <button class="calculator-button">9</button>
+                <button class="calculator-button yellow">*</button>
+            </div>
+            <div class="row">
+                <button class="calculator-button red">C</button>
+                <button class="calculator-button">0</button>
+                <button class="calculator-button green">=</button>
+                <button class="calculator-button yellow">/</button>
+            </div>        
+        </div>
+    </section>
     <script src="script.js"></script>
 </body>
 </html>

@@ -4,17 +4,22 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Counter 2000</title>
 </head>
 <body>
-    <h1>Counter 2000</h1>
-    <label for="increase">Increase/decrease value:</label>
-    <input type="number" id="increase" value="1">
-    <br>
-    <br>
-    <button id="up">+</button>
-    <h2>0</h2>
-    <button id="down">-</button>
+    <header class="column">
+        <h1>Counter 2000</h1>
+    </header>
+    <section class="row">
+        <label for="increase">Increase/decrease value:</label>
+        <input type="number" id="increase" value="1">
+    </section>
+    <section class="row">
+        <button id="up">+</button>
+        <h2>0</h2>
+        <button id="down">-</button>
+    </section>
     <script src="script.js"></script>
 </body>
 </html>

@@ -9,4 +9,4 @@ upHTML.addEventListener("click", (e) => {
 
 downHTML.addEventListener("click", (e) => {
     counterHTML.innerText = parseInt(counterHTML.innerText) - parseInt(increaseHTML.value);
-})
+});

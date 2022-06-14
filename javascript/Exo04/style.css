@@ -1,0 +1,41 @@
+h1, h2, input, select, button {
+    padding: 5px;
+    margin: 5px;
+}
+
+select {
+    font-size: 1.1em;
+}
+
+.column {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.row {
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.calculator-button {
+    width: 30px;
+    height: 30px;
+}
+
+.blue {
+    background-color: lightblue;
+}
+
+.yellow {
+    background-color: lightyellow;
+}
+
+.red {
+    background-color: lightcoral;
+}
