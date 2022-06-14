@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Tic Tac Toe Game 2000</title>
+</head>
+<body>
+    <header class="column margin-bottom-xl">
+        <h1>Tic Tac Toe Game 2000</h1>
+    </header>
+    <section class="column margin-bottom-xl">
+        <h2 class="margin-bottom-xl">Turn: <strong id="turn">O</strong></h2>
+        <div class="row">
+            <p id="0" class="square separator-bottom separator-right"></p>
+            <p id="1" class="square separator-bottom separator-right"></p>
+            <p id="2" class="square separator-bottom"></p>
+        </div>
+        <div class="row">
+            <p id="3" class="square separator-bottom separator-right"></p>
+            <p id="4" class="square separator-bottom separator-right"></p>
+            <p id="5" class="square separator-bottom"></p>
+        </div>
+        <div class="row">
+            <p id="6" class="square separator-right"></p>
+            <p id="7" class="square separator-right"></p>
+            <p id="8" class="square"></p>
+        </div>
+    </section>
+    <section class="column margin-bottom-xl">
+        <h2>Winner: <strong id="winner"></strong></h2>
+    </section>
+    <section class="column">
+        <button id="reset">Play again</button>
+    </section>
+    <script src="script.js"></script>
+</body>
+</html>

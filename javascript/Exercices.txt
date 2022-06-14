@@ -23,3 +23,7 @@
 	- Des inputs pour les deux nombres
 	- Un select pour l'opérateur
 	- Un input en readonly pour le résultat
+
+5. Exercice récapitulatif :
+	- Memory Game
+	- OXO
