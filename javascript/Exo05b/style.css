@@ -20,9 +20,41 @@
 .card {
     font-size: 5em;
     text-align: center;
-    background-color: blue;
+    background-color: black;
     color: white;
     width: 150px;
     height: 200px;
     margin: 10px;
+}
+
+.white {
+    background-color: white;
+}
+
+.yellow {
+    background-color: yellow;
+}
+
+.orange {
+    background-color: orange;
+}
+
+.red {
+    background-color: red;
+}
+
+.pink {
+    background-color: pink;
+}
+
+.purple {
+    background-color: purple;
+}
+
+.blue {
+    background-color: blue;
+}
+
+.green {
+    background-color: green;
 }

@@ -1,8 +1,8 @@
 const cards = [
-    0, 6, 2, 1,
-    3, 7, 5, 4,
-    4, 1, 3, 2,
-    0, 5, 7, 6
+    "white", "purple", "yellow", "blue",
+    "orange", "green", "pink", "red",
+    "red", "blue", "orange", "yellow",
+    "white", "pink", "green", "purple"
 ]
 
 const guess = []
@@ -14,16 +14,16 @@ for(const card of cardsHTML) {
     card.addEventListener("click", (e) => {
         const index = e.target.id
         if (guess.length === 0) {
-            document.getElementById(index).innerText = cards[index]
+            document.getElementById(index).classList.add(cards[index])
             guess.push(index)
             index1 = index;
         }
         else if (index1 !== index) {
-            document.getElementById(index).innerText = cards[index]
+            document.getElementById(index).classList.add(cards[index])
             guess.push(index)
         }
         else {
-        
+                    
         }
         console.log(guess)
     })
