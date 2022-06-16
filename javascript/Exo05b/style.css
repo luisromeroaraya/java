@@ -3,6 +3,18 @@
     padding: 0;
 }
 
+body {
+    background-color: lightblue;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+header {
+    margin: 10px;
+}
+
 .column {
     display: flex;
     flex-direction: column;
@@ -22,39 +34,22 @@
     text-align: center;
     background-color: black;
     color: white;
-    width: 150px;
-    height: 200px;
-    margin: 10px;
+    width: 165px;
+    height: 224px;
+    margin: 1px;
+    transition: all 0.5s ease-in-out;
 }
 
-.white {
-    background-color: white;
+.modal {
+    position: absolute;
+    background-color: snow;
+    opacity: 0.8;
+    font-size: 5em;
+    color: red;
+    text-shadow: 2px 2px 2px gold;
+    transition: all 0.5s ease-in-out;
 }
 
-.yellow {
-    background-color: yellow;
-}
-
-.orange {
-    background-color: orange;
-}
-
-.red {
-    background-color: red;
-}
-
-.pink {
-    background-color: pink;
-}
-
-.purple {
-    background-color: purple;
-}
-
-.blue {
-    background-color: blue;
-}
-
-.green {
-    background-color: green;
+.hidden {
+    display: none;
 }
