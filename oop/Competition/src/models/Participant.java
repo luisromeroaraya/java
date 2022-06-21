@@ -4,9 +4,9 @@ import java.time.LocalDate;
 import java.util.Random;
 
 public class Participant {
-    String first_name;
-    String last_name;
-    LocalDate birth_date;
+    private final String first_name;
+    private final String last_name;
+    private final LocalDate birth_date;
 
     // constructor
     public Participant(String first_name, String last_name, LocalDate birth_date) {
