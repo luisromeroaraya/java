@@ -3,9 +3,9 @@ package interfaces;
 import exceptions.*;
 import models.Participant;
 
-public interface ICompetition {
-    void begin() throws AlreadyFinishedException;
-    void addParticipant(Participant participant) throws AlreadyFinishedException, DuplicatedException, LimitReachedException;
-    void removeParticipant(Participant participant) throws NotRegisteredException, AlreadyFinishedException;
-    Participant getWinner() throws NotFinishedException;
+public interface ICompetition<P> {
+    void begin();
+    void addParticipant(P participant);
+    void removeParticipant(P participant);
+    P getWinner();
 }

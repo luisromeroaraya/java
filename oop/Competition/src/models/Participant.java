@@ -3,7 +3,7 @@ package models;
 import java.time.LocalDate;
 import java.util.Random;
 
-public class Participant {
+public abstract class Participant {
     private final String first_name;
     private final String last_name;
     private final LocalDate birth_date;
@@ -16,7 +16,6 @@ public class Participant {
     }
 
     // getters
-
     public String getFirst_name() {
         return first_name;
     }
@@ -30,12 +29,7 @@ public class Participant {
     }
 
     // methods
-
-    public int perform() {
-        Random random = new Random();
-        int points = random.nextInt(1, 100+1);
-        return points;
-    }
+    abstract int perform();
 
     @Override
     public String toString() {

@@ -5,9 +5,9 @@ import interfaces.ICompetition;
 
 import java.util.*;
 
-public class Competition implements ICompetition {
+public class Competition<P extends Participant> implements ICompetition<P> {
     private final int limitParticipants;
-    private final Map<Participant, Integer> participants;
+    private final Map<P, Integer> participants;
 
     private boolean isFinished;
 
@@ -23,7 +23,7 @@ public class Competition implements ICompetition {
         return this.limitParticipants;
     }
 
-    public Map<Participant, Integer> getParticipants() {
+    public Map<P, Integer> getParticipants() {
         return this.participants;
     }
 
@@ -36,9 +36,9 @@ public class Competition implements ICompetition {
 
     // methods
     @Override
-    public void begin() throws AlreadyFinishedException {
+    public void begin() {
         if (this.isFinished()) {
-            throw new AlreadyFinishedException();
+            throw new StateCompetitionException(isFinished(), false);
         }
         // create points for each participant and add them to the participant list
         System.out.println("The competition has started");
@@ -46,7 +46,7 @@ public class Competition implements ICompetition {
             this.getParticipants().put(participant, participant.perform());
         });
         // sort participants in descending order by points
-        LinkedHashMap<Participant, Integer> sorted = new LinkedHashMap<>();
+        LinkedHashMap<P, Integer> sorted = new LinkedHashMap<>();
         this.getParticipants()
                 .entrySet()
                 .stream()
@@ -54,16 +54,16 @@ public class Competition implements ICompetition {
                 .forEachOrdered(x -> sorted.put(x.getKey(), x.getValue()));
         // show participants
         System.out.println("Results:");
-        for (Map.Entry<Participant, Integer> entry : sorted.entrySet()) {
+        for (Map.Entry<P, Integer> entry : sorted.entrySet()) {
             System.out.println(entry.getKey().toString() + ": " + entry.getValue() + " points.");
         }
         this.setFinished(true);
     }
 
     @Override
-    public void addParticipant(Participant participant) throws AlreadyFinishedException, DuplicatedException, LimitReachedException {
-        if(this.isFinished()) {
-            throw new AlreadyFinishedException();
+    public void addParticipant(P participant) {
+        if (this.isFinished()) {
+            throw new StateCompetitionException(isFinished(), false);
         }
         if(this.getParticipants().containsKey(participant)){
             throw new DuplicatedException();
@@ -76,9 +76,9 @@ public class Competition implements ICompetition {
     }
 
     @Override
-    public void removeParticipant(Participant participant) throws NotRegisteredException, AlreadyFinishedException {
+    public void removeParticipant(P participant) {
         if (this.isFinished()) {
-            throw new AlreadyFinishedException();
+            throw new StateCompetitionException(isFinished(), false);
         }
         if (!this.getParticipants().containsKey(participant)) {
             throw new NotRegisteredException();
@@ -88,12 +88,12 @@ public class Competition implements ICompetition {
     }
 
     @Override
-    public Participant getWinner() throws NotFinishedException {
+    public P getWinner() {
         if (!this.isFinished()) {
-            throw new NotFinishedException();
+            throw new StateCompetitionException(isFinished(), true);
         }
-        Participant winner = null;
-        for (Map.Entry<Participant, Integer> entry : this.getParticipants().entrySet()) {
+        P winner = null;
+        for (Map.Entry<P, Integer> entry : this.getParticipants().entrySet()) {
             if (winner == null) {
                 winner = entry.getKey();
             }
@@ -107,7 +107,7 @@ public class Competition implements ICompetition {
     @Override
     public String toString() {
         String participants = "";
-        for (Map.Entry<Participant, Integer> entry : this.getParticipants().entrySet()) {
+        for (Map.Entry<P, Integer> entry : this.getParticipants().entrySet()) {
             participants = participants + entry.getKey().toString() + "\n";
         }
         return "Limit of Participants:" + this.getLimitParticipants() + "\nParticipants:\n" + participants;
