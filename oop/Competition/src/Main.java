@@ -27,6 +27,7 @@ public class Main {
         }
         catch (NotRegisteredException exception) {
             System.out.println(exception.getMessage());
+            // exception.printStackTrace();
         }
         catch (StateCompetitionException exception) {
             System.out.println(exception.getMessage());
