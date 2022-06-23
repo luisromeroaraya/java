@@ -1,32 +1,46 @@
 package models;
 
+import enumerations.Localisation;
 import exceptions.*;
 import interfaces.ICompetition;
 
 import java.util.*;
 
 public class Competition<P extends Participant> implements ICompetition<P> {
+    private final Localisation localisation;
     private final int limitParticipants;
+    private final int prize;
     private final Map<P, Integer> participants;
-
     private boolean isFinished;
 
     // constructor
-    public Competition(int limitParticipants) {
+    public Competition(int limitParticipants, int prize) {
+        this.localisation = null;
         this.limitParticipants = Math.abs(limitParticipants);
+        this.prize = prize;
+        this.participants = new HashMap<>();
+        this.isFinished = false;
+    }
+    public Competition(Localisation localisation) {
+        this.localisation = localisation;
+        this.limitParticipants = localisation.getLimitParticipants();
+        this.prize = localisation.getPrize();
         this.participants = new HashMap<>();
         this.isFinished = false;
     }
 
     // getters
+
+    public Localisation getLocalisation() { return localisation; }
+    @Override
     public int getLimitParticipants() {
         return this.limitParticipants;
     }
-
+    public int getPrize() { return this.prize; }
     public Map<P, Integer> getParticipants() {
         return this.participants;
     }
-
+    @Override
     public boolean isFinished() { return this.isFinished; }
 
     // setters
@@ -58,12 +72,20 @@ public class Competition<P extends Participant> implements ICompetition<P> {
             System.out.println(entry.getKey().toString() + ": " + entry.getValue() + " points.");
         }
         this.setFinished(true);
+        Set<P> winners = this.getWinner();
+        for (P winner : winners) {
+            winner.setTotalGain(this.prize/winners.size());
+        }
+        System.out.println("The winner(s) is(are): " + winners.toString());
     }
 
     @Override
     public void addParticipant(P participant) {
         if (this.isFinished()) {
             throw new StateCompetitionException(isFinished(), false);
+        }
+        if(this.getLocalisation() != participant.getLocalisation()) {
+            throw new LocalisationException();
         }
         if(this.getParticipants().containsKey(participant)){
             throw new DuplicatedException();
@@ -73,6 +95,12 @@ public class Competition<P extends Participant> implements ICompetition<P> {
         }
         this.getParticipants().put(participant, null);
         System.out.println(participant.toString() + " has been added to the competition.");
+    }
+
+    public void addParticipant(Collection<? extends P> participants) {
+        for (P participant : participants) {
+            addParticipant(participant);
+        }
     }
 
     @Override
@@ -88,27 +116,32 @@ public class Competition<P extends Participant> implements ICompetition<P> {
     }
 
     @Override
-    public P getWinner() {
+    public Set<P> getWinner() {
         if (!this.isFinished()) {
             throw new StateCompetitionException(isFinished(), true);
         }
-        P winner = null;
+        Set<P> winners = new HashSet<>();
+        // search for the maximum score
+        int maxScore = 0;
         for (Map.Entry<P, Integer> entry : this.getParticipants().entrySet()) {
-            if (winner == null) {
-                winner = entry.getKey();
-            }
-            else if (entry.getValue() >= this.getParticipants().get(winner)) {
-                winner = entry.getKey();
+            if (entry.getValue() > maxScore) {
+                maxScore = entry.getValue();
             }
         }
-        return winner;
+        // search for all the participants who got the maximum score
+        for (Map.Entry<P, Integer> entry : this.getParticipants().entrySet()) {
+            if (entry.getValue() == maxScore) {
+                winners.add(entry.getKey());
+            }
+        }
+        return winners;
     }
 
     @Override
     public String toString() {
-        String participants = "";
+        StringBuilder participants = new StringBuilder();
         for (Map.Entry<P, Integer> entry : this.getParticipants().entrySet()) {
-            participants = participants + entry.getKey().toString() + "\n";
+            participants.append(entry.getKey().toString()).append("\n");
         }
         return "Limit of Participants:" + this.getLimitParticipants() + "\nParticipants:\n" + participants;
     }

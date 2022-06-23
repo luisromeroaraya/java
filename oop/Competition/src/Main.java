@@ -1,11 +1,15 @@
+import enumerations.Localisation;
 import exceptions.*;
 import models.Competition;
+import models.JavelinThrower;
 import models.Judoka;
 import models.Runner;
 
-import javax.swing.plaf.nimbus.State;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class Main {
     public static void main(String[] args) {
@@ -13,37 +17,28 @@ public class Main {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
         // create a Runner competition
-        Competition<Runner> runnerCompetition = new Competition(3);
+        Competition<Runner> runnerCompetition = new Competition<>(3, 100);
         // create Runners
-        Runner bruce = new Runner("Bruce", "Willis", LocalDate.parse("01/01/1980", formatter));
-        Runner johnny = new Runner("Johnny", "Depp", LocalDate.parse("02/02/1980", formatter));
-        Runner will = new Runner("Will", "Smith", LocalDate.parse("03/03/1980", formatter));
-        Runner brad = new Runner("Brad", "Pitt", LocalDate.parse("04/04/1980", formatter));
+        Runner bruce = new Runner("Bruce", "Willis", LocalDate.parse("01/01/1980", formatter), 9, 80, Localisation.REGIONAL);
+        Runner johnny = new Runner("Johnny", "Depp", LocalDate.parse("02/02/1980", formatter), 10, 70, Localisation.REGIONAL);
+        Runner will = new Runner("Will", "Smith", LocalDate.parse("03/03/1980", formatter), 11, 90, Localisation.REGIONAL);
+        Runner brad = new Runner("Brad", "Pitt", LocalDate.parse("04/04/1980", formatter), 12, 80, Localisation.INTERNATIONAL);
 
         // try to remove bruce
         System.out.println("Try to remove Bruce but...");
         try {
             runnerCompetition.removeParticipant(bruce);
         }
-        catch (NotRegisteredException exception) {
+        catch (NotRegisteredException | StateCompetitionException exception) {
             System.out.println(exception.getMessage());
             // exception.printStackTrace();
-        }
-        catch (StateCompetitionException exception) {
-            System.out.println(exception.getMessage());
         }
 
         // try to add bruce
         try {
             runnerCompetition.addParticipant(bruce);
         }
-        catch (StateCompetitionException exception) {
-            System.out.println(exception.getMessage());
-        }
-        catch (DuplicatedException exception) {
-            System.out.println(exception.getMessage());
-        }
-        catch (LimitReachedException exception) {
+        catch (StateCompetitionException | LocalisationException | DuplicatedException | LimitReachedException exception) {
             System.out.println(exception.getMessage());
         }
 
@@ -51,10 +46,7 @@ public class Main {
         try {
             runnerCompetition.removeParticipant(bruce);
         }
-        catch (NotRegisteredException exception) {
-            System.out.println(exception.getMessage());
-        }
-        catch (StateCompetitionException exception) {
+        catch (NotRegisteredException | StateCompetitionException exception) {
             System.out.println(exception.getMessage());
         }
 
@@ -62,13 +54,7 @@ public class Main {
         try {
             runnerCompetition.addParticipant(bruce);
         }
-        catch (StateCompetitionException exception) {
-            System.out.println(exception.getMessage());
-        }
-        catch (DuplicatedException exception) {
-            System.out.println(exception.getMessage());
-        }
-        catch (LimitReachedException exception) {
+        catch (StateCompetitionException | LocalisationException | DuplicatedException | LimitReachedException exception) {
             System.out.println(exception.getMessage());
         }
 
@@ -76,13 +62,7 @@ public class Main {
         try {
             runnerCompetition.addParticipant(johnny);
         }
-        catch (StateCompetitionException exception) {
-            System.out.println(exception.getMessage());
-        }
-        catch (DuplicatedException exception) {
-            System.out.println(exception.getMessage());
-        }
-        catch (LimitReachedException exception) {
+        catch (StateCompetitionException | LocalisationException | DuplicatedException | LimitReachedException exception) {
             System.out.println(exception.getMessage());
         }
 
@@ -90,13 +70,7 @@ public class Main {
         try {
             runnerCompetition.addParticipant(will);
         }
-        catch (StateCompetitionException exception) {
-            System.out.println(exception.getMessage());
-        }
-        catch (DuplicatedException exception) {
-            System.out.println(exception.getMessage());
-        }
-        catch (LimitReachedException exception) {
+        catch (StateCompetitionException | LocalisationException | DuplicatedException | LimitReachedException exception) {
             System.out.println(exception.getMessage());
         }
 
@@ -105,13 +79,7 @@ public class Main {
         try {
             runnerCompetition.addParticipant(will);
         }
-        catch (StateCompetitionException exception) {
-            System.out.println(exception.getMessage());
-        }
-        catch (DuplicatedException exception) {
-            System.out.println(exception.getMessage());
-        }
-        catch (LimitReachedException exception) {
+        catch (StateCompetitionException | LocalisationException | DuplicatedException | LimitReachedException exception) {
             System.out.println(exception.getMessage());
         }
 
@@ -120,15 +88,10 @@ public class Main {
         try {
             runnerCompetition.addParticipant(brad);
         }
-        catch (StateCompetitionException exception) {
+        catch (StateCompetitionException | LocalisationException | DuplicatedException | LimitReachedException exception) {
             System.out.println(exception.getMessage());
         }
-        catch (DuplicatedException exception) {
-            System.out.println(exception.getMessage());
-        }
-        catch (LimitReachedException exception) {
-            System.out.println(exception.getMessage());
-        }
+
         System.out.println("---------------------------------------");
         System.out.println(runnerCompetition.toString());
         System.out.println("Is the competition finished?: " + runnerCompetition.isFinished());
@@ -168,10 +131,7 @@ public class Main {
         try {
             runnerCompetition.removeParticipant(will);
         }
-        catch (NotRegisteredException exception) {
-            System.out.println(exception.getMessage());
-        }
-        catch (StateCompetitionException exception) {
+        catch (NotRegisteredException | StateCompetitionException exception) {
             System.out.println(exception.getMessage());
         }
 
@@ -187,19 +147,16 @@ public class Main {
         System.out.println("---------------------------------------");
 
         // create a Judoka competition
-        Competition<Judoka> judokaCompetition = new Competition(3);
-        Judoka seb = new Judoka("Sebastien", "Ruiz", LocalDate.parse("04/04/1990", formatter));
-        Judoka rufat = new Judoka("Rufat", "Babayev", LocalDate.parse("06/06/1990", formatter));
-        Judoka thabit = new Judoka("Thabit", "Hamror", LocalDate.parse("07/07/1993", formatter));
+        Competition<Judoka> judokaCompetition = new Competition<>(3, 200);
+        Judoka seb = new Judoka("Sebastien", "Ruiz", LocalDate.parse("04/04/1990", formatter), 60, Localisation.REGIONAL);
+        Judoka rufat = new Judoka("Rufat", "Babayev", LocalDate.parse("06/06/1990", formatter), 70, Localisation.REGIONAL);
+        Judoka thabit = new Judoka("Thabit", "Hamror", LocalDate.parse("07/07/1993", formatter), 50, Localisation.REGIONAL);
 
         // try to add seb
         try {
             judokaCompetition.addParticipant(seb);
         }
-        catch (NotRegisteredException exception) {
-            System.out.println(exception.getMessage());
-        }
-        catch (StateCompetitionException exception) {
+        catch (StateCompetitionException | LocalisationException | DuplicatedException | LimitReachedException exception) {
             System.out.println(exception.getMessage());
         }
 
@@ -207,10 +164,7 @@ public class Main {
         try {
             judokaCompetition.addParticipant(rufat);
         }
-        catch (NotRegisteredException exception) {
-            System.out.println(exception.getMessage());
-        }
-        catch (StateCompetitionException exception) {
+        catch (StateCompetitionException | LocalisationException | DuplicatedException | LimitReachedException exception) {
             System.out.println(exception.getMessage());
         }
 
@@ -218,10 +172,7 @@ public class Main {
         try {
             judokaCompetition.addParticipant(thabit);
         }
-        catch (NotRegisteredException exception) {
-            System.out.println(exception.getMessage());
-        }
-        catch (StateCompetitionException exception) {
+        catch (StateCompetitionException | LocalisationException | DuplicatedException | LimitReachedException exception) {
             System.out.println(exception.getMessage());
         }
 
@@ -240,11 +191,27 @@ public class Main {
 
         // try to get the winner
         try {
-            System.out.println("The winner is: " + judokaCompetition.getWinner().toString());
+            System.out.println("The winner(s) is(are): " + judokaCompetition.getWinner().toString());
         }
         catch (StateCompetitionException exception) {
             System.out.println(exception.getMessage());
         }
 
+        System.out.println("---------------------------------------");
+
+        // create a JavelinThrower competition
+        Competition<JavelinThrower> competitionJavelin = new Competition<>(Localisation.REGIONAL);
+        System.out.println(competitionJavelin.getLocalisation());
+        System.out.println(competitionJavelin.getPrize());
+        System.out.println(competitionJavelin.getLimitParticipants());
+        // create random JavelinThrower participants
+        List<JavelinThrower> list = new ArrayList<>();
+        Random random = new Random();
+        for (int i=0; i<competitionJavelin.getLimitParticipants(); i++) {
+            list.add(new JavelinThrower("Participant", String.valueOf(i+1), LocalDate.parse("01/01/1980", formatter), random.nextInt(30,50+1), Localisation.REGIONAL));
+        }
+        System.out.println(list);
+        competitionJavelin.addParticipant(list);
+        competitionJavelin.begin();
     }
 }

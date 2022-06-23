@@ -1,18 +1,19 @@
 package models;
 
+import enumerations.Localisation;
+
 import java.time.LocalDate;
 import java.util.Random;
 
 public class Runner extends Participant {
-    private final int speed;
-    private final int weight;
+    private int speed;
+    private int weight;
 
     // constructor
-    public Runner(String first_name, String last_name, LocalDate birth_date) {
-        super(first_name, last_name, birth_date);
-        Random random = new Random();
-        this.speed = random.nextInt(8,13+1);
-        this.weight = random.nextInt(60,200);
+    public Runner(String first_name, String last_name, LocalDate birth_date, int speed, int weight, Localisation localisation) {
+        super(first_name, last_name, birth_date, localisation);
+        setSpeed(speed);
+        setWeight(weight);
     }
 
     // getters
@@ -24,12 +25,25 @@ public class Runner extends Participant {
         return this.weight;
     }
 
+    // setters
+    public void setSpeed(int speed) {
+        if (speed < 8 || speed > 13) {
+            throw new IllegalArgumentException("Speed must be a number between 8 and 13");
+        }
+        this.speed = speed;
+    }
+
+    public void setWeight(int weight) {
+        if (weight < 60 || weight > 200) {
+            throw new IllegalArgumentException("Weight must be a number between 60 and 200");
+        }
+        this.weight = weight;
+    }
+
     // methods
     @Override
     public int perform() {
         Random random = new Random();
-        System.out.println(random.nextInt(110, 130+1));
-        int seconds = random.nextInt(110, 130+1)*this.getSpeed()/this.getWeight();
-        return seconds;
+        return random.nextInt(110, 130+1)* this.getSpeed()/ this.getWeight();
     }
 }

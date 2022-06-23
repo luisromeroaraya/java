@@ -1,11 +1,14 @@
 package interfaces;
 
-import exceptions.*;
 import models.Participant;
 
-public interface ICompetition<P> {
+import java.util.Set;
+
+public interface ICompetition<P extends Participant> {
     void begin();
     void addParticipant(P participant);
     void removeParticipant(P participant);
-    P getWinner();
+    Set<P> getWinner();
+    boolean isFinished();
+    int getLimitParticipants();
 }
