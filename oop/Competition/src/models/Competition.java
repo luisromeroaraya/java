@@ -1,5 +1,6 @@
 package models;
 
+import anottations.NotParticipant;
 import enumerations.Localisation;
 import exceptions.*;
 import interfaces.ICompetition;
@@ -74,7 +75,7 @@ public class Competition<P extends Participant> implements ICompetition<P> {
         this.setFinished(true);
         Set<P> winners = this.getWinner();
         for (P winner : winners) {
-            winner.setTotalGain(this.prize/winners.size());
+            winner.setTotalGain(winner.getTotalGain() + this.prize/winners.size()); // adds prize money to the winner's totalGain
         }
         System.out.println("The winner(s) is(are): " + winners.toString());
     }
@@ -83,6 +84,9 @@ public class Competition<P extends Participant> implements ICompetition<P> {
     public void addParticipant(P participant) {
         if (this.isFinished()) {
             throw new StateCompetitionException(isFinished(), false);
+        }
+        if (participant.getClass().isAnnotationPresent(NotParticipant.class)) {
+            throw new IllegalArgumentException("This participant can't participate.");
         }
         if(this.getLocalisation() != participant.getLocalisation()) {
             throw new LocalisationException();
@@ -135,6 +139,10 @@ public class Competition<P extends Participant> implements ICompetition<P> {
             }
         }
         return winners;
+    }
+
+    public void transferParticipants(Competition<? super P> competition){
+        competition.addParticipant(this.getParticipants().keySet() );
     }
 
     @Override

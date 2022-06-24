@@ -38,7 +38,9 @@ public abstract class Participant {
     public Localisation getLocalisation() { return this.localisation; }
 
     // setters
-    public void setTotalGain(int totalGain) { this.totalGain = this.totalGain + totalGain; }
+
+    public void setTotalGain(int totalGain) { this.totalGain = totalGain; }
+
     public void setLocalisation(Localisation localisation) { this.localisation = localisation; }
 
     // methods

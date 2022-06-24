@@ -17,7 +17,7 @@ public class Main {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
         // create a Runner competition
-        Competition<Runner> runnerCompetition = new Competition<>(3, 100);
+        Competition<Runner> runnerCompetition = new Competition<>(Localisation.REGIONAL);
         // create Runners
         Runner bruce = new Runner("Bruce", "Willis", LocalDate.parse("01/01/1980", formatter), 9, 80, Localisation.REGIONAL);
         Runner johnny = new Runner("Johnny", "Depp", LocalDate.parse("02/02/1980", formatter), 10, 70, Localisation.REGIONAL);
@@ -105,8 +105,6 @@ public class Main {
             System.out.println(exception.getMessage());
         }
 
-        System.out.println("---------------------------------------");
-
         // try to begin the competition
         try {
             runnerCompetition.begin();
@@ -176,8 +174,6 @@ public class Main {
             System.out.println(exception.getMessage());
         }
 
-        System.out.println("---------------------------------------");
-
         // try to begin the competition
         try {
             judokaCompetition.begin();
@@ -210,7 +206,6 @@ public class Main {
         for (int i=0; i<competitionJavelin.getLimitParticipants(); i++) {
             list.add(new JavelinThrower("Participant", String.valueOf(i+1), LocalDate.parse("01/01/1980", formatter), random.nextInt(30,50+1), Localisation.REGIONAL));
         }
-        System.out.println(list);
         competitionJavelin.addParticipant(list);
         competitionJavelin.begin();
     }
