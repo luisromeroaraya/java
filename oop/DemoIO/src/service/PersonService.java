@@ -52,7 +52,6 @@ public class PersonService {
         }
         String first_name = data[0];
         String last_name = data[1];
-        System.out.println(data[2]);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy"); // 01-01-1980
         LocalDate date = LocalDate.parse(data[2], formatter);
         return new Person(first_name, last_name, date);

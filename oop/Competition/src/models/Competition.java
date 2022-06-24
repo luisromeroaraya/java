@@ -5,9 +5,16 @@ import enumerations.Localisation;
 import exceptions.*;
 import interfaces.ICompetition;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class Competition<P extends Participant> implements ICompetition<P> {
+    private final String name;
     private final Localisation localisation;
     private final int limitParticipants;
     private final int prize;
@@ -15,14 +22,16 @@ public class Competition<P extends Participant> implements ICompetition<P> {
     private boolean isFinished;
 
     // constructor
-    public Competition(int limitParticipants, int prize) {
+    public Competition(String name, int limitParticipants, int prize) {
+        this.name = name;
         this.localisation = null;
         this.limitParticipants = Math.abs(limitParticipants);
         this.prize = prize;
         this.participants = new HashMap<>();
         this.isFinished = false;
     }
-    public Competition(Localisation localisation) {
+    public Competition(String name, Localisation localisation) {
+        this.name = name;
         this.localisation = localisation;
         this.limitParticipants = localisation.getLimitParticipants();
         this.prize = localisation.getPrize();
@@ -32,6 +41,7 @@ public class Competition<P extends Participant> implements ICompetition<P> {
 
     // getters
 
+    public String getName() { return this.name; }
     public Localisation getLocalisation() { return localisation; }
     @Override
     public int getLimitParticipants() {
@@ -145,12 +155,30 @@ public class Competition<P extends Participant> implements ICompetition<P> {
         competition.addParticipant(this.getParticipants().keySet() );
     }
 
+    public void save() {
+        String name = this.getName().toLowerCase().replace(" ", "_");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd_MM_YY");
+        String date = LocalDate.now().format(formatter);
+        String filename = "resources/" + name + "-" + date + ".csv";;
+        File file = new File(filename);
+        if (this.getParticipants() == null) {
+            throw new IllegalArgumentException("There are no participants.");
+        }
+        try (PrintStream writer = new PrintStream(new FileOutputStream(file, true))){
+            writer.println("First Name,Last Name,Birth Date");
+            for(Participant participant : this.getParticipants().keySet()) {
+                writer.printf("%s,%s,%3$td-%3$tm-%3$tY\n", participant.getFirst_name(), participant.getLast_name(), participant.getBirth_date());
+            }
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
+    }
     @Override
     public String toString() {
         StringBuilder participants = new StringBuilder();
         for (Map.Entry<P, Integer> entry : this.getParticipants().entrySet()) {
             participants.append(entry.getKey().toString()).append("\n");
         }
-        return "Limit of Participants:" + this.getLimitParticipants() + "\nParticipants:\n" + participants;
+        return "Competition: " + this.getName() + "\nLimit of Participants:" + this.getLimitParticipants() + "\nParticipants:\n" + participants;
     }
 }
