@@ -5,7 +5,6 @@ import enumerations.Localisation;
 import exceptions.*;
 import interfaces.ICompetition;
 
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -156,15 +155,25 @@ public class Competition<P extends Participant> implements ICompetition<P> {
     }
 
     public void save() {
-        String name = this.getName().toLowerCase().replace(" ", "_");
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd_MM_YY");
+        String name = this.getName().toLowerCase().replace(" ", "_")
+                .replaceAll("\\\\/:*?\"<>|", "");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd_MM_yy");
         String date = LocalDate.now().format(formatter);
-        String filename = "resources/" + name + "-" + date + ".csv";;
-        File file = new File(filename);
+        String filename = "resources/" + name + "-" + date + ".csv";
         if (this.getParticipants() == null) {
             throw new IllegalArgumentException("There are no participants.");
         }
-        try (PrintStream writer = new PrintStream(new FileOutputStream(file, true))){
+        try (PrintStream writer = new PrintStream(new FileOutputStream(filename))){
+            String participantClass = this.getParticipants().keySet().toArray()[0].getClass().getSimpleName();
+            writer.println(participantClass);
+//            switch  (participantClass) {
+//                case "JavelinThrower":
+//                    break;
+//                case "Judoka":
+//                    break;
+//                case "Runner":
+//                    break;
+//            }
             writer.println("First Name,Last Name,Birth Date");
             for(Participant participant : this.getParticipants().keySet()) {
                 writer.printf("%s,%s,%3$td-%3$tm-%3$tY\n", participant.getFirst_name(), participant.getLast_name(), participant.getBirth_date());

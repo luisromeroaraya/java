@@ -87,6 +87,7 @@ public class Main {
                  LimitReachedException exception) {
             System.out.println(exception.getMessage());
         }
+
         // try to save participants
         runnerCompetition.save();
 
@@ -220,15 +221,15 @@ public class Main {
         return list;
     }
 
-    public Participant convert(String line) throws Exception {
-        String[] data = line.split(",");
-        if (data.length != 3) {
-            throw new Exception("Conversion error, data in wrong format.");
-        }
-        String first_name = data[0];
-        String last_name = data[1];
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy"); // 01-01-1980
-        LocalDate date = LocalDate.parse(data[2], formatter);
-        return new Participant(first_name, last_name, date);
-    }
+//    public Participant convert(String line) throws Exception {
+//        String[] data = line.split(",");
+//        if (data.length != 3) {
+//            throw new Exception("Conversion error, data in wrong format.");
+//        }
+//        String first_name = data[0];
+//        String last_name = data[1];
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy"); // 01-01-1980
+//        LocalDate date = LocalDate.parse(data[2], formatter);
+//        return new Participant(first_name, last_name, date);
+//    }
 }

@@ -1,6 +1,5 @@
 package models;
 
-import anottations.NotParticipant;
 import enumerations.Localisation;
 
 import java.time.LocalDate;
