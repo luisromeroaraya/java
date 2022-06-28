@@ -60,19 +60,38 @@ public class VilleService {
 
     public Habitant getMostTaxed(){
         // TODO Retourner l'habitant qui le plus été taxé ou lancer une RuntimeException
-        return villes.stream()
-                .map(ville -> ville.getHabitants().stream().max(Comparator.comparingDouble(Habitant::getTotalTaxes)).get())
+//        return villes.stream()
+//                .map(ville -> ville.getHabitants()
+//                        .stream()
+//                        .max(Comparator.comparingDouble(Habitant::getTotalTaxes))
+//                        .get()
+//                )
+//                .max(Comparator.comparingDouble(Habitant::getTotalTaxes))
+//                .get();
+        return  villes.stream()
+                .flatMap(ville -> ville.getHabitants().stream())
                 .max(Comparator.comparingDouble(Habitant::getTotalTaxes))
                 .get();
     }
-//
-//    public List<String> getStreets(){
-//        // TODO retourner le nom des rue des villes gérées ou habitent des gens (pas de doublon)
-//        // attention, plusieurs habitant sont dans la même rue
-//    }
-//
-//    public void taxe(char begin){
-//        // TODO faire en sorte que tous les habitants des villes gérées dont le nom commence
-//        // par la lettre en param payent leur taxe.
-//    }
+
+    public List<String> getStreets(){
+        // TODO retourner le nom des rue des villes gérées ou habitent des gens (pas de doublon)
+        // attention, plusieurs habitant sont dans la même rue
+        return villes.stream()
+                .flatMap(ville -> ville.getHabitants()
+                        .stream()
+                        .map(habitant -> habitant.getRue())
+                )
+                .distinct()
+                .collect(Collectors.toList());
+    }
+
+    public void taxe(char begin){
+        // TODO faire en sorte que tous les habitants des villes gérées dont le nom commence
+        // par la lettre en param payent leur taxe.
+        villes.stream()
+                .flatMap(ville -> ville.getHabitants()
+                        .stream())
+                .filter(habitant -> habitant.getNom().startsWith(Character.toString(begin))).forEach(habitant -> habitant.payerTaxe(600));
+    }
 }
