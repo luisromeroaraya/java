@@ -1,0 +1,12 @@
+https://www.baeldung.com/java-8-functional-interfaces
+
+Consumer<T> - (T) -> void
+Supplier<T> - (/) -> T
+Function<T,R> - (T) -> R
+BiFunction<T,S,R> - (T,S) -> R
+Predicate<T> - (T) -> boolean
+Runnable - (/) -> void
+
+function = function.compose(String::toUpperCase); // compose is executed before
+Function = function.andThen(String::toLowerCase); // and then is executed after
+function.apply(var);
