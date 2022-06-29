@@ -33,8 +33,8 @@ public class Main {
                 .forEach(street -> System.out.println(street));
         // taxe(C)
         System.out.println("--------------------");
-        System.out.println("Making all the people whose Last Name begins by C to pay their taxes:");
-        service.taxe('C');
+        System.out.println("Making all the people whose Ville begins by Q to pay their taxes:");
+        service.taxe('Q');
         // show habitants and taxes
         System.out.println("--------------------");
         System.out.println("Showing how much taxes have people from the HighestTaxe City has paid:");

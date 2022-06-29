@@ -84,17 +84,26 @@ public class VilleService {
     public void taxe(char begin){
         // TODO faire en sorte que tous les habitants des villes gérées dont le nom commence
         // par la lettre en param payent leur taxe.
+//        villes.stream()
+//                .flatMap(ville -> ville.getHabitants().stream())
+//                .filter(habitant -> habitant.getNom().startsWith(Character.toString(begin)))
+//                .forEach(habitant -> {
+//                    villes.forEach( ville -> {
+//                        if (ville.getHabitants().contains(habitant)){
+//                            habitant.payerTaxe(ville.getMontantTaxe());
+//                            System.out.println(habitant.getNom() + " has paid " + ville.getMontantTaxe() + " in taxes.");
+//                        }
+//                            }
+//                    );
+//                });
+
         villes.stream()
-                .flatMap(ville -> ville.getHabitants().stream())
-                .filter(habitant -> habitant.getNom().startsWith(Character.toString(begin)))
-                .forEach(habitant -> {
-                    villes.forEach( ville -> {
-                        if (ville.getHabitants().contains(habitant)){
-                            habitant.payerTaxe(ville.getMontantTaxe());
-                            System.out.println(habitant.getNom() + " has paid " + ville.getMontantTaxe() + " in taxes.");
-                        }
-                            }
-                    );
+                .filter(ville -> ville.getNom().startsWith(Character.toString(begin)))
+                .forEach(ville -> {
+                    ville.getHabitants().forEach(habitant -> {
+                        habitant.payerTaxe(ville.getMontantTaxe());
+                        System.out.println(habitant.getNom() + " has paid " + ville.getMontantTaxe() + " in taxes.");
+                    });
                 });
     }
 }
