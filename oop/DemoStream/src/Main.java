@@ -142,9 +142,7 @@ public class Main {
 //        Person person = anyPerson.orElseThrow(); // pareil que get()
         Person person = anyPerson.orElseThrow( () -> new RuntimeException("L'élément n'a pas été trouvé") ); // Pareil que get sauf qu'on choisi l'exception
         System.out.println(person);
-
-
-
+        
         // BONUS
 //        personnes.stream()
 //                // produit un Stream<String>
