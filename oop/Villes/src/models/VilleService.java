@@ -1,5 +1,6 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
@@ -49,7 +50,7 @@ public class VilleService {
         // TODO retourner la ville ou la taxe est la plus grande ou null si il n'y a pas de ville
         return villes.stream()
                 .max(Comparator.comparing(ville -> ville.getMontantTaxe()))
-                .get();
+                .orElse(new Ville(1_000_000, "Millionairetopia", new ArrayList<Habitant>(), 10_000_000));
     }
 
     public List<String> getCityNames(){
@@ -66,17 +67,15 @@ public class VilleService {
                         .stream() // this is mandatory
                 )
                 .max(Comparator.comparingDouble(Habitant::getTotalTaxes))
-                .get();
+                .orElseThrow(() -> new RuntimeException("Could not find the most taxed Habitant."));
     }
 
     public List<String> getStreets(){
         // TODO retourner le nom des rue des villes gérées ou habitent des gens (pas de doublon)
         // attention, plusieurs habitant sont dans la même rue
         return villes.stream()
-                .flatMap(ville -> ville.getHabitants()
-                        .stream()
-                        .map(habitant -> habitant.getRue())
-                )
+                .flatMap(ville -> ville.getHabitants().stream())
+                .map(habitant -> habitant.getRue())
                 .distinct() // take out repeated streets
                 .sorted() // sorted them alphabetically
                 .collect(Collectors.toList());
@@ -86,9 +85,7 @@ public class VilleService {
         // TODO faire en sorte que tous les habitants des villes gérées dont le nom commence
         // par la lettre en param payent leur taxe.
         villes.stream()
-                .flatMap(ville -> ville.getHabitants()
-                        .stream()
-                )
+                .flatMap(ville -> ville.getHabitants().stream())
                 .filter(habitant -> habitant.getNom().startsWith(Character.toString(begin)))
                 .forEach(habitant -> {
                     villes.forEach( ville -> {
