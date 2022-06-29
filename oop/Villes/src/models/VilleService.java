@@ -69,7 +69,9 @@ public class VilleService {
 //                .max(Comparator.comparingDouble(Habitant::getTotalTaxes))
 //                .get();
         return  villes.stream()
-                .flatMap(ville -> ville.getHabitants().stream())
+                .flatMap(ville -> ville.getHabitants()
+                        .stream()
+                )
                 .max(Comparator.comparingDouble(Habitant::getTotalTaxes))
                 .get();
     }
@@ -83,6 +85,7 @@ public class VilleService {
                         .map(habitant -> habitant.getRue())
                 )
                 .distinct()
+                .sorted()
                 .collect(Collectors.toList());
     }
 
@@ -91,7 +94,17 @@ public class VilleService {
         // par la lettre en param payent leur taxe.
         villes.stream()
                 .flatMap(ville -> ville.getHabitants()
-                        .stream())
-                .filter(habitant -> habitant.getNom().startsWith(Character.toString(begin))).forEach(habitant -> habitant.payerTaxe(600));
+                        .stream()
+                )
+                .filter(habitant -> habitant.getNom().startsWith(Character.toString(begin)))
+                .forEach(habitant -> {
+                    villes.forEach( ville -> {
+                        if (ville.getHabitants().contains(habitant)){
+                            habitant.payerTaxe(ville.getMontantTaxe());
+                            System.out.println(habitant.getNom() + " has paid " + ville.getMontantTaxe() + " in taxes.");
+                        }
+                            }
+                    );
+                });
     }
 }
