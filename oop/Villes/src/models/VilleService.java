@@ -48,29 +48,22 @@ public class VilleService {
     public Ville getWithHighestTaxe() {
         // TODO retourner la ville ou la taxe est la plus grande ou null si il n'y a pas de ville
         return villes.stream()
-                .max(Comparator.comparing(Ville::getMontantTaxe)).get();
+                .max(Comparator.comparing(ville -> ville.getMontantTaxe()))
+                .get();
     }
 
     public List<String> getCityNames(){
         // TODO retourner la liste des noms des villes
         return villes.stream()
                 .map(ville -> ville.getNom())
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()); // transform Stream<String> into List<String>
     }
 
     public Habitant getMostTaxed(){
         // TODO Retourner l'habitant qui le plus été taxé ou lancer une RuntimeException
-//        return villes.stream()
-//                .map(ville -> ville.getHabitants()
-//                        .stream()
-//                        .max(Comparator.comparingDouble(Habitant::getTotalTaxes))
-//                        .get()
-//                )
-//                .max(Comparator.comparingDouble(Habitant::getTotalTaxes))
-//                .get();
         return  villes.stream()
-                .flatMap(ville -> ville.getHabitants()
-                        .stream()
+                .flatMap(ville -> ville.getHabitants() // flatMap gets a map but puts everyone at the same level: Stream{matt, luke, will, johnny} instead of Stream{1: {matt}, 2: {luke, will, johnny}}
+                        .stream() // this is mandatory
                 )
                 .max(Comparator.comparingDouble(Habitant::getTotalTaxes))
                 .get();
@@ -84,8 +77,8 @@ public class VilleService {
                         .stream()
                         .map(habitant -> habitant.getRue())
                 )
-                .distinct()
-                .sorted()
+                .distinct() // take out repeated streets
+                .sorted() // sorted them alphabetically
                 .collect(Collectors.toList());
     }
 
