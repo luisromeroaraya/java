@@ -50,7 +50,7 @@ public class VilleService {
         // TODO retourner la ville ou la taxe est la plus grande ou null si il n'y a pas de ville
         return villes.stream()
                 .max(Comparator.comparing(ville -> ville.getMontantTaxe()))
-                .orElse(new Ville(1_000_000, "Millionairetopia", new ArrayList<Habitant>(), 10_000_000));
+                .orElseThrow(() -> new RuntimeException("Could not find the most taxed Ville."));
     }
 
     public List<String> getCityNames(){
