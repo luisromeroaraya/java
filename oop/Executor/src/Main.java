@@ -7,7 +7,6 @@ import java.util.concurrent.*;
 //        3. (Attendre les résultats)
 //        4. Une fois les 6 mots générés formez une phrase avec ces mots et ecrivez la en console.
 //
-//
 //        Résultat possible:
 //        azda danoah zd acdc tterss op
 
@@ -18,25 +17,16 @@ public class Main {
         // create an ExecutorService of 3 threads
         ExecutorService executor = Executors.newFixedThreadPool(3);
 
+        // create a Callable
+        Callable<String> callable = () -> randomString(random.nextInt(2,6));
+
         // do 6 times the Callable function randomString
-        Future<String> future1 = executor.submit(() -> {
-            return randomString(random.nextInt(2,6));
-        });
-        Future<String> future2 = executor.submit(() -> {
-            return randomString(random.nextInt(2,6));
-        });
-        Future<String> future3 = executor.submit(() -> {
-            return randomString(random.nextInt(2,6));
-        });
-        Future<String> future4 = executor.submit(() -> {
-            return randomString(random.nextInt(2,6));
-        });
-        Future<String> future5 = executor.submit(() -> {
-            return randomString(random.nextInt(2,6));
-        });
-        Future<String> future6 = executor.submit(() -> {
-            return randomString(random.nextInt(2,6));
-        });
+        Future<String> future1 = executor.submit(callable);
+        Future<String> future2 = executor.submit(callable);
+        Future<String> future3 = executor.submit(callable);
+        Future<String> future4 = executor.submit(callable);
+        Future<String> future5 = executor.submit(callable);
+        Future<String> future6 = executor.submit(callable);
 
         // create a phrase with the 6 randomString
         try {
