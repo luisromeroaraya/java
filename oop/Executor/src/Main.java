@@ -45,6 +45,8 @@ public class Main {
             System.out.println("Error.");
         }
     }
+
+    // create randomString function
     public static String randomString(int length) {
         Random random = new Random();
         String string = "";
