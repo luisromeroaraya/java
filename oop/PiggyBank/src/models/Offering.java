@@ -33,7 +33,9 @@ public class Offering extends Thread {
 
     // setters
     public void setRunning(boolean running) {
-        this.running = running;
+        synchronized (this) {
+            this.running = running;
+        }
     }
 
     // methods
