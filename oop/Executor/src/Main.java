@@ -1,6 +1,6 @@
 import java.util.Random;
 import java.util.concurrent.*;
-
+//        https://www.baeldung.com/java-util-concurrent
 //        1. Créez un ExecutorService de 3 Thread;
 //        2. Demander à l'ExecutorService de realiser 6x l'opération suivante: (Callable)
 //          - générer un mot de 2 à 6 lettre minuscules aléatoires.
@@ -39,10 +39,10 @@ public class Main {
     // create randomString function
     public static String randomString(int length) {
         Random random = new Random();
-        String string = "";
+        StringBuilder string = new StringBuilder();
         for (int i=0; i<length; i++) {
-            string = string + (char) random.nextInt(97,122);
+            string.append((char) random.nextInt(97,122));
         }
-        return string;
+        return string.toString();
     }
 }
