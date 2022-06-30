@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.*;
 //        https://www.baeldung.com/java-util-concurrent
@@ -12,37 +14,38 @@ import java.util.concurrent.*;
 
 public class Main {
     public static void main(String[] args) {
-        Random random = new Random();
-
         // create an ExecutorService of 3 threads
         ExecutorService executor = Executors.newFixedThreadPool(3);
 
-        // create a Callable
-        Callable<String> callable = () -> randomString(random.nextInt(2,6));
+        // create a Callable that returns a random string between 2 and 6 characters
+        Callable<String> callable = () -> {
+            Random random = new Random();
+            int length = random.nextInt(2,7);
+            StringBuilder string = new StringBuilder();
+            for (int i=0; i<length; i++) {
+                string.append((char) random.nextInt(97,122));
+            }
+            return string.toString();
+        };
 
         // do 6 times the Callable function randomString
-        Future<String> future1 = executor.submit(callable);
-        Future<String> future2 = executor.submit(callable);
-        Future<String> future3 = executor.submit(callable);
-        Future<String> future4 = executor.submit(callable);
-        Future<String> future5 = executor.submit(callable);
-        Future<String> future6 = executor.submit(callable);
+        List<Future> futures = new ArrayList<>();
+        for (int i=0; i < 6; i++) {
+            futures.add(executor.submit(callable));
+        }
+
+        // tell the executor to stop waiting for submits or else the program won't stop
+        executor.shutdown();
 
         // create a phrase with the 6 randomString
-        try {
-            System.out.printf("%s %s %s %s %s %s", future1.get(), future2.get(), future3.get(), future4.get(), future5.get(), future6.get());
-        } catch (InterruptedException | ExecutionException e) {
-            System.out.println("Error.");
+        StringBuilder phrase = new StringBuilder();
+        for (Future future: futures) {
+            try {
+                phrase.append(future.get()).append(" ");
+            } catch (InterruptedException | ExecutionException e) {
+                System.out.println("Error.");
+            }
         }
-    }
-
-    // create randomString function
-    public static String randomString(int length) {
-        Random random = new Random();
-        StringBuilder string = new StringBuilder();
-        for (int i=0; i<length; i++) {
-            string.append((char) random.nextInt(97,122));
-        }
-        return string.toString();
+        System.out.println(phrase.toString());
     }
 }
