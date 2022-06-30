@@ -15,7 +15,7 @@ import models.Motor;
 //        Once all the pieces are ready, you can build your car and write it in the console
 
 public class Main {
-    // initialize frame and motor variables
+    // initialize frame and motor variables outside the main because I'm going to use it inside a lambda function
     static Frame frame = null;
     static Motor motor = null;
 
@@ -24,46 +24,44 @@ public class Main {
         long time = System.currentTimeMillis();
         Thread threadFrame =
                 new Thread(() -> {
-                    // simulate frame building time of 1.5 seconds
                     try {
+                        // simulate frame building time of 1.5 seconds suspending the execution
                         Thread.sleep(1500);
+                        // create Frame
+                        frame = new Frame("suv");
+                        System.out.println("You built a suv type Frame in " + (System.currentTimeMillis() - time) + "ms.");
                     } catch (InterruptedException e) {
                         System.out.println("Frame sleep thread error.");
                     }
-                    // create Frame
-                    frame = new Frame("suv");
-                    System.out.println("You built a suv type Frame in " + (System.currentTimeMillis() - time) + "ms.");
                 });
+
         // create Motor thread
         Thread threadMotor =
                 new Thread(() -> {
-                    // simulate motor building time of 2.0 seconds
                     try {
+                        // simulate motor building time of 2.0 seconds suspending the execution
                         Thread.sleep(2000);
+                        // create Motor
+                        motor = new Motor(1200);
+                        System.out.println("You built a 1200cc Motor in " + (System.currentTimeMillis() - time) + "ms.");
                     } catch (InterruptedException e) {
                         System.out.println("Motor sleep thread error.");
                     }
-                    // create Motor
-                    motor = new Motor(1200);
-                    System.out.println("You built a 1200cc Motor in " + (System.currentTimeMillis() - time) + "ms.");
                 });
+
         // begin threads with start()
         threadFrame.start();
         threadMotor.start();
-        // wait for frame thread to finish with join()
+
         try {
+            // wait for frame and motor threads to finish with join()
             threadFrame.join();
-        } catch (InterruptedException e) {
-            System.out.println("The Frame wasn't built.");
-        }
-        // wait for motor thread to finish with join()
-        try {
             threadMotor.join();
+            // create car
+            Car car = new Car(frame, motor);
+            System.out.println("You built a new " + car.getFrame().getType() + " type car with " + car.getMotor().getPower() + "cc of power after " + (System.currentTimeMillis() - time) + "ms.");
         } catch (InterruptedException e) {
-            System.out.println("The Motor wasn't built.");
+            System.out.println("Car wasn't built.");
         }
-        // create car
-        Car car = new Car(frame, motor);
-        System.out.println("You built a new " + car.getFrame().getType() + " type car with " + car.getMotor().getPower() + "cc of power.");
     }
 }
