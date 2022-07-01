@@ -2,12 +2,12 @@ package models;
 
 public class Offering extends Thread {
     private PiggyBank bank;
-    private int money;
+    private double money;
     private int seconds;
     private boolean running;
 
     // constructor
-    public Offering(PiggyBank bank, int money, int seconds) {
+    public Offering(PiggyBank bank, double money, int seconds) {
         this.bank = bank;
         this.money = money;
         this.seconds = seconds;
@@ -19,7 +19,7 @@ public class Offering extends Thread {
         return bank;
     }
 
-    public int getMoney() {
+    public double getMoney() {
         return money;
     }
 
@@ -32,21 +32,14 @@ public class Offering extends Thread {
     }
 
     // setters
-    public void setRunning(boolean running) {
-        synchronized (this) {
-            this.running = running;
-        }
-    }
+    public synchronized void setRunning(boolean running) { this.running = running; }
 
     // methods
     public void run() {
         try {
-            while(this.isRunning()) {
+            while(this.isRunning()) { // the user can change this boolean to stop this loop
                 Thread.sleep(this.getSeconds()*1000L);
                 this.getBank().addMoney(this.getMoney());
-//                System.out.println("You received " + this.getMoney() + " euros.");
-//                System.out.println("New total: " + this.getBank().getTotalMoney() + " euros.");
-//                 System.out.println( Thread.currentThread().getName());
             }
         } catch (InterruptedException e) {
             System.out.println("Error receiving the Offering.");

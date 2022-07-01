@@ -16,16 +16,17 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        PiggyBank bank = new PiggyBank(0);
-        Offering offering = new Offering(bank,100, 1);
-        offering.start();
-
+        PiggyBank bank = new PiggyBank(0); // create PiggyBank
+        Offering offering = new Offering(bank,100, 1); // create automatic payement Offering
+        offering.start(); // begin the Thread
         System.out.println(offering.getMoney() + " euros are being transfered to your bank every " + offering.getSeconds() + " seconds.");
+        // ask the user if he wants to stop the transactions going on in the background
         System.out.print("Do you want to stop the Offering? (y/n): ");
         Scanner input = new Scanner(System.in);
         String stop = input.nextLine().toLowerCase(Locale.ROOT);
         if (stop.startsWith("y")) {
             offering.setRunning(false);
+            // offering.interrupt // this stops the thread instantly without finishing the loop
         }
         System.out.println("Money received: " + bank.getTotalMoney() + " euros.");
     }
