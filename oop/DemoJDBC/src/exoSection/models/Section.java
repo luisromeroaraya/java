@@ -1,12 +1,12 @@
 package exoSection.models;
 
 public class Section {
-    private int section_id;
+    private final int section_id;
     private String section_name;
-    private int delegate_id;
+    private Integer delegate_id;
 
     // constructor
-    public Section(int section_id, String section_name, int delegate_id) {
+    public Section(int section_id, String section_name, Integer delegate_id) {
         this.section_id = section_id;
         this.section_name = section_name;
         this.delegate_id = delegate_id;
@@ -21,7 +21,16 @@ public class Section {
         return section_name;
     }
 
-    public int getDelegateId() {
+    public Integer getDelegateId() {
         return delegate_id;
+    }
+
+    // setters
+    public void setSectionName(String section_name) {
+        this.section_name = section_name;
+    }
+
+    public void setDelegateId(Integer delegate_id) {
+        this.delegate_id = delegate_id;
     }
 }
