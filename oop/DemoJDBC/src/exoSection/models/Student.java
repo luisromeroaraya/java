@@ -9,18 +9,16 @@ public class Student {
     private String last_name;
     private LocalDate birth_date;
     private String login;
-    private Integer section_id;
     private Integer year_result;
     private String course_id;
     private Section section;
     // constructor
-    public Student(int student_id, String first_name, String last_name, LocalDate birth_date, String login, Integer section_id, Integer year_result, String course_id, Section section) {
+    public Student(int student_id, String first_name, String last_name, LocalDate birth_date, String login, Integer year_result, String course_id, Section section) {
         this.student_id = student_id;
         this.first_name = first_name;
         this.last_name = last_name;
         this.birth_date = birth_date;
         this.login = login;
-        this.section_id = section_id;
         this.year_result = year_result;
         this.course_id = course_id;
         this.section = section;
@@ -45,10 +43,6 @@ public class Student {
 
     public String getLogin() {
         return login;
-    }
-
-    public Integer getSectionId() {
-        return section_id;
     }
 
     public Integer getYearResult() {
@@ -80,9 +74,6 @@ public class Student {
         this.login = login;
     }
 
-    public void setSectionId(Integer section_id) {
-        this.section_id = section_id;
-    }
 
     public void setYearResult(Integer year_result) {
         this.year_result = year_result;

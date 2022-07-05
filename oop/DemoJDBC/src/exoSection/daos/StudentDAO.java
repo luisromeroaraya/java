@@ -30,18 +30,26 @@ public class StudentDAO {
                 String last_name = results.getString("last_name");
                 LocalDate birth_date = results.getDate("birth_date").toLocalDate();
                 String login = results.getString("login");
-                Integer section_id = results.getInt("section_id");
-                if(results.wasNull()) {
-                    section_id = null;
-                }
                 Integer year_result = results.getInt("year_result");
                 if(results.wasNull()) {
                     year_result = null;
                 }
                 String course_id = results.getString("course_id");
+                Integer section_id = results.getInt("section_id");
+                if(!results.wasNull()) {
+                    section_id = null;
+                }
                 String section_name = results.getString("section_name");
                 Integer delegate_id = results.getInt("delegate_id");
-                list.add(new Student(student_id, first_name, last_name, birth_date, login, section_id, year_result, course_id, new Section(section_id, section_name, delegate_id)));
+                if(results.wasNull()) {
+                    delegate_id = null;
+                }
+                if (section_id != null) {
+                    list.add(new Student(student_id, first_name, last_name, birth_date, login, year_result, course_id, new Section(section_id, section_name, delegate_id)));
+                }
+                else {
+                    list.add(new Student(student_id, first_name, last_name, birth_date, login, year_result, course_id, null));
+                }
             }
             return list;
         }
