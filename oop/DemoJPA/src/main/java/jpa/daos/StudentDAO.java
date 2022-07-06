@@ -1,6 +1,7 @@
 package jpa.daos;
 
 import jakarta.persistence.EntityManager;
+import jpa.entities.Section;
 import jpa.entities.Student;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -42,5 +43,10 @@ public class StudentDAO {
         manager.remove(element);
         manager.getTransaction().commit();
         return element;
+    }
+
+    public void transferStudents(Section from, Section to) {
+        List<Student> list = manager.createQuery("SELECT s FROM Student s WHERE s.section_id = " + from.getId(), Student.class).getResultList();
+        list.forEach(student -> this.update(new Student(student.getStudent_id(), student.getFirst_name(), student.getLast_name(), student.getBirth_date(), student.getLogin(), to.getId(), student.getYear_result(), student.getCourse_id())));
     }
 }
