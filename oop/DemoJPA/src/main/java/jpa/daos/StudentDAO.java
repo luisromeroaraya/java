@@ -21,7 +21,7 @@ public class StudentDAO {
     }
 
     public Student get(int id) {
-        return manager.find(Student.class, id); // we get a section and find attaches it to the manager
+        return manager.find(Student.class, id); // we get an element and find attaches it to the manager
     }
 
     public Student insert(Student element) {
@@ -46,7 +46,7 @@ public class StudentDAO {
     }
 
     public void transferStudents(Section from, Section to) {
-        List<Student> list = manager.createQuery("SELECT s FROM Student s WHERE s.section_id = " + from.getId(), Student.class).getResultList();
-        list.forEach(student -> this.update(new Student(student.getStudent_id(), student.getFirst_name(), student.getLast_name(), student.getBirth_date(), student.getLogin(), to.getId(), student.getYear_result(), student.getCourse_id())));
+        List<Student> list = manager.createQuery("SELECT s FROM Student s WHERE s.sectionId = " + from.getSectionId(), Student.class).getResultList();
+        list.forEach(student -> this.update(new Student(student.getStudentId(), student.getFirstName(), student.getLastName(), student.getBirthDate(), student.getLogin(), to.getSectionId(), student.getYearResult(), student.getCourseId())));
     }
 }

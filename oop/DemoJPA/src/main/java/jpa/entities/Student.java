@@ -18,19 +18,19 @@ import java.time.LocalDate;
 public class Student {
     @Id
     @Column(name = "student_id")
-    private int student_id;
+    private int studentId;
     @Column(name = "first_name")
-    private String first_name;
+    private String firstName;
     @Column(name = "last_name")
-    private String last_name;
+    private String lastName;
     @Column(name = "birth_date")
-    private LocalDate birth_date;
+    private LocalDate birthDate;
     @Column(name = "login")
     private String login;
     @Column(name = "section_id")
-    private Integer section_id;
+    private Integer sectionId;
     @Column(name = "year_result")
-    private Integer year_result;
+    private Integer yearResult;
     @Column(name = "course_id")
-    private String course_id;
+    private String courseId;
 }

@@ -15,9 +15,9 @@ import lombok.*;
 public class Section {
     @Id
     @Column(name = "section_id")
-    private int id;
+    private int sectionId;
     @Column(name = "section_name")
-    private String name;
+    private String sectionName;
     @Column(name = "delegate_id")
     private Integer delegateId;
 }
