@@ -13,7 +13,6 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 public class Section {
-
     @Id
     @Column(name = "section_id")
     private int id;
@@ -21,5 +20,4 @@ public class Section {
     private String name;
     @Column(name = "delegate_id")
     private Integer delegateId;
-
 }

@@ -14,7 +14,7 @@
             <property name="javax.persistence.jdbc.password" value=""/>
             <property name="hibernate.show_sql" value="true"/><!-- From EntityManager: add show-sql -->
             <property name="hibernate.format_sql" value="true"/>
-            <property name="hibernate.hbm2ddl.auto" value="validate"/><!-- to check that entities are defined correctly, if not, they are "turned off" -->
+            <property name="hibernate.hbm2ddl.auto" value="update"/><!-- to check that entities are defined correctly, if not, they are "turned off" -->
         </properties>
     </persistence-unit>
 </persistence>
