@@ -46,7 +46,7 @@ public class StudentDAO {
     }
 
     public void transferStudents(Section from, Section to) {
-        List<Student> list = manager.createQuery("SELECT s FROM Student s WHERE s.sectionId = " + from.getSectionId(), Student.class).getResultList();
-        list.forEach(student -> this.update(new Student(student.getStudentId(), student.getFirstName(), student.getLastName(), student.getBirthDate(), student.getLogin(), to.getSectionId(), student.getYearResult(), student.getCourseId())));
+        List<Student> list = manager.createQuery("SELECT s FROM Student s WHERE s.section = " + from, Student.class).getResultList();
+        list.forEach(student -> this.update(new Student(student.getStudentId(), student.getFirstName(), student.getLastName(), student.getBirthDate(), student.getLogin(), student.getYearResult(), student.getCourseId(), to, student.getDelegated())));
     }
 }

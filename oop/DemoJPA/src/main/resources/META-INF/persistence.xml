@@ -8,13 +8,13 @@
     <persistence-unit name="DemoJPA">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <properties>
-            <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/dbslide"/>
-            <property name="javax.persistence.jdbc.user" value="root"/>
-            <property name="javax.persistence.jdbc.password" value=""/>
+            <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/dbslide"/>
+            <property name="jakarta.persistence.jdbc.user" value="root"/>
+            <property name="jakarta.persistence.jdbc.password" value=""/>
             <property name="hibernate.show_sql" value="true"/><!-- From EntityManager: add show-sql -->
             <property name="hibernate.format_sql" value="true"/>
-            <property name="hibernate.hbm2ddl.auto" value="update"/><!-- to check that entities are defined correctly, if not, they are "turned off" -->
+            <property name="hibernate.hbm2ddl.auto" value="validate"/><!-- to check that entities are defined correctly, if not, they are "turned off" -->
         </properties>
     </persistence-unit>
 </persistence>

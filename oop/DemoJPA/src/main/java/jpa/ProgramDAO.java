@@ -14,16 +14,18 @@ public class ProgramDAO {
     public static void main(String[] args) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("DemoJPA");
         EntityManager manager = emf.createEntityManager();
-
-        ////////////////////////////////////////////////////////////
-
         SectionDAO sectionDAO = new SectionDAO(manager);
-        System.out.println("-------------------------------------");
+        StudentDAO studentDAO = new StudentDAO(manager);
+        CourseDAO courseDAO = new CourseDAO(manager);
+        ProfessorDAO professorDAO = new ProfessorDAO(manager);
+        GradeDAO gradeDAO = new GradeDAO(manager);
 
+        System.out.println("-------------------------------------");
+        System.out.println("-------------------------------------");
+        ////////////////////////////////////////////////////////////
         // GET ONE
         System.out.println(sectionDAO.get(1010));
         System.out.println("-------------------------------------");
-
 
         // GET ALL
         List<Section> sectionList = sectionDAO.getAll();
@@ -31,12 +33,12 @@ public class ProgramDAO {
         System.out.println("-------------------------------------");
 
         // INSERT
-        Section newSection = new Section(666, "SS Satanic Studies", null);
+        Section newSection = new Section(666, "SS Satanic Studies", List.of(), List.of(), null);
         System.out.println(sectionDAO.insert(newSection));
         System.out.println("-------------------------------------");
 
         // UPDATE
-        newSection.setDelegateId(25);
+        newSection.setDelegate(studentDAO.get(25));
         System.out.println(sectionDAO.update(newSection));
         System.out.println("-------------------------------------");
 
@@ -44,12 +46,10 @@ public class ProgramDAO {
         Section sectionToDelete = sectionDAO.get(666);
         System.out.println(sectionDAO.delete(sectionToDelete));
         System.out.println("-------------------------------------");
-
-        ////////////////////////////////////////////////////////////
-
-        StudentDAO studentDAO = new StudentDAO(manager);
         System.out.println("-------------------------------------");
 
+
+        ////////////////////////////////////////////////////////////
         // GET ONE
         System.out.println(studentDAO.get(1));
         System.out.println("-------------------------------------");
@@ -62,12 +62,12 @@ public class ProgramDAO {
 
         // INSERT
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        Student newStudent = new Student(100, "Will", "Smith", LocalDate.parse("1979-04-05", formatter), "wsmith" , 1320, 9, "EG2210");
+        Student newStudent = new Student(100, "Will", "Smith", LocalDate.parse("1979-04-05", formatter), "wsmith" , 9, "EG2210", sectionDAO.get(1320), null);
         System.out.println(studentDAO.insert(newStudent));
         System.out.println("-------------------------------------");
 
         // UPDATE
-        newStudent.setSectionId(1020);
+        newStudent.setLogin("willsmith");
         System.out.println(studentDAO.update(newStudent));
         System.out.println("-------------------------------------");
 
@@ -75,12 +75,9 @@ public class ProgramDAO {
         Student studentToDelete = studentDAO.get(100);
         System.out.println(studentDAO.delete(studentToDelete));
         System.out.println("-------------------------------------");
-
-        ////////////////////////////////////////////////////////////
-
-        CourseDAO courseDAO = new CourseDAO(manager);
         System.out.println("-------------------------------------");
 
+        ////////////////////////////////////////////////////////////
         // GET ONE
         System.out.println(courseDAO.get("EG1010"));
         System.out.println("-------------------------------------");
@@ -91,7 +88,7 @@ public class ProgramDAO {
         System.out.println("-------------------------------------");
 
         // INSERT
-        Course newCourse = new Course("EG666", "Satanic rituals", 4.0, 6);
+        Course newCourse = new Course("EG666", "Satanic rituals", 4.0, 6, List.of());
         System.out.println(courseDAO.insert(newCourse));
         System.out.println("-------------------------------------");
 
@@ -104,12 +101,9 @@ public class ProgramDAO {
         Course courseToDelete = courseDAO.get("EG666");
         System.out.println(courseDAO.delete(courseToDelete));
         System.out.println("-------------------------------------");
-
-        ////////////////////////////////////////////////////////////
-
-        ProfessorDAO professorDAO = new ProfessorDAO(manager);
         System.out.println("-------------------------------------");
 
+        ////////////////////////////////////////////////////////////
         // GET ONE
         System.out.println(professorDAO.get(1));
         System.out.println("-------------------------------------");
@@ -134,12 +128,9 @@ public class ProgramDAO {
         Professor professorToDelete = professorDAO.get(666);
         System.out.println(professorDAO.delete(professorToDelete));
         System.out.println("-------------------------------------");
-
-        ////////////////////////////////////////////////////////////
-
-        GradeDAO gradeDAO = new GradeDAO(manager);
         System.out.println("-------------------------------------");
 
+        ////////////////////////////////////////////////////////////
         // GET ONE
         System.out.println(gradeDAO.get("IG"));
         System.out.println("-------------------------------------");
@@ -164,6 +155,22 @@ public class ProgramDAO {
         Grade gradeToDelete = gradeDAO.get("X");
         System.out.println(gradeDAO.delete(gradeToDelete));
         System.out.println("-------------------------------------");
+        System.out.println("-------------------------------------");
+
+        ////////////////////////////////////////////////////////////
+        Section s = manager.find(Section.class, 1010); // gets section 1010
+        Course testCourse = new Course("EG1234", "Test", 4.0, 6, List.of());
+        System.out.println(courseDAO.insert(testCourse));
+
+        manager.getTransaction().begin();
+        s.setCourseList(List.of(testCourse)); // puts test course into section 1010
+        manager.getTransaction().commit();
+
+        manager.getTransaction().begin();
+        s.setCourseList(List.of()); // deletes all courses from section 1010
+        manager.getTransaction().commit();
+
+        System.out.println(courseDAO.delete(testCourse));
 
         emf.close();
     }

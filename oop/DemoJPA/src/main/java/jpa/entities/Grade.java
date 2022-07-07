@@ -15,7 +15,7 @@ import lombok.*;
 @ToString
 public class Grade {
     @Id
-    @Column(name = "grade")
+    @Column(name = "grade", columnDefinition = "char(2)")
     private String grade;
     @Column(name = "lower_bound")
     private int lowerBound;

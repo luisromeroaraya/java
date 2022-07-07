@@ -14,7 +14,6 @@ import java.time.LocalDate;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 public class Professor {
     @Id
     @Column(name = "professor_id")
@@ -29,8 +28,24 @@ public class Professor {
     private int officeId;
     @Column(name = "professor_email")
     private String email;
-    @Column(name = "professor_hire_date")
+    @Column(name = "professor_hire_date", columnDefinition = "datetime")
     private LocalDate hireDate;
     @Column(name = "professor_wage")
     private int wage;
+
+    // methods
+
+    @Override
+    public String toString() {
+        return "Professor{" +
+                "professorId=" + professorId +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", sectionId=" + sectionId +
+                ", officeId=" + officeId +
+                ", email='" + email + '\'' +
+                ", hireDate=" + hireDate +
+                ", wage=" + wage +
+                '}';
+    }
 }

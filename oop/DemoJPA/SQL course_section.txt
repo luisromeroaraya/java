@@ -1,0 +1,7 @@
+CREATE TABLE course_section (
+    course_id VARCHAR(8),
+    section_id INT,
+    CONSTRAINT fk_coursesection_course FOREIGN KEY (course_id) REFERENCES course(course_id),
+    CONSTRAINT fk_coursesection_section FOREIGN KEY  (section_id) REFERENCES section(section_id),
+    PRIMARY KEY (course_id, section_id)
+);
