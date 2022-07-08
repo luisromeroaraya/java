@@ -1,0 +1,52 @@
+Global Description
+	A system that allows a student to let and return books in a library.
+
+Primary Actor -> Student
+Secondary Actor -> Librarian
+
+Global Pre-Conditions
+	Books registered in the system
+	Student is already in the system
+	Student is authorised to let a new Book
+
+Global Post-Conditions
+	Book stock is up to date
+	Return dates are registered in the system
+	Student authorizations are up to date
+
+Happy Case
+	The Student asks for / gives a Book to the Librarian
+	The Librarian checks the Book registry
+	(The Librarian gets the Book)
+	The Librarian checks if the Student is authorized
+	The Librarian registers a new Let with the Student id, the Book id, Date of let and Date of return
+	(This also updates the Student and the Book registry)
+	The Librarian gives the Book to the Student
+
+Alternative Case (the Book is not available)
+	The Student asks for / gives a Book to the Librarian
+	The Librarian checks the Book registry
+	The Librarian tells the Student that the Book is not available
+	The Student leaves
+
+Alternative Case (the Student is not authorized)
+	The Student asks for / gives a Book to the Librarian
+	The Librarian checks the Book registry
+	The Librarian checks if the Student is authorized
+	The Librarian tells the Student that he is not authorized
+	The Student leaves
+
+Alternative Case (the Student returns a Book on the right date)
+	The Student gives a Book to the Librairan
+	The Librarian checks the Book registry
+	The Librarian updates the Book registry
+	(This also updates the Student registry)
+	The Student leaves
+
+Alternative Case (the Student returns a Book after the due date)
+	The Student gives a Book to the Librairan
+	The Librarian checks the Book registry
+	The Librarian updates the Book registry
+	(This also updates the Student registry)
+	The Librarian notifies the Student that he is no longer authorized
+	The Student leaves

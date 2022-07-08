@@ -7,23 +7,31 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
+@Table(name = "director")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Director {
     @Id
-    @Column(name ="director_id")
+    // @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name ="director_id", nullable = false)
     private int directorId;
-    @Column(name ="firstname")
+    @Column(name ="firstname", nullable = false)
     private String firstName;
-    @Column(name ="lastname")
+    @Column(name ="lastname", nullable = false)
     private String lastName;
     @Column(name ="salary", columnDefinition = "decimal(8,2)")
     private double salary;
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id")
     private Store store;
+    // constructor
+    public Director(String firstName, String lastName, double salary) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.salary = salary;
+    }
 
     // methods
     @Override
