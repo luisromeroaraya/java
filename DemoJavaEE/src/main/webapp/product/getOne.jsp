@@ -7,7 +7,6 @@
   Time: 13:32
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%!
     ProductService service = ProductService.getInstance(); // this is not a variable but a field. it's instantiated once and not everytime that we reload this page
 %>
@@ -19,9 +18,12 @@
     }
     Product product = service.getOne(Integer.parseInt(id));
 %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
 <html>
 <head>
     <title>Product details</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
     <h1>Product details</h1>
@@ -32,6 +34,14 @@
         <p><span>category:</span> <%= product.getCategory() %></p>
         <p><span>price:</span> $<%= product.getPrice() %></p>
     </div>
-    <a href="getAll.jsp">Go back to Product list</a>
+    <div>
+        <a href="update?id=<%= product.getId() %>">Modify product</a>
+    </div>
+    <div>
+        <a href="delete?id=<%= product.getId() %>">Delete product</a>
+    </div>
+    <div>
+        <a href="../product">Go back to "Product list"</a>
+    </div>
 </body>
 </html>

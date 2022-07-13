@@ -6,24 +6,39 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
 <html>
 <head>
     <title>Add product</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
 </head>
-<body>
-<h1>Add product</h1>
-<form>
-    <label for="id">id:</label><br>
-    <input type="number" id="id" name="id"><br>
-    <label for="name">name:</label><br>
-    <input type="text" id="name" name="name">
-    <label for="brand">brand:</label><br>
-    <input type="text" id="brand" name="brand">
-    <label for="category">category:</label><br>
-    <input type="text" id="category" name="category">
-    <label for="price">price:</label><br>
-    <input type="number" id="price" name="price"><br>
+<h1>Add new product</h1>
+<form action="<%=request.getContextPath()%>/product/add" method="post">
+    <div>
+        <label for="name">name:</label></br>
+        <% String name = request.getParameter("name"); %>
+        <input type="text" id="name" name="name" value="<%= name == null ? "" : name %>">
+    </div>
+    <div>
+        <label for="brand">brand:</label></br>
+        <% String brand = request.getParameter("brand"); %>
+        <input type="text" id="brand" name="brand" value="<%= brand == null ? "" : brand %>">
+    </div>
+    <div>
+        <label for="category">category:</label></br>
+        <% String category = request.getParameter("category"); %>
+        <input type="text" id="category" name="category" value="<%= category == null ? "" : category %>">
+    </div>
+    <div>
+        <label for="price">price:</label></br>
+        <% String price = request.getParameter("price"); %>
+        <input type="number" id="price" name="price" value="<%= price == null ? "" : Double.parseDouble(category) %>">
+    </div>
+    <button type="submit" id="submit">Add</button>
 </form>
-
+</br>
+<div>
+    <a href="../">Go back to "Product list"</a>
+</div>
 </body>
 </html>

@@ -7,7 +7,14 @@ public class Product {
     private String category;
     private double price;
 
-    // constructor
+    // constructors
+    public Product(String name, String brand, String category, double price) {
+        this.id = 0;
+        this.name = name;
+        this.brand = brand;
+        this.category = category;
+        this.price = price;
+    }
     public Product(int id, String name, String brand, String category, double price) {
         this.id = id;
         this.name = name;
