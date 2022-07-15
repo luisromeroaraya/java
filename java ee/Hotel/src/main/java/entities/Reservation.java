@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Table(name="reservation")
@@ -19,11 +19,11 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="reservation_id")
     private int reservationId;
-    @Column(name="date_start")
-    private LocalDateTime dateStart;
-    @Column(name="date_end")
-    private LocalDateTime dateEnd;
-    @Column(name="price")
+    @Column(name="date_start", columnDefinition="date")
+    private LocalDate dateStart;
+    @Column(name="date_end", columnDefinition="date")
+    private LocalDate dateEnd;
+    @Column(name="price", columnDefinition="double")
     private double price;
     @Column(name="capacity")
     private int capacity;
@@ -33,4 +33,15 @@ public class Reservation {
     @ManyToOne()
     @JoinColumn(name="room_id")
     private Room room;
+
+    // constructor
+
+    public Reservation(LocalDate dateStart, LocalDate dateEnd, double price, int capacity, Client client, Room room) {
+        this.dateStart = dateStart;
+        this.dateEnd = dateEnd;
+        this.price = price;
+        this.capacity = capacity;
+        this.client = client;
+        this.room = room;
+    }
 }

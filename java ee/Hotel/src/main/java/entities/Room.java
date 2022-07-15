@@ -19,7 +19,7 @@ public class Room {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="room_id")
     private int roomId;
-    @Column(name="description")
+    @Column(name="description", columnDefinition="text")
     private String description;
     @Column(name="floor")
     private int floor;
@@ -27,10 +27,17 @@ public class Room {
     private int capacity;
     @Column(name="beds")
     private int beds;
-    @Column(name="available")
-    private boolean available;
-    @Column(name="price")
+    @Column(name="price", columnDefinition="double")
     private double price;
-    @OneToMany(mappedBy="reservation")
+    @OneToMany(mappedBy="room")
     private List<Reservation> reservations;
+
+    // constructor
+    public Room(String description, int floor, int capacity, int beds, double price) {
+        this.description = description;
+        this.floor = floor;
+        this.capacity = capacity;
+        this.beds = beds;
+        this.price = price;
+    }
 }

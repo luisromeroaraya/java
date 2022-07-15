@@ -27,9 +27,32 @@ public class Client {
     @Column(name="mail")
     private String mail;
     @Column(name="telephone")
-    private int telephone;
+    private String telephone;
     @Column(name="birth_date")
     private LocalDate birthDate;
-    @OneToMany(mappedBy="reservation")
+    @OneToMany(mappedBy="client")
     private List<Reservation> reservations;
+
+    // constructor
+    public Client(String firstName, String lastName, String mail, String telephone, LocalDate birthDate) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.mail = mail;
+        this.telephone = telephone;
+        this.birthDate = birthDate;
+    }
+
+    // methods
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "clientId=" + clientId +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", mail='" + mail + '\'' +
+                ", telephone=" + telephone +
+                ", birthDate=" + birthDate +
+                '}';
+    }
 }
