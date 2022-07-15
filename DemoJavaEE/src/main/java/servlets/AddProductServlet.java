@@ -14,7 +14,7 @@ public class AddProductServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        response.sendRedirect(request.getContextPath() + "/product/addOne.jsp"); // redirects to the new product page
     }
 
     @Override
