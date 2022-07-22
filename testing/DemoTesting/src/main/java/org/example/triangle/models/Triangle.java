@@ -1,4 +1,4 @@
-package org.example.tu;
+package org.example.triangle.models;
 
 public class Triangle {
     private int a;
@@ -31,19 +31,19 @@ public class Triangle {
 
     // setters
     public void setA(int a) {
-        if (a < 0) {
+        if (a <= 0) {
             throw new IllegalArgumentException("Value must be greater than 0.");
         }
         this.a = a;
     }
     public void setB(int b) {
-        if (b < 0) {
+        if (b <= 0) {
             throw new IllegalArgumentException("Value must be greater than 0.");
         }
         this.b = b;
     }
     public void setC(int c) {
-        if (a < 0) {
+        if (c <= 0) {
             throw new IllegalArgumentException("Value must be greater than 0.");
         }
         this.c = c;
