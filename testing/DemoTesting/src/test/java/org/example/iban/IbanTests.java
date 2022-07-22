@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class IbanTests {
 
     @Nested
-    class ValidArguments {
+    class ValidBbanArguments {
         @Test
         @DisplayName("Valid arguments, valid BBAN")
         public void validBban() {
@@ -23,7 +23,7 @@ public class IbanTests {
     }
 
     @Nested
-    class InvalidArguments {
+    class InvalidBbanArguments {
         @Test
         @DisplayName("Invalid characters caused by a letter")
         void invalidCharactersCausedByLetter() {
@@ -33,7 +33,7 @@ public class IbanTests {
         @Test
         @DisplayName("Invalid characters caused by a space")
         void invalidCharactersCausedBySpace() {
-            assertEquals("Invalid characters.", assertThrows(IllegalArgumentException.class, ()->{Iban iban = new Iban("377080 41235");}).getMessage());
+            assertEquals("Invalid characters.", assertThrows(IllegalArgumentException.class, ()->{Iban iban = new Iban("377080 141235");}).getMessage());
         }
 
         @Test
@@ -62,6 +62,45 @@ public class IbanTests {
     }
 
     @Nested
+    class InvalidIbanArguments {
+        @Test
+        @DisplayName("Invalid characters caused by a letter")
+        void invalidCharactersCausedByLetter() {
+            assertEquals("Invalid characters.", assertThrows(IllegalArgumentException.class, ()->{Main.verifyIban("BE5737708014123A");}).getMessage());
+        }
+
+        @Test
+        @DisplayName("Invalid characters caused by a space")
+        void invalidCharactersCausedBySpace() {
+            assertEquals("Invalid characters.", assertThrows(IllegalArgumentException.class, ()->{Main.verifyIban("BE57 77080141235");}).getMessage());
+        }
+
+        @Test
+        @DisplayName("Invalid characters caused by +")
+        void invalidCharactersCausedByOperation() {
+            assertEquals("Invalid characters.", assertThrows(IllegalArgumentException.class, ()->{Main.verifyIban("BE5737708+141235");}).getMessage());
+        }
+
+        @Test
+        @DisplayName("IBAN too short")
+        void invalidBbanTooShort() {
+            assertEquals("Invalid argument. Iban too short.", assertThrows(IllegalArgumentException.class, ()->{Main.verifyIban("BE5737708014123");}).getMessage());
+        }
+
+        @Test
+        @DisplayName("IBAN too long")
+        void invalidBbanTooLong() {
+            assertEquals("Invalid argument. Iban too long.", assertThrows(IllegalArgumentException.class, ()->{Main.verifyIban("BE573770801412356");}).getMessage());
+        }
+
+        @Test
+        @DisplayName("Wrong country code")
+        void invalidBbanWrongCountryCode() {
+            assertEquals("Invalid argument. Wrong country code.", assertThrows(IllegalArgumentException.class, ()->{Main.verifyIban("CL57377080141235");}).getMessage());
+        }
+    }
+
+    @Nested
     class Methods {
         @Test
         @DisplayName("getIban() method success")
@@ -76,9 +115,21 @@ public class IbanTests {
         }
 
         @Test
+        @DisplayName("calculateControl() method fail")
+        void calculateControlFail() {
+            assertNotEquals("58", Iban.calculateControl("377080141235"));
+        }
+
+        @Test
         @DisplayName("verifyIban() method success")
         void verifyIbanSuccess() {
             assertEquals(true, Main.verifyIban("BE57377080141235"));
+        }
+
+        @Test
+        @DisplayName("verifyIban() method fail")
+        void verifyIbanFail() {
+            assertEquals(false, Main.verifyIban("BE57377080141234"));
         }
     }
 }
