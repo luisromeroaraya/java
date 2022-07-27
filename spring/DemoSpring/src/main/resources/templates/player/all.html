@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Players</title>
+</head>
+<body>
+<h1>Players</h1>
+<table>
+    <thead>
+        <th>Name</th>
+        <th>Number</th>
+        <th>Position</th>
+        <th>Age</th>
+        <th>Salary</th>
+    </thead>
+    <tbody>
+        <tr th:each="player : ${players}">
+            <td><a th:href="@{/player/one/{id}(id=${player.getId()})}" th:text="${player.getName()}"></a></td>
+            <td><a th:text="${player.getNumber()}"></a></td>
+            <td><a th:text="${player.getPosition()}"></a></td>
+            <td><a th:text="${player.getAge()}"></a></td>
+            <td><a th:text="${player.getSalary()}"></a></td>
+        </tr>
+    </tbody>
+</table>
+</body>
+</html>
