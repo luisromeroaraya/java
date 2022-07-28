@@ -1,6 +1,6 @@
 package com.example.demospring.utils;
 
-import com.example.demospring.entities.Player;
+import com.example.demospring.models.entities.Player;
 import com.example.demospring.services.PlayerService;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Service;

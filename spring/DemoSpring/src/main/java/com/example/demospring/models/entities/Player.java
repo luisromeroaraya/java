@@ -1,6 +1,6 @@
 // Entity is how the Player is stored in the database
 
-package com.example.demospring.entities;
+package com.example.demospring.models.entities;
 
 import com.example.demospring.utils.Position;
 import lombok.*;

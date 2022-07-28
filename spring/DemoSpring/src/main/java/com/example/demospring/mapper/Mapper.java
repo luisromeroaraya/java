@@ -1,7 +1,7 @@
 package com.example.demospring.mapper;
 
-import com.example.demospring.dto.PlayerDTO;
-import com.example.demospring.entities.Player;
+import com.example.demospring.models.dto.PlayerDTO;
+import com.example.demospring.models.entities.Player;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.Period;

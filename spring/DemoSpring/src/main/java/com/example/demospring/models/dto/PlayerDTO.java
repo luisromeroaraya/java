@@ -1,6 +1,6 @@
 // DTO is a new Player object that we return to the frontend with more or less attributes than the ones stored in the database
 
-package com.example.demospring.dto;
+package com.example.demospring.models.dto;
 
 import com.example.demospring.utils.Position;
 import lombok.*;

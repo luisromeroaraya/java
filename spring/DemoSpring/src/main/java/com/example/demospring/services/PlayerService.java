@@ -1,12 +1,11 @@
 package com.example.demospring.services;
 
-import com.example.demospring.dto.PlayerDTO;
-import com.example.demospring.entities.Player;
+import com.example.demospring.models.dto.PlayerDTO;
+import com.example.demospring.models.entities.Player;
 import com.example.demospring.mapper.Mapper;
 import com.example.demospring.repositories.PlayerRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
