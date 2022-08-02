@@ -1,14 +1,11 @@
-package com.example.demorest.model.dto;
+package com.example.demorest.model.forms;
 
-import lombok.Builder;
 import lombok.Data;
 
 import java.util.Set;
 
 @Data
-@Builder
-public class TutorDTO {
-    private long id;
+public class TutorUpdateForm {
     private String firstName;
     private String lastName;
     private String telephone;

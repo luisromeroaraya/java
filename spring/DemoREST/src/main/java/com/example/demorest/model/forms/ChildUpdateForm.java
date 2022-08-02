@@ -1,7 +1,5 @@
-package com.example.demorest.model.dto;
+package com.example.demorest.model.forms;
 
-import com.example.demorest.model.entities.Child;
-import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -9,13 +7,11 @@ import java.util.List;
 import java.util.Set;
 
 @Data
-@Builder
-public class ChildDTO {
-    private long id;
+public class ChildUpdateForm {
     private String firstName;
     private String lastName;
     private LocalDate birthDate;
-    private String toilet;
+    private boolean toilet;
     private List<String> allergies;
     private Set<Long> tutorsId;
 }

@@ -2,8 +2,8 @@ package com.example.demorest.controller;
 
 import com.example.demorest.mapper.ChildMapper;
 import com.example.demorest.model.dto.ChildDTO;
-import com.example.demorest.model.entities.Child;
 import com.example.demorest.model.forms.ChildAddForm;
+import com.example.demorest.model.forms.ChildUpdateForm;
 import com.example.demorest.service.ChildService;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,14 +33,18 @@ public class ChildController {
                 .toList();
     }
 
-    @PutMapping("/add")
+    @PostMapping ("/add")
     public ChildDTO save(@RequestBody ChildAddForm form) {
-        return mapper.toDTO(service.save(mapper.toEntity(form)));
+        return mapper.toDTO(service.create(mapper.toEntity(form)));
+    }
+
+    @PutMapping("/update/{id}")
+    public ChildDTO update(@PathVariable Long id, @RequestBody ChildUpdateForm form) {
+        return mapper.toDTO(service.update(id, mapper.toEntity(form)));
     }
 
     @DeleteMapping("/delete/{id}")
     public ChildDTO delete(@PathVariable Long id) {
         return mapper.toDTO(service.delete(id));
     }
-
 }

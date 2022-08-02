@@ -1,0 +1,22 @@
+Dependances
+
+L'essentiel:
+
+REST / MVC
+- Web
+
+DATABASE
+- Data JPA
+- driver
+(sauf h2)
+
+SECURITY
+- spring security
+
+l'optionel:
+
+UTILS
+- validation
+- lombok
+- devtools
+- configuration processor

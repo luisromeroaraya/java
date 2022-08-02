@@ -17,7 +17,7 @@ import java.util.Set;
 public class Child extends Person {
     private LocalDate birthDate;
     private boolean toilet;
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private List<String> allergies;
     @ManyToMany
     @JoinTable(name="tutoring", joinColumns = @JoinColumn(name = "child_id"), inverseJoinColumns = @JoinColumn(name = "tutor_id"))

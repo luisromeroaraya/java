@@ -11,11 +11,13 @@ public interface CrudService<T, TID> {
 //    boolean delete(TID id);
 //    TDTO insert(T entity);
 
-    // CREATE / UPDATE
-    T save(T T);
     // READ
     T getOne(TID id);
     List<T> getAll();
+    // CREATE
+    T create(T toInsert);
+    // UPDATE
+    T update(TID id, T toUpdate);
     // DELETE
     T delete(TID id);
 }
