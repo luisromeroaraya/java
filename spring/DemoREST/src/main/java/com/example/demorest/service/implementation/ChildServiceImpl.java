@@ -6,7 +6,10 @@ import com.example.demorest.service.ChildService;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class ChildServiceImpl implements ChildService {
@@ -51,5 +54,10 @@ public class ChildServiceImpl implements ChildService {
         Child child = getOne(id);
         repository.delete(child);
         return child;
+    }
+
+    public Set<Child> getAllById(Set<Long> ids){
+        Set<Child> children = new HashSet<>(repository.findAllById(ids));
+        return children;
     }
 }

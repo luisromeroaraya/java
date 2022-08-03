@@ -35,4 +35,12 @@ public class Child extends Person {
         this.toilet = toilet;
         this.allergies = allergies;
     }
+
+    public Child(String firstName, String lastName, LocalDate birthDate, boolean toilet, List<String> allergies, Set<Tutor> tutors) {
+        super(firstName, lastName);
+        this.birthDate = birthDate;
+        this.toilet = toilet;
+        this.allergies = allergies;
+        this.tutors = tutors;
+    }
 }

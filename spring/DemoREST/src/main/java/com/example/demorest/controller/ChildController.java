@@ -2,49 +2,78 @@ package com.example.demorest.controller;
 
 import com.example.demorest.mapper.ChildMapper;
 import com.example.demorest.model.dto.ChildDTO;
+import com.example.demorest.model.entities.Child;
+import com.example.demorest.model.entities.Tutor;
 import com.example.demorest.model.forms.ChildAddForm;
 import com.example.demorest.model.forms.ChildUpdateForm;
 import com.example.demorest.service.ChildService;
+import com.example.demorest.service.TutorService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/children")
 public class ChildController {
-    private final ChildService service;
-    private final ChildMapper mapper;
+    private final ChildService childService;
+    private final TutorService tutorService;
+    private final ChildMapper childMapper;
 
-    public ChildController(ChildService service, ChildMapper mapper) {
-        this.service = service;
-        this.mapper = mapper;
+    public ChildController(ChildService childService, TutorService tutorService, ChildMapper childMapper) {
+        this.childService = childService;
+        this.tutorService = tutorService;
+        this.childMapper = childMapper;
     }
 
     @GetMapping("/{id:[0-9]+}")
     public ChildDTO getOne(@PathVariable Long id) {
-        return mapper.toDTO(service.getOne(id));
+        // we get the entity from the DB
+        Child child = childService.getOne(id);
+        // we convert it into a DTO
+        ChildDTO childDTO = childMapper.toDTO(child);
+        // we return our new childDTO with the tutorsId that we injected
+        return childDTO;
     }
 
     @GetMapping("")
     public List<ChildDTO> getAll() {
-        return service.getAll()
-                .stream()
-                .map(mapper::toDTO)
-                .toList();
+        // we get the list of entities from the DB
+        List<Child> children = childService.getAll();
+        // we create an empty list of DTOs
+        List<ChildDTO> childrenDTO = new ArrayList<>();
+        // if the children list is not empty we put all the childrenDTOs into the DTO list
+        if (children.size() > 0) {
+            childrenDTO = childService.getAll().stream()
+                    .map(childMapper::toDTO)
+                    .toList();
+        }
+        // we return the DTO list
+        return childrenDTO;
     }
 
     @PostMapping ("/add")
     public ChildDTO save(@RequestBody ChildAddForm form) {
-        return mapper.toDTO(service.create(mapper.toEntity(form)));
+        Child child = childMapper.toEntity(form);
+        Set<Tutor> tutors = tutorService.getAllById(form.getTutorsId());
+        child.setTutors(tutors);
+        ChildDTO childDTO = childMapper.toDTO(childService.create(child));
+        return childDTO;
     }
 
     @PutMapping("/update/{id}")
     public ChildDTO update(@PathVariable Long id, @RequestBody ChildUpdateForm form) {
-        return mapper.toDTO(service.update(id, mapper.toEntity(form)));
+        Child child = childMapper.toEntity(form);
+        Set<Tutor> tutors = tutorService.getAllById(form.getTutorsId());
+        child.setTutors(tutors);
+        ChildDTO childDTO = childMapper.toDTO(childService.update(id, child));
+        return childDTO;
     }
 
     @DeleteMapping("/delete/{id}")
     public ChildDTO delete(@PathVariable Long id) {
-        return mapper.toDTO(service.delete(id));
+        ChildDTO childDTO = childMapper.toDTO(childService.delete(id));
+        return childDTO;
     }
 }

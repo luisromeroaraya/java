@@ -5,7 +5,6 @@ import com.example.demorest.model.entities.Child;
 import com.example.demorest.model.entities.Tutor;
 import com.example.demorest.model.forms.TutorAddForm;
 import com.example.demorest.model.forms.TutorUpdateForm;
-import com.example.demorest.service.ChildService;
 import org.springframework.stereotype.Component;
 
 import java.util.stream.Collectors;
@@ -44,9 +43,6 @@ public class TutorMapper {
         tutor.setLastName(form.getLastName());
         tutor.setTelephone(form.getTelephone());
         tutor.setAddress(form.getAddress());
-//        tutor.setChildren(form.getChildrenId().stream()
-//                .map(ChildService::getOne)
-//                .collect(Collectors.toSet()));
         return tutor;
     }
 }

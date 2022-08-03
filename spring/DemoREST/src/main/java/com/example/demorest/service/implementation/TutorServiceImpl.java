@@ -6,7 +6,9 @@ import com.example.demorest.service.TutorService;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class TutorServiceImpl implements TutorService {
@@ -51,5 +53,10 @@ public class TutorServiceImpl implements TutorService {
         Tutor tutor = getOne(id);
         repository.delete(tutor);
         return tutor;
+    }
+
+    public Set<Tutor> getAllById(Set<Long> ids){
+        Set<Tutor> tutors = new HashSet<>(repository.findAllById(ids));
+        return tutors;
     }
 }
