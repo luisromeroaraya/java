@@ -62,7 +62,7 @@ public class ChildController {
         return childDTO;
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/update/{id}") // PUT updates every attribute, PATCH updates ony the specified attributes
     public ChildDTO update(@PathVariable Long id, @RequestBody ChildUpdateForm form) {
         Child child = childMapper.toEntity(form);
         Set<Tutor> tutors = tutorService.getAllById(form.getTutorsId());
