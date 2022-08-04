@@ -1,8 +1,6 @@
 package com.example.demorest.controller;
 
-import com.example.demorest.exceptions.ElementNotFoundException;
 import com.example.demorest.mapper.TutorMapper;
-import com.example.demorest.model.dto.ErrorDTO;
 import com.example.demorest.model.dto.TutorDTO;
 import com.example.demorest.model.entities.Child;
 import com.example.demorest.model.entities.Tutor;
@@ -10,14 +8,8 @@ import com.example.demorest.model.forms.TutorAddForm;
 import com.example.demorest.model.forms.TutorUpdateForm;
 import com.example.demorest.service.ChildService;
 import com.example.demorest.service.TutorService;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.EntityNotFoundException;
-import javax.servlet.http.HttpServletRequest;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -64,8 +56,8 @@ public class TutorController {
     @PostMapping ("/add")
     public TutorDTO save(@RequestBody TutorAddForm form) {
         Tutor tutor = tutorMapper.toEntity(form);
-        // Set<Child> children = childService.getAllById(form.getChildrenId()); // Tutors can't declare their children because they are the weak Entity
-        // tutor.setChildren(children);
+        Set<Child> children = childService.getAllById(form.getChildrenId()); // Tutors can't declare their children because they are the weak Entity
+        tutor.setChildren(children);
         TutorDTO tutorDTO = tutorMapper.toDTO(tutorService.create(tutor));
         return tutorDTO;
     }
@@ -73,15 +65,14 @@ public class TutorController {
     @PutMapping("/update/{id}") // PUT updates every attribute, PATCH updates ony the specified attributes
     public TutorDTO update(@PathVariable Long id, @RequestBody TutorUpdateForm form) {
         Tutor tutor = tutorMapper.toEntity(form);
-        // Set<Child> children = childService.getAllById(form.getChildrenId()); // Tutors can't update their children because they are the weak Entity
-        // tutor.setChildren(children);
+        Set<Child> children = childService.getAllById(form.getChildrenId()); // Tutors can't update their children because they are the weak Entity
+        tutor.setChildren(children);
         TutorDTO tutorDTO = tutorMapper.toDTO(tutorService.update(id, tutor));
         return tutorDTO;
     }
 
     @DeleteMapping("/delete/{id}")
-    public TutorDTO delete(@PathVariable Long id) {
-        TutorDTO tutorDTO = tutorMapper.toDTO(tutorService.delete(id));
-        return tutorDTO;
+    public void delete(@PathVariable Long id) {
+        tutorService.delete(id);
     }
 }

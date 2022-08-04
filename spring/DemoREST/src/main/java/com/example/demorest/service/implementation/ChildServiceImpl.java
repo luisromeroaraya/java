@@ -6,7 +6,6 @@ import com.example.demorest.model.entities.Tutor;
 import com.example.demorest.repositories.ChildRepository;
 import com.example.demorest.repositories.TutorRepository;
 import com.example.demorest.service.ChildService;
-import com.example.demorest.service.TutorService;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -55,14 +54,13 @@ public class ChildServiceImpl implements ChildService {
     }
 
     @Override
-    public Child delete(Long id) {
+    public void delete(Long id) {
         if( id == null )
             throw new IllegalArgumentException("Id can't be null");
         if( !childRepository.existsById(id) )
             throw new ElementNotFoundException(Child.class, id);
         Child child = getOne(id);
         childRepository.delete(child);
-        return child;
     }
 
     public void removeTutor(Long childId, Long tutorId) {
@@ -81,7 +79,20 @@ public class ChildServiceImpl implements ChildService {
         update(childId, child);
     }
 
-    public Set<Child> getAllById(Set<Long> ids){
+    public Child updateTutors(Long id, Set<Tutor> tutors) {
+        Child child = getOne(id);
+        if(id == null)
+            throw new IllegalArgumentException("Id can't be null.");
+        if(child == null)
+            throw new IllegalArgumentException("Child can't be null.");
+        if(!childRepository.existsById(id))
+            throw new ElementNotFoundException(Child.class, id);
+        child.setId(id);
+        child.setTutors(tutors);
+        return childRepository.save(child);
+    }
+
+    public Set<Child> getAllById(Set<Long> ids) {
         Set<Child> children = new HashSet<>(childRepository.findAllById(ids));
         return children;
     }

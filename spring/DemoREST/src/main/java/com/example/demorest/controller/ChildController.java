@@ -1,22 +1,15 @@
 package com.example.demorest.controller;
 
-import com.example.demorest.exceptions.ElementNotFoundException;
 import com.example.demorest.mapper.ChildMapper;
 import com.example.demorest.model.dto.ChildDTO;
-import com.example.demorest.model.dto.ErrorDTO;
 import com.example.demorest.model.entities.Child;
 import com.example.demorest.model.entities.Tutor;
 import com.example.demorest.model.forms.ChildAddForm;
 import com.example.demorest.model.forms.ChildUpdateForm;
 import com.example.demorest.service.ChildService;
 import com.example.demorest.service.TutorService;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -79,8 +72,24 @@ public class ChildController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ChildDTO delete(@PathVariable Long id) {
-        ChildDTO childDTO = childMapper.toDTO(childService.delete(id));
+    public void delete(@PathVariable Long id) {
+        childService.delete(id);
+    }
+
+//    @PatchMapping("/updateTutors/{id}")
+//    public ChildDTO updateTutors(@PathVariable Long id, @RequestBody ChildUpdateForm form) {
+//        Child child = childService.getOne(id);
+//        Set<Tutor> tutors = tutorService.getAllById(form.getTutorsId());
+//        child.setTutors(tutors);
+//        ChildDTO childDTO = childMapper.toDTO(childService.update(id, child));
+//        return childDTO;
+//    }
+
+    @PatchMapping("/updateTutors/{id}")
+    public ChildDTO updateTutors(@PathVariable Long id, @RequestBody ChildUpdateForm form) {
+        Set<Tutor> tutors = tutorService.getAllById(form.getTutorsId());
+        ChildDTO childDTO = childMapper.toDTO(childService.updateTutors(id, tutors));
         return childDTO;
     }
+
 }

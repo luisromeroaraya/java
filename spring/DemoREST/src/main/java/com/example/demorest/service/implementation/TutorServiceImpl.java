@@ -4,7 +4,6 @@ import com.example.demorest.exceptions.ElementNotFoundException;
 import com.example.demorest.exceptions.ElementsNotFoundException;
 import com.example.demorest.model.entities.Child;
 import com.example.demorest.model.entities.Tutor;
-import com.example.demorest.repositories.ChildRepository;
 import com.example.demorest.repositories.TutorRepository;
 import com.example.demorest.service.ChildService;
 import com.example.demorest.service.TutorService;
@@ -18,12 +17,10 @@ import java.util.stream.Collectors;
 @Service
 public class TutorServiceImpl implements TutorService {
     private final TutorRepository tutorRepository;
-    private final ChildRepository childRepository;
     private final ChildService childService;
 
-    public TutorServiceImpl(TutorRepository tutorRepository, ChildRepository childRepository, ChildService childService) {
+    public TutorServiceImpl(TutorRepository tutorRepository, ChildService childService) {
         this.tutorRepository = tutorRepository;
-        this.childRepository = childRepository;
         this.childService = childService;
     }
 
@@ -59,20 +56,16 @@ public class TutorServiceImpl implements TutorService {
     }
 
     @Override
-    public Tutor delete(Long tutorId) {
+    public void delete(Long tutorId) {
         if( tutorId == null )
             throw new IllegalArgumentException("Id can't be null.");
-        if( !tutorRepository.existsById(tutorId) )
+        if(!tutorRepository.existsById(tutorId) )
             throw new ElementNotFoundException(Tutor.class, tutorId);
         Tutor tutor = getOne(tutorId);
         Set<Child> children = tutor.getChildren();
-        if(children.size() > 0) {
-            for (Child child : children) {
-                childService.removeTutor(child.getId(), tutorId);
-            }
-        }
+        if(children.size() > 0)
+            children.forEach(child -> childService.removeTutor(child.getId(), tutorId));
         tutorRepository.delete(tutor);
-        return tutor;
     }
 
     public Set<Tutor> getAllById(Set<Long> ids){
