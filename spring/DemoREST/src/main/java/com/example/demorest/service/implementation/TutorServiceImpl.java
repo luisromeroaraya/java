@@ -76,13 +76,17 @@ public class TutorServiceImpl implements TutorService {
     }
 
     public Set<Tutor> getAllById(Set<Long> ids){
+        // I try to find all the tutors with the ids given
         Set<Tutor> tutors = new HashSet<>(tutorRepository.findAllById(ids));
+        // I create a Set<Long> of all the ids I actually found
         Set<Long> found = tutors.stream()
                 .map(Tutor::getId)
                 .collect(Collectors.toSet());
+        // I filter the ids that were not found (ids that don't exist in the db)
         Set<Long> notFound = ids.stream()
                 .filter(id -> !found.contains(id))
                 .collect(Collectors.toSet());
+        // if I have ids that were not found I send an exception with the list of them
         if(notFound.size() > 0)
             throw new ElementsNotFoundException(Tutor.class, notFound);
         return tutors;
