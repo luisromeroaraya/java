@@ -14,7 +14,7 @@ import java.util.Map;
 public class ErrorDTO {
     private LocalDateTime receivedAt;
     private HttpMethod method;
-    private HttpStatus status;
+    private int status;
     private String path;
     private String message;
     private Map<String, Object> infos = new HashMap<>();

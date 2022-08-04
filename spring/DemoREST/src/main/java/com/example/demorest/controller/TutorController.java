@@ -1,5 +1,6 @@
 package com.example.demorest.controller;
 
+import com.example.demorest.exceptions.ElementNotFoundException;
 import com.example.demorest.mapper.TutorMapper;
 import com.example.demorest.model.dto.ErrorDTO;
 import com.example.demorest.model.dto.TutorDTO;
@@ -82,23 +83,5 @@ public class TutorController {
     public TutorDTO delete(@PathVariable Long id) {
         TutorDTO tutorDTO = tutorMapper.toDTO(tutorService.delete(id));
         return tutorDTO;
-    }
-
-    @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<?> handleException(EntityNotFoundException exception, HttpServletRequest request) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(
-                        ErrorDTO.builder()
-                                .message(exception.getMessage())
-                                .receivedAt(LocalDateTime.now())
-                                .status(HttpStatus.NOT_FOUND)
-                                .method(HttpMethod.resolve(request.getMethod()))
-                                .path(request.getRequestURL().toString())
-                                .build()
-                                .addInfo("info", "info")
-                                .addInfo("info", "info")
-                                .addInfo("info", "info")
-                                .addInfo("info", "info")
-                );
     }
 }
