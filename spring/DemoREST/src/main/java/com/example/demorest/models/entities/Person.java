@@ -1,4 +1,4 @@
-package com.example.demorest.model.entities;
+package com.example.demorest.models.entities;
 
 import lombok.*;
 

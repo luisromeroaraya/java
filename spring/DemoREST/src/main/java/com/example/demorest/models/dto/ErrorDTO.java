@@ -1,9 +1,8 @@
-package com.example.demorest.model.dto;
+package com.example.demorest.models.dto;
 
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;

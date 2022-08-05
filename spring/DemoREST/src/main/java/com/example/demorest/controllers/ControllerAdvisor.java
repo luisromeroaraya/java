@@ -1,8 +1,8 @@
-package com.example.demorest.controller;
+package com.example.demorest.controllers;
 
 import com.example.demorest.exceptions.ElementNotFoundException;
 import com.example.demorest.exceptions.ElementsNotFoundException;
-import com.example.demorest.model.dto.ErrorDTO;
+import com.example.demorest.models.dto.ErrorDTO;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

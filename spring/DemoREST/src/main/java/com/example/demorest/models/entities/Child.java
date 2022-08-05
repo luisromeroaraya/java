@@ -1,4 +1,4 @@
-package com.example.demorest.model.entities;
+package com.example.demorest.models.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -21,7 +22,7 @@ public class Child extends Person {
     private List<String> allergies;
     @ManyToMany
     @JoinTable(name="tutoring", joinColumns = @JoinColumn(name = "child_id"), inverseJoinColumns = @JoinColumn(name = "tutor_id"))
-    private Set<Tutor> tutors;
+    private Set<Tutor> tutors = new HashSet<>();
 
     public Child(String firstName, String lastName, LocalDate birthDate, boolean toilet) {
         super(firstName, lastName);

@@ -1,17 +1,8 @@
-package com.example.demorest.controller;
+package com.example.demorest.controllers;
 
-import com.example.demorest.model.entities.Child;
-import com.example.demorest.model.entities.Person;
-import org.springframework.http.HttpHeaders;
+import com.example.demorest.models.entities.Person;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Map;
 
 // @RestController
 public class DemoController {

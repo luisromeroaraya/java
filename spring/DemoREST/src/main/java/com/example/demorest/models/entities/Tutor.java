@@ -1,4 +1,4 @@
-package com.example.demorest.model.entities;
+package com.example.demorest.models.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -18,7 +19,7 @@ public class Tutor extends Person {
     @Column(nullable = false)
     private String address;
     @ManyToMany(mappedBy = "tutors")
-    private Set<Child> children;
+    private Set<Child> children = new HashSet<>();
 
     public Tutor(String firstName, String lastName, String telephone, String address) {
         super(firstName, lastName);

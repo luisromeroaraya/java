@@ -1,6 +1,6 @@
 package com.example.demorest.repositories;
 
-import com.example.demorest.model.entities.Tutor;
+import com.example.demorest.models.entities.Tutor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

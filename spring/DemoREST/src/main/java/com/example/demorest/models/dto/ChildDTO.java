@@ -1,4 +1,4 @@
-package com.example.demorest.model.dto;
+package com.example.demorest.models.dto;
 
 import lombok.Builder;
 import lombok.Data;

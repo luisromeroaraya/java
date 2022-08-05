@@ -1,10 +1,10 @@
 package com.example.demorest.mapper;
 
-import com.example.demorest.model.dto.TutorDTO;
-import com.example.demorest.model.entities.Child;
-import com.example.demorest.model.entities.Tutor;
-import com.example.demorest.model.forms.TutorAddForm;
-import com.example.demorest.model.forms.TutorUpdateForm;
+import com.example.demorest.models.dto.TutorDTO;
+import com.example.demorest.models.entities.Child;
+import com.example.demorest.models.entities.Tutor;
+import com.example.demorest.models.forms.TutorAddForm;
+import com.example.demorest.models.forms.TutorUpdateForm;
 import org.springframework.stereotype.Component;
 
 import java.util.stream.Collectors;
