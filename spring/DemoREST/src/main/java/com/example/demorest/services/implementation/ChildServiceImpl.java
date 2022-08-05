@@ -1,6 +1,7 @@
 package com.example.demorest.services.implementation;
 
 import com.example.demorest.exceptions.ElementNotFoundException;
+import com.example.demorest.exceptions.ElementsNotFoundException;
 import com.example.demorest.mapper.ChildMapper;
 import com.example.demorest.models.dto.ChildDTO;
 import com.example.demorest.models.entities.Child;
@@ -48,7 +49,19 @@ public class ChildServiceImpl implements ChildService {
         if (childAddForm == null)
             throw new IllegalArgumentException("Child can't be null.");
         Child child = childMapper.toEntity(childAddForm);
-        Set<Tutor> tutors = new HashSet<>(tutorRepository.findAllById(childAddForm.getTutorsId()));
+
+        Set<Long> tutorsId = childAddForm.getTutorsId();
+        Set<Tutor> tutors = new HashSet<>(tutorRepository.findAllById(tutorsId));
+        if(tutors.size() < tutorsId.size() ){
+            Set<Long> found = tutors.stream()
+                    .map(Tutor::getId)
+                    .collect(Collectors.toSet());
+            Set<Long> notFound = tutorsId.stream()
+                    .filter( tutorId -> !found.contains(tutorId) )
+                    .collect(Collectors.toSet());
+            throw new ElementsNotFoundException(Tutor.class, notFound);
+        }
+
         child.setTutors(tutors);
         child = childRepository.save(child);
         return childMapper.toDTO(child);
@@ -64,7 +77,19 @@ public class ChildServiceImpl implements ChildService {
             throw new ElementNotFoundException(Child.class, id);
         Child child = childMapper.toEntity(childUpdateForm);
         child.setId(id);
-        Set<Tutor> tutors = new HashSet<>(tutorRepository.findAllById(childUpdateForm.getTutorsId()));
+
+        Set<Long> tutorsId = childUpdateForm.getTutorsId();
+        Set<Tutor> tutors = new HashSet<>(tutorRepository.findAllById(tutorsId));
+        if(tutors.size() < tutorsId.size() ){
+            Set<Long> found = tutors.stream()
+                    .map(Tutor::getId)
+                    .collect(Collectors.toSet());
+            Set<Long> notFound = tutorsId.stream()
+                    .filter( tutorId -> !found.contains(tutorId) )
+                    .collect(Collectors.toSet());
+            throw new ElementsNotFoundException(Tutor.class, notFound);
+        }
+
         child.setTutors(tutors);
         child = childRepository.save(child);
         return childMapper.toDTO(child);
@@ -99,6 +124,17 @@ public class ChildServiceImpl implements ChildService {
         Child child = childRepository.findById(id)
                 .orElseThrow(() -> new ElementNotFoundException(Child.class, id));
         Set<Tutor> tutors = new HashSet<>(tutorRepository.findAllById(tutorsId));
+
+        if(tutors.size() < tutorsId.size() ){
+            Set<Long> found = tutors.stream()
+                    .map(Tutor::getId)
+                    .collect(Collectors.toSet());
+            Set<Long> notFound = tutorsId.stream()
+                    .filter( tutorId -> !found.contains(tutorId) )
+                    .collect(Collectors.toSet());
+            throw new ElementsNotFoundException(Tutor.class, notFound);
+        }
+
         child.setTutors(tutors);
         child = childRepository.save(child);
         return childMapper.toDTO(child);

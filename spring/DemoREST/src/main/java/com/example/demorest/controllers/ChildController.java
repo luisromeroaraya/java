@@ -9,6 +9,7 @@ import com.example.demorest.services.ChildService;
 import com.example.demorest.services.TutorService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Set;
 
@@ -36,12 +37,12 @@ public class ChildController {
     }
 
     @PostMapping ("/add")
-    public ChildDTO save(@RequestBody ChildAddForm childAddForm) {
+    public ChildDTO save(@Valid @RequestBody ChildAddForm childAddForm) {
         return childService.create(childAddForm);
     }
 
     @PutMapping("/update/{id}") // PUT updates every attribute, PATCH updates ony the specified attributes
-    public ChildDTO update(@PathVariable Long id, @RequestBody ChildUpdateForm childUpdateForm) {
+    public ChildDTO update(@Valid @PathVariable Long id, @RequestBody ChildUpdateForm childUpdateForm) {
         return childService.update(id, childUpdateForm);
     }
 
@@ -51,7 +52,7 @@ public class ChildController {
     }
 
     @PatchMapping("/updateTutors/{id}")
-    public ChildDTO updateTutors(@PathVariable Long id, @RequestBody ChildUpdateForm childUpdateForm) {
+    public ChildDTO updateTutors(@Valid @PathVariable Long id, @RequestBody ChildUpdateForm childUpdateForm) {
         return childService.updateTutors(id, childUpdateForm.getTutorsId());
     }
 

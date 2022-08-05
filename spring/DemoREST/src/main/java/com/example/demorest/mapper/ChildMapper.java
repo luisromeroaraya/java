@@ -29,11 +29,11 @@ public class ChildMapper {
         if (form == null)
             return null;
         Child child = new Child();
-        child.setFirstName(form.getFirstName());
-        child.setLastName(form.getLastName());
+        child.setFirstName(form.getFirstName().trim());
+        child.setLastName(form.getLastName().trim());
         child.setBirthDate(form.getBirthDate());
         child.setToilet(form.isToilet());
-        child.setAllergies(form.getAllergies());
+        child.setAllergies(form.getAllergies().stream().map(String::trim).collect(Collectors.toList()));
         return child;
     }
 
@@ -41,11 +41,11 @@ public class ChildMapper {
         if (form == null)
             return null;
         Child child = new Child();
-        child.setFirstName(form.getFirstName());
-        child.setLastName(form.getLastName());
+        child.setFirstName(form.getFirstName().trim());
+        child.setLastName(form.getLastName().trim());
         child.setBirthDate(form.getBirthDate());
         child.setToilet(form.isToilet());
-        child.setAllergies(form.getAllergies());
+        child.setAllergies(form.getAllergies().stream().map(String::trim).collect(Collectors.toList()));
         return child;
     }
 }

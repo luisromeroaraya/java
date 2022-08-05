@@ -28,8 +28,8 @@ public class TutorMapper {
         if (form == null)
             return null;
         Tutor tutor = new Tutor();
-        tutor.setFirstName(form.getFirstName());
-        tutor.setLastName(form.getLastName());
+        tutor.setFirstName(form.getFirstName().trim());
+        tutor.setLastName(form.getLastName().trim());
         tutor.setTelephone(form.getTelephone());
         tutor.setAddress(form.getAddress());
         return tutor;
@@ -39,8 +39,8 @@ public class TutorMapper {
         if (form == null)
             return null;
         Tutor tutor = new Tutor();
-        tutor.setFirstName(form.getFirstName());
-        tutor.setLastName(form.getLastName());
+        tutor.setFirstName(form.getFirstName().trim());
+        tutor.setLastName(form.getLastName().trim());
         tutor.setTelephone(form.getTelephone());
         tutor.setAddress(form.getAddress());
         return tutor;

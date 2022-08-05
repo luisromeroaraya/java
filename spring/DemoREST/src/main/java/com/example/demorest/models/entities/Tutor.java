@@ -16,18 +16,18 @@ import java.util.Set;
 public class Tutor extends Person {
     @Column(nullable = false)
     private String telephone;
-    @Column(nullable = false)
-    private String address;
+    @Embedded
+    private Address address;
     @ManyToMany(mappedBy = "tutors")
     private Set<Child> children = new HashSet<>();
 
-    public Tutor(String firstName, String lastName, String telephone, String address) {
+    public Tutor(String firstName, String lastName, String telephone, Address address) {
         super(firstName, lastName);
         this.telephone = telephone;
         this.address = address;
     }
 
-    public Tutor(String firstName, String lastName, String telephone, String address, Set<Child> children) {
+    public Tutor(String firstName, String lastName, String telephone, Address address, Set<Child> children) {
         super(firstName, lastName);
         this.telephone = telephone;
         this.address = address;

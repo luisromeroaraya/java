@@ -1,0 +1,27 @@
+Enfant
+
+update:
+- pareil+
+- allergies:
+requis OK
+verif pas de blank
+limite de 10, OK
+realiser un 'trim' OK
+- tuteursId:
+requis OK
+s'assurer que chaque id mene à un tuteur OK
+
+Tuteur
+
+insert:
+
+- nom:
+notBlank OK
+taille limite OK
+- prenom: pareil OK
+- adresse: (requis) OK
+La transformer en classe
+et trouver les validations
+- numTel:
+regex OK
+requis OK

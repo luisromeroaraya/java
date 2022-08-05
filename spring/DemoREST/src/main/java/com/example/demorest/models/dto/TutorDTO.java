@@ -1,5 +1,6 @@
 package com.example.demorest.models.dto;
 
+import com.example.demorest.models.entities.Address;
 import lombok.Builder;
 import lombok.Data;
 
@@ -12,6 +13,6 @@ public class TutorDTO {
     private String firstName;
     private String lastName;
     private String telephone;
-    private String address;
+    private Address address;
     private Set<Long> childrenId;
 }
