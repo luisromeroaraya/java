@@ -3,16 +3,21 @@ package com.example.demorest.services.implementation;
 import com.example.demorest.exceptions.ElementNotFoundException;
 import com.example.demorest.exceptions.ElementsNotFoundException;
 import com.example.demorest.mapper.ChildMapper;
+import com.example.demorest.mapper.ReservationMapper;
 import com.example.demorest.models.dto.ChildDTO;
+import com.example.demorest.models.dto.ReservationDTO;
 import com.example.demorest.models.entities.Child;
+import com.example.demorest.models.entities.Reservation;
 import com.example.demorest.models.entities.Tutor;
 import com.example.demorest.models.forms.ChildAddForm;
 import com.example.demorest.models.forms.ChildUpdateForm;
 import com.example.demorest.repositories.ChildRepository;
+import com.example.demorest.repositories.ReservationRepository;
 import com.example.demorest.repositories.TutorRepository;
 import com.example.demorest.services.ChildService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -22,12 +27,16 @@ import java.util.stream.Collectors;
 public class ChildServiceImpl implements ChildService {
     private final ChildRepository childRepository;
     private final TutorRepository tutorRepository;
+    private final ReservationRepository reservationRepository;
     private final ChildMapper childMapper;
+    private final ReservationMapper reservationMapper;
 
-    public ChildServiceImpl(ChildRepository childRepository, TutorRepository tutorRepository, ChildMapper childMapper) {
+    public ChildServiceImpl(ChildRepository childRepository, TutorRepository tutorRepository, ReservationRepository reservationRepository, ChildMapper childMapper, ReservationMapper reservationMapper) {
         this.childRepository = childRepository;
         this.tutorRepository = tutorRepository;
+        this.reservationRepository = reservationRepository;
         this.childMapper = childMapper;
+        this.reservationMapper = reservationMapper;
     }
 
     @Override
@@ -49,8 +58,9 @@ public class ChildServiceImpl implements ChildService {
         if (childAddForm == null)
             throw new IllegalArgumentException("Child can't be null.");
         Child child = childMapper.toEntity(childAddForm);
-
         Set<Long> tutorsId = childAddForm.getTutorsId();
+
+        // check if every tutorsId exist
         Set<Tutor> tutors = new HashSet<>(tutorRepository.findAllById(tutorsId));
         if(tutors.size() < tutorsId.size() ){
             Set<Long> found = tutors.stream()
@@ -77,8 +87,9 @@ public class ChildServiceImpl implements ChildService {
             throw new ElementNotFoundException(Child.class, id);
         Child child = childMapper.toEntity(childUpdateForm);
         child.setId(id);
-
         Set<Long> tutorsId = childUpdateForm.getTutorsId();
+
+        // check if every tutorsId exist
         Set<Tutor> tutors = new HashSet<>(tutorRepository.findAllById(tutorsId));
         if(tutors.size() < tutorsId.size() ){
             Set<Long> found = tutors.stream()
@@ -123,8 +134,9 @@ public class ChildServiceImpl implements ChildService {
     public ChildDTO updateTutors(Long id, Set<Long> tutorsId) {
         Child child = childRepository.findById(id)
                 .orElseThrow(() -> new ElementNotFoundException(Child.class, id));
-        Set<Tutor> tutors = new HashSet<>(tutorRepository.findAllById(tutorsId));
 
+        // check if every tutorsId exist
+        Set<Tutor> tutors = new HashSet<>(tutorRepository.findAllById(tutorsId));
         if(tutors.size() < tutorsId.size() ){
             Set<Long> found = tutors.stream()
                     .map(Tutor::getId)
@@ -138,5 +150,27 @@ public class ChildServiceImpl implements ChildService {
         child.setTutors(tutors);
         child = childRepository.save(child);
         return childMapper.toDTO(child);
+    }
+
+    @Override
+    public List<ChildDTO> getAllFromFirstName(String firstName) {
+        return childRepository.findByFirstName(firstName).stream()
+                .map(childMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ChildDTO> getAllFromDate(LocalDate date) {
+        return reservationRepository.findByTimeArrivalBetween(date.atStartOfDay(), date.plusDays(1).atStartOfDay()).stream()
+                .map(Reservation::getChild)
+                .map(childMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ReservationDTO> getReservationsAfterDate(Long childId, LocalDate date) {
+        return reservationRepository.findByChild_IdAndTimeArrivalAfter(childId, date.atStartOfDay()).stream()
+                .map(reservationMapper::toDTO)
+                .collect(Collectors.toList());
     }
 }

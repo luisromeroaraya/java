@@ -20,6 +20,8 @@ public class Tutor extends Person {
     private Address address;
     @ManyToMany(mappedBy = "tutors")
     private Set<Child> children = new HashSet<>();
+    @OneToMany(mappedBy = "tutor", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Reservation> reservations = new HashSet<>();
 
     public Tutor(String firstName, String lastName, String telephone, Address address) {
         super(firstName, lastName);

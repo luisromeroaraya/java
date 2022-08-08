@@ -85,4 +85,11 @@ public class TutorServiceImpl implements TutorService {
         tutorRepository.delete(tutor);
         return tutorDTO;
     }
+
+    @Override
+    public List<TutorDTO> getAllFromCity(String city) {
+        return tutorRepository.findAllByAddress_CityContains(city).stream()
+                .map(tutorMapper::toDTO).
+                collect(Collectors.toList());
+    }
 }

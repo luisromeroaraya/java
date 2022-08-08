@@ -2,8 +2,6 @@ package com.example.demorest.controllers;
 
 import com.example.demorest.mapper.TutorMapper;
 import com.example.demorest.models.dto.TutorDTO;
-import com.example.demorest.models.entities.Child;
-import com.example.demorest.models.entities.Tutor;
 import com.example.demorest.models.forms.TutorAddForm;
 import com.example.demorest.models.forms.TutorUpdateForm;
 import com.example.demorest.services.ChildService;
@@ -11,9 +9,7 @@ import com.example.demorest.services.TutorService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/tutors")
@@ -51,5 +47,10 @@ public class TutorController {
     @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable Long id) {
         tutorService.delete(id);
+    }
+
+    @GetMapping("/city/{city}")
+    public List<TutorDTO> getAllFromCity(@PathVariable String city) {
+        return tutorService.getAllFromCity(city);
     }
 }

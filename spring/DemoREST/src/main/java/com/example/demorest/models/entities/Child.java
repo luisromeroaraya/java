@@ -23,6 +23,8 @@ public class Child extends Person {
     @ManyToMany
     @JoinTable(name="tutoring", joinColumns = @JoinColumn(name = "child_id"), inverseJoinColumns = @JoinColumn(name = "tutor_id"))
     private Set<Tutor> tutors = new HashSet<>();
+    @OneToMany(mappedBy = "child", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Reservation> reservations = new HashSet<>();
 
     public Child(String firstName, String lastName, LocalDate birthDate, boolean toilet) {
         super(firstName, lastName);

@@ -2,16 +2,18 @@ package com.example.demorest.controllers;
 
 import com.example.demorest.mapper.ChildMapper;
 import com.example.demorest.models.dto.ChildDTO;
-import com.example.demorest.models.entities.Tutor;
 import com.example.demorest.models.forms.ChildAddForm;
 import com.example.demorest.models.forms.ChildUpdateForm;
 import com.example.demorest.services.ChildService;
 import com.example.demorest.services.TutorService;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/children")
@@ -56,4 +58,14 @@ public class ChildController {
         return childService.updateTutors(id, childUpdateForm.getTutorsId());
     }
 
+    @GetMapping("/firstName/{firstName}")
+    public List<ChildDTO> getAllFromFirstName(@PathVariable String firstName) {
+        return childService.getAllFromFirstName(firstName);
+    }
+
+    @GetMapping("/date")
+    public List<ChildDTO> getAllFromDate(@RequestParam String date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return childService.getAllFromDate(LocalDate.parse(date, formatter));
+    }
 }
