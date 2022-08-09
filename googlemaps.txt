@@ -1,0 +1,75 @@
+https://stackblitz.com/github/googlemaps/js-samples/tree/sample-add-map?file=index.js,index.html,env.d.ts
+
+
+// List of markers
+const locations = [
+  {lat: -33.4558163, lng: -70.6001824},
+  {lat: -33.4467901, lng: -70.6285574},
+  {lat: -33.4546185, lng: -70.5965644},
+  {lat: -33.4463844, lng: -70.6285776}
+];
+const labels = ["Mephisto Bar", "Bar de René", "La Batuta", "MiBar"];
+// Initialize and add the map
+function initMap() {
+  // The map, centered at Plaza Nunoa
+  const map = new google.maps.Map(document.getElementById("map"), {
+    zoom: 12,
+    center: {lat: -33.4560484, lng: -70.5982405},
+    scrollwheel: true
+  });
+  // Create info window
+  const infoWindow = new google.maps.InfoWindow({
+    content: "",
+    disableAutoPan: true,
+  });
+  // Try HTML5 geolocation.
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const pos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        };
+        map.setCenter(pos);
+      },
+      () => {
+        handleLocationError(true, infoWindow, map.getCenter());
+      }
+    );
+  } else {
+    // Browser doesn't support Geolocation
+    handleLocationError(false, infoWindow, map.getCenter());
+  }
+  // Create markers from list
+  const markers = locations.map((position, i) => {
+    const label = labels[i];
+    const marker = new google.maps.Marker({
+      position,
+      label,
+      map
+    });
+    // markers can only be keyboard focusable when they have click listeners
+    // open info window when marker is clicked
+    marker.addListener("click", () => {
+      infoWindow.setContent(label);
+      infoWindow.open(map, marker);
+      console.log(marker.getPosition().lat());
+      console.log(marker.getPosition().lng());
+    });
+    return marker;
+  });
+  // Add a marker clusterer to manage the markers.
+  new MarkerClusterer({ markers, map });
+}
+
+function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+  infoWindow.setPosition(pos);
+  infoWindow.setContent(
+    browserHasGeolocation
+      ? "Error: The Geolocation service failed."
+      : "Error: Your browser doesn't support geolocation."
+  );
+  infoWindow.open(map);
+}
+
+window.initMap = initMap;
