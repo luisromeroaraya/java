@@ -1,7 +1,6 @@
 package com.example.demorest.services.implementation;
 
-import com.example.demorest.exceptions.ElementNotFoundException;
-import com.example.demorest.exceptions.ReservationsLimitReached;
+import com.example.demorest.exceptions.*;
 import com.example.demorest.mapper.ReservationMapper;
 import com.example.demorest.models.dto.ReservationDTO;
 import com.example.demorest.models.entities.Reservation;
@@ -43,11 +42,13 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public ReservationDTO create(ReservationAddForm reservationAddForm) {
         if (reservationAddForm == null)
-            throw new IllegalArgumentException("Reservation can't be null.");
-        if (reservationAddForm.getTimeArrival().getDayOfYear() != reservationAddForm.getTimeDeparture().getDayOfYear())
-            throw new IllegalArgumentException("Day of arrival and day of departure must be the same.");
+            throw new NullElementException(Reservation.class);
         if (getReservationsForDate(reservationAddForm.getTimeArrival().toLocalDate()).size() >= 10)
-            throw new ReservationsLimitReached(reservationAddForm.getTimeArrival());
+            throw new ReservationsLimitReachedException(reservationAddForm.getTimeArrival());
+        if ((reservationAddForm.getTimeArrival().getDayOfYear() != reservationAddForm.getTimeDeparture().getDayOfYear()) || (reservationAddForm.getTimeArrival().getYear() != reservationAddForm.getTimeDeparture().getYear()))
+            throw new SameDayReservationException(reservationAddForm.getTimeArrival(), reservationAddForm.getTimeDeparture());
+        if (reservationAddForm.getTimeArrival().isAfter(reservationAddForm.getTimeDeparture()))
+            throw new WrongDepartureTimeException(reservationAddForm.getTimeArrival(), reservationAddForm.getTimeDeparture());
         Reservation reservation = reservationMapper.toEntity(reservationAddForm);
         reservation = reservationRepository.save(reservation);
         return reservationMapper.toDTO(reservation);
@@ -58,7 +59,7 @@ public class ReservationServiceImpl implements ReservationService {
         Reservation reservation = reservationRepository.findById(id)
                 .orElseThrow(() -> new ElementNotFoundException(Reservation.class, id));
         if (reservationCancelForm == null)
-            throw new IllegalArgumentException("Reservation can't be null.");
+            throw new NullElementException(Reservation.class);
         reservation.setCanceled(reservationCancelForm.isCanceled());
         reservation.setReason(reservationCancelForm.getReason());
         reservation = reservationRepository.save(reservation);
@@ -78,9 +79,7 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public List<ReservationDTO> getReservationsLeftForThisMonth() {
-        return reservationRepository.findByTimeArrivalBetween(LocalDateTime.now(), LocalDate.now().plusMonths(1).withDayOfMonth(1).atStartOfDay()).stream()
-                .map(reservationMapper::toDTO)
-                .collect(Collectors.toList());
+    public Long getNumberOfReservationsLeftForThisMonth() {
+        return reservationRepository.countByTimeArrivalBetween(LocalDateTime.now(), LocalDate.now().plusMonths(1).withDayOfMonth(1).atStartOfDay());
     }
 }

@@ -22,7 +22,6 @@ public class ChildUpdateForm {
     @NotNull
     @PastOrPresent
     private LocalDate birthDate;
-    @NotBlank
     private boolean toilet;
     @Size(max = 10)
     private List<String> allergies;

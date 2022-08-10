@@ -1,8 +1,6 @@
 package com.example.demorest.controllers;
 
-import com.example.demorest.exceptions.ElementNotFoundException;
-import com.example.demorest.exceptions.ElementsNotFoundException;
-import com.example.demorest.exceptions.ReservationsLimitReached;
+import com.example.demorest.exceptions.*;
 import com.example.demorest.models.dto.ErrorDTO;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -44,9 +42,51 @@ public class ControllerAdvisor {
                 );
     }
 
-    @ExceptionHandler(ReservationsLimitReached.class)
-    public ResponseEntity<?> handleException(ReservationsLimitReached ex, HttpServletRequest req){
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(NullElementException.class)
+    public ResponseEntity<?> handleException(NullElementException ex, HttpServletRequest req){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(
+                        ErrorDTO.builder()
+                                .message(ex.getMessage())
+                                .receivedAt( LocalDateTime.now() )
+                                .status(400)
+                                .method( HttpMethod.resolve(req.getMethod()) )
+                                .path( req.getRequestURL().toString() )
+                                .build()
+                );
+    }
+
+    @ExceptionHandler(ReservationsLimitReachedException.class)
+    public ResponseEntity<?> handleException(ReservationsLimitReachedException ex, HttpServletRequest req){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(
+                        ErrorDTO.builder()
+                                .message(ex.getMessage())
+                                .receivedAt( LocalDateTime.now() )
+                                .status(400)
+                                .method( HttpMethod.resolve(req.getMethod()) )
+                                .path( req.getRequestURL().toString() )
+                                .build()
+                );
+    }
+
+    @ExceptionHandler(SameDayReservationException.class)
+    public ResponseEntity<?> handleException(SameDayReservationException ex, HttpServletRequest req){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(
+                        ErrorDTO.builder()
+                                .message(ex.getMessage())
+                                .receivedAt( LocalDateTime.now() )
+                                .status(400)
+                                .method( HttpMethod.resolve(req.getMethod()) )
+                                .path( req.getRequestURL().toString() )
+                                .build()
+                );
+    }
+
+    @ExceptionHandler(WrongDepartureTimeException.class)
+    public ResponseEntity<?> handleException(WrongDepartureTimeException ex, HttpServletRequest req){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(
                         ErrorDTO.builder()
                                 .message(ex.getMessage())

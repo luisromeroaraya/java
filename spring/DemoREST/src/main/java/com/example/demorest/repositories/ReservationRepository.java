@@ -15,4 +15,13 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
 
     @Query("select r from Reservation r where r.child.id = ?1 and r.timeArrival > ?2")
     List<Reservation> findByChild_IdAndTimeArrivalAfter(Long id, LocalDateTime date);
+
+    @Query("select count(r) from Reservation r where r.timeArrival between ?1 and ?2")
+    Long countByTimeArrivalBetween(LocalDateTime now, LocalDateTime endOfMonth);
+
+
+
+
+
+
 }

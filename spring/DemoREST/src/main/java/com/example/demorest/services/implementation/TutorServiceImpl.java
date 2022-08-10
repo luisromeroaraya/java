@@ -1,6 +1,7 @@
 package com.example.demorest.services.implementation;
 
 import com.example.demorest.exceptions.ElementNotFoundException;
+import com.example.demorest.exceptions.NullElementException;
 import com.example.demorest.mapper.TutorMapper;
 import com.example.demorest.models.dto.TutorDTO;
 import com.example.demorest.models.entities.Child;
@@ -49,7 +50,7 @@ public class TutorServiceImpl implements TutorService {
     @Override
     public TutorDTO create(TutorAddForm tutorAddForm) {
         if(tutorAddForm == null)
-            throw new IllegalArgumentException("Tutor can't be null.");
+            throw new NullElementException(Tutor.class);
         Tutor tutor = tutorMapper.toEntity(tutorAddForm);
         Set<Child> children = new HashSet<>(childRepository.findAllById(tutorAddForm.getChildrenId())); // Tutors can't declare their children because they are the weak Entity
         tutor.setChildren(children);
@@ -62,7 +63,7 @@ public class TutorServiceImpl implements TutorService {
         if(id == null)
             throw new IllegalArgumentException("Id can't be null.");
         if(tutorUpdateForm == null)
-            throw new IllegalArgumentException("Tutor can't be null.");
+            throw new NullElementException(Tutor.class);
         if(!tutorRepository.existsById(id))
             throw new ElementNotFoundException(Tutor.class, id);
         Tutor tutor = tutorMapper.toEntity(tutorUpdateForm);

@@ -7,11 +7,11 @@ import com.example.demorest.models.forms.ChildAddForm;
 import com.example.demorest.models.forms.ChildUpdateForm;
 import com.example.demorest.services.ChildService;
 import com.example.demorest.services.TutorService;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
@@ -63,9 +63,8 @@ public class ChildController {
     }
 
     @GetMapping("/date")
-    public List<ChildDTO> getAllFromDate(@RequestParam String date) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        return childService.getAllFromDate(LocalDate.parse(date, formatter));
+    public List<ChildDTO> getAllFromDate(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date) {
+        return childService.getAllFromDate(date);
     }
 
     @GetMapping("/{id:[0-9]+}/reservations")

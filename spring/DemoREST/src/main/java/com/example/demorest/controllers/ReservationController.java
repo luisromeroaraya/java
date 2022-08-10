@@ -42,7 +42,7 @@ public class ReservationController {
     }
 
     @GetMapping("/left-this-month")
-    public List<ReservationDTO> getReservationsLeftForThisMonth() {
-        return reservationService.getReservationsLeftForThisMonth();
+    public Long getNumberOfReservationsLeftForThisMonth() {
+        return reservationService.getNumberOfReservationsLeftForThisMonth();
     }
 }

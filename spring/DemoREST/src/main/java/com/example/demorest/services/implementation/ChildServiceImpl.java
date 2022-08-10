@@ -2,6 +2,7 @@ package com.example.demorest.services.implementation;
 
 import com.example.demorest.exceptions.ElementNotFoundException;
 import com.example.demorest.exceptions.ElementsNotFoundException;
+import com.example.demorest.exceptions.NullElementException;
 import com.example.demorest.mapper.ChildMapper;
 import com.example.demorest.mapper.ReservationMapper;
 import com.example.demorest.models.dto.ChildDTO;
@@ -57,7 +58,7 @@ public class ChildServiceImpl implements ChildService {
     @Override
     public ChildDTO create(ChildAddForm childAddForm) {
         if (childAddForm == null)
-            throw new IllegalArgumentException("Child can't be null.");
+            throw new NullElementException(Child.class);
         Child child = childMapper.toEntity(childAddForm);
         Set<Long> tutorsId = childAddForm.getTutorsId();
 
@@ -83,7 +84,7 @@ public class ChildServiceImpl implements ChildService {
         if (id == null)
             throw new IllegalArgumentException("Id can't be null.");
         if (childUpdateForm == null)
-            throw new IllegalArgumentException("Child can't be null.");
+            throw new NullElementException(Child.class);
         if (!childRepository.existsById(id))
             throw new ElementNotFoundException(Child.class, id);
         Child child = childMapper.toEntity(childUpdateForm);

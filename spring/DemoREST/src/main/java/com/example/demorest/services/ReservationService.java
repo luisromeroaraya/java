@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface ReservationService extends CrudService<ReservationDTO, Long, ReservationAddForm, ReservationCancelForm> {
     List<ReservationDTO> getReservationsForDate(LocalDate date);
-    List<ReservationDTO> getReservationsLeftForThisMonth();
+    Long getNumberOfReservationsLeftForThisMonth();
 }
