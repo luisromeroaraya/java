@@ -1,6 +1,7 @@
 package com.example.demorest.services.implementation;
 
 import com.example.demorest.exceptions.ElementNotFoundException;
+import com.example.demorest.exceptions.ReservationsLimitReached;
 import com.example.demorest.mapper.ReservationMapper;
 import com.example.demorest.models.dto.ReservationDTO;
 import com.example.demorest.models.entities.Reservation;
@@ -10,6 +11,8 @@ import com.example.demorest.repositories.ReservationRepository;
 import com.example.demorest.services.ReservationService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -43,8 +46,8 @@ public class ReservationServiceImpl implements ReservationService {
             throw new IllegalArgumentException("Reservation can't be null.");
         if (reservationAddForm.getTimeArrival().getDayOfYear() != reservationAddForm.getTimeDeparture().getDayOfYear())
             throw new IllegalArgumentException("Day of arrival and day of departure must be the same.");
-        if (getAll().size() >= 10)
-            throw new IllegalArgumentException("Can't book more reservations. The limit of 10 reservations per day has already been reached.");
+        if (getReservationsForDate(reservationAddForm.getTimeArrival().toLocalDate()).size() >= 10)
+            throw new ReservationsLimitReached(reservationAddForm.getTimeArrival());
         Reservation reservation = reservationMapper.toEntity(reservationAddForm);
         reservation = reservationRepository.save(reservation);
         return reservationMapper.toDTO(reservation);
@@ -65,5 +68,19 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public ReservationDTO delete(Long id) {
         return null;
+    }
+
+    @Override
+    public List<ReservationDTO> getReservationsForDate(LocalDate date) {
+        return reservationRepository.findByTimeArrivalBetween(date.atStartOfDay(), date.plusDays(1).atStartOfDay()).stream()
+                .map(reservationMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ReservationDTO> getReservationsLeftForThisMonth() {
+        return reservationRepository.findByTimeArrivalBetween(LocalDateTime.now(), LocalDate.now().plusMonths(1).withDayOfMonth(1).atStartOfDay()).stream()
+                .map(reservationMapper::toDTO)
+                .collect(Collectors.toList());
     }
 }

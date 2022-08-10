@@ -40,4 +40,9 @@ public class ReservationController {
     public ReservationDTO cancel(@PathVariable Long id, @Valid @RequestBody ReservationCancelForm reservationCancelForm) {
         return reservationService.update(id, reservationCancelForm);
     }
+
+    @GetMapping("/left-this-month")
+    public List<ReservationDTO> getReservationsLeftForThisMonth() {
+        return reservationService.getReservationsLeftForThisMonth();
+    }
 }

@@ -2,16 +2,15 @@ package com.example.demorest.controllers;
 
 import com.example.demorest.mapper.ChildMapper;
 import com.example.demorest.models.dto.ChildDTO;
+import com.example.demorest.models.dto.ReservationDTO;
 import com.example.demorest.models.forms.ChildAddForm;
 import com.example.demorest.models.forms.ChildUpdateForm;
 import com.example.demorest.services.ChildService;
 import com.example.demorest.services.TutorService;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -44,7 +43,7 @@ public class ChildController {
     }
 
     @PutMapping("/update/{id}") // PUT updates every attribute, PATCH updates ony the specified attributes
-    public ChildDTO update(@Valid @PathVariable Long id, @RequestBody ChildUpdateForm childUpdateForm) {
+    public ChildDTO update(@Valid @PathVariable Long id, @Valid @RequestBody ChildUpdateForm childUpdateForm) {
         return childService.update(id, childUpdateForm);
     }
 
@@ -54,7 +53,7 @@ public class ChildController {
     }
 
     @PatchMapping("/updateTutors/{id}")
-    public ChildDTO updateTutors(@Valid @PathVariable Long id, @RequestBody ChildUpdateForm childUpdateForm) {
+    public ChildDTO updateTutors(@Valid @PathVariable Long id, @Valid @RequestBody ChildUpdateForm childUpdateForm) {
         return childService.updateTutors(id, childUpdateForm.getTutorsId());
     }
 
@@ -67,5 +66,10 @@ public class ChildController {
     public List<ChildDTO> getAllFromDate(@RequestParam String date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         return childService.getAllFromDate(LocalDate.parse(date, formatter));
+    }
+
+    @GetMapping("/{id:[0-9]+}/reservations")
+    public List<ReservationDTO> getFutureReservations(@Valid @PathVariable Long id) {
+        return childService.getFutureReservations(id);
     }
 }

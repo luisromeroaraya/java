@@ -15,5 +15,5 @@ public interface ChildService extends CrudService<ChildDTO, Long, ChildAddForm, 
     ChildDTO updateTutors(Long childId, Set<Long> tutorsId);
     List<ChildDTO> getAllFromFirstName(String firstName);
     List<ChildDTO> getAllFromDate(LocalDate date);
-    List<ReservationDTO> getReservationsAfterDate(Long childId, LocalDate date);
+    List<ReservationDTO> getFutureReservations(Long childId);
 }

@@ -18,6 +18,7 @@ import com.example.demorest.services.ChildService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -168,8 +169,8 @@ public class ChildServiceImpl implements ChildService {
     }
 
     @Override
-    public List<ReservationDTO> getReservationsAfterDate(Long childId, LocalDate date) {
-        return reservationRepository.findByChild_IdAndTimeArrivalAfter(childId, date.atStartOfDay()).stream()
+    public List<ReservationDTO> getFutureReservations(Long childId) {
+        return reservationRepository.findByChild_IdAndTimeArrivalAfter(childId, LocalDateTime.now()).stream()
                 .map(reservationMapper::toDTO)
                 .collect(Collectors.toList());
     }

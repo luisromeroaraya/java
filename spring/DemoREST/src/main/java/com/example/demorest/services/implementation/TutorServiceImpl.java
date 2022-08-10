@@ -1,7 +1,6 @@
 package com.example.demorest.services.implementation;
 
 import com.example.demorest.exceptions.ElementNotFoundException;
-import com.example.demorest.exceptions.ElementsNotFoundException;
 import com.example.demorest.mapper.TutorMapper;
 import com.example.demorest.models.dto.TutorDTO;
 import com.example.demorest.models.entities.Child;

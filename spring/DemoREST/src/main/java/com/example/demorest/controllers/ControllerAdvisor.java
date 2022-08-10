@@ -2,6 +2,7 @@ package com.example.demorest.controllers;
 
 import com.example.demorest.exceptions.ElementNotFoundException;
 import com.example.demorest.exceptions.ElementsNotFoundException;
+import com.example.demorest.exceptions.ReservationsLimitReached;
 import com.example.demorest.models.dto.ErrorDTO;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -37,6 +38,20 @@ public class ControllerAdvisor {
                                 .message(ex.getMessage())
                                 .receivedAt( LocalDateTime.now() )
                                 .status(404)
+                                .method( HttpMethod.resolve(req.getMethod()) )
+                                .path( req.getRequestURL().toString() )
+                                .build()
+                );
+    }
+
+    @ExceptionHandler(ReservationsLimitReached.class)
+    public ResponseEntity<?> handleException(ReservationsLimitReached ex, HttpServletRequest req){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(
+                        ErrorDTO.builder()
+                                .message(ex.getMessage())
+                                .receivedAt( LocalDateTime.now() )
+                                .status(400)
                                 .method( HttpMethod.resolve(req.getMethod()) )
                                 .path( req.getRequestURL().toString() )
                                 .build()
