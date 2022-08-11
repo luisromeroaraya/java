@@ -5,9 +5,11 @@ import com.example.demorest.models.dto.ReservationDTO;
 import com.example.demorest.models.forms.ReservationAddForm;
 import com.example.demorest.models.forms.ReservationCancelForm;
 import com.example.demorest.services.ReservationService;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -44,5 +46,10 @@ public class ReservationController {
     @GetMapping("/left-this-month")
     public Long getNumberOfReservationsLeftForThisMonth() {
         return reservationService.getNumberOfReservationsLeftForThisMonth();
+    }
+
+    @GetMapping("/check-date")
+    public boolean checkDate(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date) {
+        return reservationService.checkDate(date);
     }
 }

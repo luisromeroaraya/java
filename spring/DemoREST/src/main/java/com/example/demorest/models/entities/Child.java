@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -19,7 +20,7 @@ public class Child extends Person {
     private LocalDate birthDate;
     private boolean toilet;
     @ElementCollection(fetch = FetchType.EAGER)
-    private List<String> allergies;
+    private List<String> allergies = new ArrayList<>();
     @ManyToMany
     @JoinTable(name="tutoring", joinColumns = @JoinColumn(name = "child_id"), inverseJoinColumns = @JoinColumn(name = "tutor_id"))
     private Set<Tutor> tutors = new HashSet<>();

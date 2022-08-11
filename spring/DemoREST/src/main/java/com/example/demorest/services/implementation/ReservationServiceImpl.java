@@ -41,7 +41,7 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public ReservationDTO create(ReservationAddForm reservationAddForm) {
-        if (getReservationsForDate(reservationAddForm.getTimeArrival().toLocalDate()).size() >= 10)
+        if (!checkDate(reservationAddForm.getTimeArrival().toLocalDate()))
             throw new ReservationsLimitReachedException(reservationAddForm.getTimeArrival());
         if (reservationAddForm.getTimeArrival().isBefore(LocalDateTime.now()))
             throw new PastTimeException(reservationAddForm.getTimeArrival());
@@ -81,5 +81,10 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public Long getNumberOfReservationsLeftForThisMonth() {
         return reservationRepository.countByTimeArrivalBetweenAndCanceledIsFalse(LocalDateTime.now(), LocalDate.now().plusMonths(1).withDayOfMonth(1).atStartOfDay());
+    }
+
+    @Override
+    public boolean checkDate(LocalDate date) {
+        return !(getReservationsForDate(date).size() >= 10);
     }
 }

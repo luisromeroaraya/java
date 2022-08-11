@@ -53,7 +53,7 @@ public class ChildController {
     }
 
     @PatchMapping("/updateTutors/{id}")
-    public ChildDTO updateTutors(@Valid @PathVariable Long id, @Valid @RequestBody ChildUpdateForm childUpdateForm) {
+    public ChildDTO updateTutors(@Valid @PathVariable Long id, @RequestBody ChildUpdateForm childUpdateForm) {
         return childService.updateTutors(id, childUpdateForm.getTutorsId());
     }
 
