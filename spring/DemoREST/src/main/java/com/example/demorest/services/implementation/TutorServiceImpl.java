@@ -1,7 +1,6 @@
 package com.example.demorest.services.implementation;
 
 import com.example.demorest.exceptions.ElementNotFoundException;
-import com.example.demorest.exceptions.NullElementException;
 import com.example.demorest.mapper.TutorMapper;
 import com.example.demorest.models.dto.TutorDTO;
 import com.example.demorest.models.entities.Child;
@@ -14,6 +13,7 @@ import com.example.demorest.services.ChildService;
 import com.example.demorest.services.TutorService;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -49,8 +49,6 @@ public class TutorServiceImpl implements TutorService {
 
     @Override
     public TutorDTO create(TutorAddForm tutorAddForm) {
-        if(tutorAddForm == null)
-            throw new NullElementException(Tutor.class);
         Tutor tutor = tutorMapper.toEntity(tutorAddForm);
         Set<Child> children = new HashSet<>(childRepository.findAllById(tutorAddForm.getChildrenId())); // Tutors can't declare their children because they are the weak Entity
         tutor.setChildren(children);
@@ -59,11 +57,7 @@ public class TutorServiceImpl implements TutorService {
     }
 
     @Override
-    public TutorDTO update(Long id, TutorUpdateForm tutorUpdateForm) {
-        if(id == null)
-            throw new IllegalArgumentException("Id can't be null.");
-        if(tutorUpdateForm == null)
-            throw new NullElementException(Tutor.class);
+    public TutorDTO update(@NotNull Long id, TutorUpdateForm tutorUpdateForm) {
         if(!tutorRepository.existsById(id))
             throw new ElementNotFoundException(Tutor.class, id);
         Tutor tutor = tutorMapper.toEntity(tutorUpdateForm);

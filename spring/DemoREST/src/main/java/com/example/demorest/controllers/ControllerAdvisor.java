@@ -42,20 +42,6 @@ public class ControllerAdvisor {
                 );
     }
 
-    @ExceptionHandler(NullElementException.class)
-    public ResponseEntity<?> handleException(NullElementException ex, HttpServletRequest req){
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(
-                        ErrorDTO.builder()
-                                .message(ex.getMessage())
-                                .receivedAt( LocalDateTime.now() )
-                                .status(400)
-                                .method( HttpMethod.resolve(req.getMethod()) )
-                                .path( req.getRequestURL().toString() )
-                                .build()
-                );
-    }
-
     @ExceptionHandler(ReservationsLimitReachedException.class)
     public ResponseEntity<?> handleException(ReservationsLimitReachedException ex, HttpServletRequest req){
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
@@ -72,6 +58,20 @@ public class ControllerAdvisor {
 
     @ExceptionHandler(SameDayReservationException.class)
     public ResponseEntity<?> handleException(SameDayReservationException ex, HttpServletRequest req){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(
+                        ErrorDTO.builder()
+                                .message(ex.getMessage())
+                                .receivedAt( LocalDateTime.now() )
+                                .status(400)
+                                .method( HttpMethod.resolve(req.getMethod()) )
+                                .path( req.getRequestURL().toString() )
+                                .build()
+                );
+    }
+
+    @ExceptionHandler(PastTimeException.class)
+    public ResponseEntity<?> handleException(PastTimeException ex, HttpServletRequest req){
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(
                         ErrorDTO.builder()

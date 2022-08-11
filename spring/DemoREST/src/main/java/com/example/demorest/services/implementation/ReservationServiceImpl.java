@@ -41,10 +41,12 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public ReservationDTO create(ReservationAddForm reservationAddForm) {
-        if (reservationAddForm == null)
-            throw new NullElementException(Reservation.class);
         if (getReservationsForDate(reservationAddForm.getTimeArrival().toLocalDate()).size() >= 10)
             throw new ReservationsLimitReachedException(reservationAddForm.getTimeArrival());
+        if (reservationAddForm.getTimeArrival().isBefore(LocalDateTime.now()))
+            throw new PastTimeException(reservationAddForm.getTimeArrival());
+        if (reservationAddForm.getTimeDeparture().isBefore(LocalDateTime.now()))
+            throw new PastTimeException(reservationAddForm.getTimeDeparture());
         if ((reservationAddForm.getTimeArrival().getDayOfYear() != reservationAddForm.getTimeDeparture().getDayOfYear()) || (reservationAddForm.getTimeArrival().getYear() != reservationAddForm.getTimeDeparture().getYear()))
             throw new SameDayReservationException(reservationAddForm.getTimeArrival(), reservationAddForm.getTimeDeparture());
         if (reservationAddForm.getTimeArrival().isAfter(reservationAddForm.getTimeDeparture()))
@@ -58,8 +60,6 @@ public class ReservationServiceImpl implements ReservationService {
     public ReservationDTO update(Long id, ReservationCancelForm reservationCancelForm) {
         Reservation reservation = reservationRepository.findById(id)
                 .orElseThrow(() -> new ElementNotFoundException(Reservation.class, id));
-        if (reservationCancelForm == null)
-            throw new NullElementException(Reservation.class);
         reservation.setCanceled(reservationCancelForm.isCanceled());
         reservation.setReason(reservationCancelForm.getReason());
         reservation = reservationRepository.save(reservation);
@@ -73,13 +73,13 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public List<ReservationDTO> getReservationsForDate(LocalDate date) {
-        return reservationRepository.findByTimeArrivalBetween(date.atStartOfDay(), date.plusDays(1).atStartOfDay()).stream()
+        return reservationRepository.findByTimeArrivalBetweenAndCanceledIsFalse(date.atStartOfDay(), date.plusDays(1).atStartOfDay()).stream()
                 .map(reservationMapper::toDTO)
                 .collect(Collectors.toList());
     }
 
     @Override
     public Long getNumberOfReservationsLeftForThisMonth() {
-        return reservationRepository.countByTimeArrivalBetween(LocalDateTime.now(), LocalDate.now().plusMonths(1).withDayOfMonth(1).atStartOfDay());
+        return reservationRepository.countByTimeArrivalBetweenAndCanceledIsFalse(LocalDateTime.now(), LocalDate.now().plusMonths(1).withDayOfMonth(1).atStartOfDay());
     }
 }

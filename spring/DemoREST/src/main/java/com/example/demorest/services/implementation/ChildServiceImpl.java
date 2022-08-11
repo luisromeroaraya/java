@@ -2,7 +2,6 @@ package com.example.demorest.services.implementation;
 
 import com.example.demorest.exceptions.ElementNotFoundException;
 import com.example.demorest.exceptions.ElementsNotFoundException;
-import com.example.demorest.exceptions.NullElementException;
 import com.example.demorest.mapper.ChildMapper;
 import com.example.demorest.mapper.ReservationMapper;
 import com.example.demorest.models.dto.ChildDTO;
@@ -18,6 +17,7 @@ import com.example.demorest.repositories.TutorRepository;
 import com.example.demorest.services.ChildService;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -57,8 +57,6 @@ public class ChildServiceImpl implements ChildService {
 
     @Override
     public ChildDTO create(ChildAddForm childAddForm) {
-        if (childAddForm == null)
-            throw new NullElementException(Child.class);
         Child child = childMapper.toEntity(childAddForm);
         Set<Long> tutorsId = childAddForm.getTutorsId();
 
@@ -80,11 +78,7 @@ public class ChildServiceImpl implements ChildService {
     }
 
     @Override
-    public ChildDTO update(Long id, ChildUpdateForm childUpdateForm) {
-        if (id == null)
-            throw new IllegalArgumentException("Id can't be null.");
-        if (childUpdateForm == null)
-            throw new NullElementException(Child.class);
+    public ChildDTO update(@NotNull Long id, ChildUpdateForm childUpdateForm) {
         if (!childRepository.existsById(id))
             throw new ElementNotFoundException(Child.class, id);
         Child child = childMapper.toEntity(childUpdateForm);
@@ -163,15 +157,16 @@ public class ChildServiceImpl implements ChildService {
 
     @Override
     public List<ChildDTO> getAllFromDate(LocalDate date) {
-        return reservationRepository.findByTimeArrivalBetween(date.atStartOfDay(), date.plusDays(1).atStartOfDay()).stream()
+        return reservationRepository.findByTimeArrivalBetweenAndCanceledIsFalse(date.atStartOfDay(), date.plusDays(1).atStartOfDay()).stream()
                 .map(Reservation::getChild)
                 .map(childMapper::toDTO)
+                .distinct()
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<ReservationDTO> getFutureReservations(Long childId) {
-        return reservationRepository.findByChild_IdAndTimeArrivalAfter(childId, LocalDateTime.now()).stream()
+        return reservationRepository.findByChild_IdAndTimeArrivalAfterAndCanceledIsFalse(childId, LocalDateTime.now()).stream()
                 .map(reservationMapper::toDTO)
                 .collect(Collectors.toList());
     }
