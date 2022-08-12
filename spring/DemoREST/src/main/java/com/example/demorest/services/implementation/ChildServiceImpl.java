@@ -103,12 +103,10 @@ public class ChildServiceImpl implements ChildService {
     }
 
     @Override
-    public ChildDTO delete(Long id) {
+    public void delete(Long id) {
         Child child = childRepository.findById(id)
                 .orElseThrow(() -> new ElementNotFoundException(Child.class, id));
-        ChildDTO childDTO = childMapper.toDTO(child);
         childRepository.delete(child);
-        return childDTO;
     }
 
     @Override

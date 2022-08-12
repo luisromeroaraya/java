@@ -10,6 +10,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Table(name = "tutors")
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor

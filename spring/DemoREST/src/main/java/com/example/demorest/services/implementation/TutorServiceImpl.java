@@ -69,15 +69,13 @@ public class TutorServiceImpl implements TutorService {
     }
 
     @Override
-    public TutorDTO delete(Long tutorId) {
+    public void delete(Long tutorId) {
         Tutor tutor = tutorRepository.findById(tutorId)
                 .orElseThrow(()-> new ElementNotFoundException(Tutor.class, tutorId));
         Set<Child> children = tutor.getChildren();
         if(children.size() > 0)
             children.forEach(child -> childService.removeTutor(child.getId(), tutorId));
-        TutorDTO tutorDTO = tutorMapper.toDTO(tutor);
         tutorRepository.delete(tutor);
-        return tutorDTO;
     }
 
     @Override

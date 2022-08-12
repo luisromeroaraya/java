@@ -4,6 +4,7 @@ import com.example.demorest.models.entities.User;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 
 @Data
 public class UserAddForm {
@@ -13,9 +14,10 @@ public class UserAddForm {
     private String password;
 
     public User toEntity() {
-        User entity = new User();
-        entity.setUsername(username);
-        entity.setPassword(password);
-        return entity;
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(password);
+        user.setRoles(List.of("USER"));
+        return user;
     }
 }
