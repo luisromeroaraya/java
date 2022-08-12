@@ -1,10 +1,8 @@
 package com.example.demorest.controllers;
 
-import com.example.demorest.mapper.TutorMapper;
 import com.example.demorest.models.dto.TutorDTO;
 import com.example.demorest.models.forms.TutorAddForm;
 import com.example.demorest.models.forms.TutorUpdateForm;
-import com.example.demorest.services.ChildService;
 import com.example.demorest.services.TutorService;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,13 +13,9 @@ import java.util.List;
 @RequestMapping("/tutors")
 public class TutorController {
     private final TutorService tutorService;
-    private final ChildService childService;
-    private final TutorMapper tutorMapper;
 
-    public TutorController(TutorService tutorService, ChildService childService, TutorMapper tutorMapper) {
+    public TutorController(TutorService tutorService) {
         this.tutorService = tutorService;
-        this.childService = childService;
-        this.tutorMapper = tutorMapper;
     }
 
     @GetMapping("/{id:[0-9]+}")

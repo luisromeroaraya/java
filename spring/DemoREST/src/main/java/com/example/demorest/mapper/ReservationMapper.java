@@ -12,8 +12,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ReservationMapper {
-    private ChildRepository childRepository;
-    private TutorRepository tutorRepository;
+    private final ChildRepository childRepository;
+    private final TutorRepository tutorRepository;
 
     public ReservationMapper(ChildRepository childRepository, TutorRepository tutorRepository) {
         this.childRepository = childRepository;

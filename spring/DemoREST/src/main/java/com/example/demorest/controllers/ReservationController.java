@@ -1,6 +1,5 @@
 package com.example.demorest.controllers;
 
-import com.example.demorest.mapper.ReservationMapper;
 import com.example.demorest.models.dto.ReservationDTO;
 import com.example.demorest.models.forms.ReservationAddForm;
 import com.example.demorest.models.forms.ReservationCancelForm;
@@ -15,12 +14,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/reservations")
 public class ReservationController {
-    private ReservationService reservationService;
-    private ReservationMapper reservationMapper;
+    private final ReservationService reservationService;
 
-    public ReservationController(ReservationService reservationService, ReservationMapper reservationMapper) {
+    public ReservationController(ReservationService reservationService) {
         this.reservationService = reservationService;
-        this.reservationMapper = reservationMapper;
     }
 
     @GetMapping("/{id:[0-9]+}")

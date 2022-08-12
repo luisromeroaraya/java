@@ -12,4 +12,12 @@ public class WrongDepartureTimeException extends IllegalArgumentException {
         this.timeArrival = timeArrival;
         this.timeDeparture = timeDeparture;
     }
+
+    public LocalDateTime getTimeArrival() {
+        return timeArrival;
+    }
+
+    public LocalDateTime getTimeDeparture() {
+        return timeDeparture;
+    }
 }

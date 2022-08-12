@@ -33,7 +33,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String login (@Valid @RequestBody UserLoginForm form){
+    public String login(@Valid @RequestBody UserLoginForm form){
         Authentication auth = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(form.getUsername(), form.getPassword()));
         return jwtProvider.createToken(auth);
     }

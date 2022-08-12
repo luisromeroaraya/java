@@ -9,4 +9,9 @@ public class PastTimeException extends IllegalArgumentException {
         super("Invalid reservation date/time. " + time.format(DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss")) + " is a past date/time.");
         this.time = time;
     }
+
+    public LocalDateTime getTime() {
+        return time;
+    }
+
 }

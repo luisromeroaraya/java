@@ -1,12 +1,10 @@
 package com.example.demorest.controllers;
 
-import com.example.demorest.mapper.ChildMapper;
 import com.example.demorest.models.dto.ChildDTO;
 import com.example.demorest.models.dto.ReservationDTO;
 import com.example.demorest.models.forms.ChildAddForm;
 import com.example.demorest.models.forms.ChildUpdateForm;
 import com.example.demorest.services.ChildService;
-import com.example.demorest.services.TutorService;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,13 +16,9 @@ import java.util.List;
 @RequestMapping("/children")
 public class ChildController {
     private final ChildService childService;
-    private final TutorService tutorService;
-    private final ChildMapper childMapper;
 
-    public ChildController(ChildService childService, TutorService tutorService, ChildMapper childMapper) {
+    public ChildController(ChildService childService) {
         this.childService = childService;
-        this.tutorService = tutorService;
-        this.childMapper = childMapper;
     }
 
     @GetMapping("/{id:[0-9]+}")
