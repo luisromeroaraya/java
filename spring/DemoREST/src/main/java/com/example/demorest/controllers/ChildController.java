@@ -48,8 +48,8 @@ public class ChildController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ChildDTO delete(@PathVariable Long id) {
-        return childService.delete(id);
+    public void delete(@PathVariable Long id) {
+        childService.delete(id);
     }
 
     @PatchMapping("/updateTutors/{id}")

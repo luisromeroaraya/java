@@ -11,5 +11,5 @@ public interface CrudService<TDTO, TID, TAFORM, TUFORM> {
     // UPDATE
     TDTO update(TID id, TUFORM tuform);
     // DELETE
-    TDTO delete(TID id);
+    void delete(TID id);
 }

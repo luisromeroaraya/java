@@ -16,3 +16,10 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: create
+
+application:
+  jwt:
+    secret: "YEknS94yIMgGhLjlT6x@aph!ltgg2lC$oN65"
+    expiresAt: 846000
+    headerPrefix: "Bearer "
+    headerKey: "Authorization"

@@ -67,8 +67,7 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public ReservationDTO delete(Long id) {
-        return null;
+    public void delete(Long id) {
     }
 
     @Override
