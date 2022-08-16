@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <link href="/style.css" rel="stylesheet">
+    <title>Players</title>
+</head>
+<body>
+<h1>Players</h1>
+
+<table>
+    <thead>
+        <th>Name</th>
+        <th>Number</th>
+        <th>Position</th>
+        <th>Age</th>
+        <th>Salary</th>
+    </thead>
+    <tbody>
+        <tr th:each="player : ${players}">
+            <td><a th:href="@{/player/one/{id}(id=${player.getId()})}" th:text="${player.getName()}"></a></td>
+            <td><a th:text="${player.getNumber()}"></a></td>
+            <td><a th:text="${player.getPosition()}"></a></td>
+            <td><a th:text="${player.getAge()}"></a></td>
+            <td><a th:text="${player.getSalary()}"></a></td>
+        </tr>
+    </tbody>
+</table>
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+        crossorigin="anonymous"></script>
+</body>
+</html>

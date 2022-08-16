@@ -30,6 +30,8 @@ public class SecurityConfig {
         http.addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class);
         http.sessionManagement().sessionCreationPolicy((SessionCreationPolicy.STATELESS));
         http.authorizeRequests()
+                .antMatchers("/swagger-ui/**").permitAll()
+                .antMatchers("/v3/**").permitAll()
                 .antMatchers("/security/test/all").permitAll()
                 .antMatchers("/security/test/nobody").denyAll()
                 .antMatchers("/security/test/connected").authenticated()
@@ -46,6 +48,31 @@ public class SecurityConfig {
 
         return http.build();
     }
+
+    // LES DROITS:
+    // - permitAll : tous les visiteurs (connectés ou pas)
+    // - denyAll : personne
+    // - authenticated : connecté
+    // - anonymous : pas connecté
+    // - hasRole : possède le rôle particulier (un rôle est une autorité commencant par ROLE_)
+    // - hasAnyRole : possède au moins un des rôles mentionnés
+    // - hasAuthority : possède l'authorité particulier
+    // - hasAnyAuthorities : possède au moins une des authorités mentionnés
+    // - not(): methode avant un droit donnée pour un chemin pour obtenir l'opposé
+    // ROLES POSSIBLES:
+    // - ADMIN
+    // - USER
+    // AUTHORITES POSSIBLES:
+    // - RECUPERER
+    // - MODIFIER
+    // LIAISONS:
+    // - ADMIN: RECUPERER et MODIFIER et ROLE_ADMIN
+    // - USER: RECUPERER et ROLE_USER
+    // je peux utiliser:
+    // - ? : joker pour de 0 à 1 caractère
+    // - * : joker pour un segment de 0 à N caractères
+    // - **: joker pour de 0 à N segments
+    // - {pathVar:regex}: pattern regex pour un segment
 
 //    @Bean
 //    public UserDetailsService userDetailsService() throws Exception {
@@ -72,38 +99,3 @@ public class SecurityConfig {
         return configuration.getAuthenticationManager();
     }
 }
-
-// LES DROITS:
-
-// - permitAll : tous les visiteurs (connectés ou pas)
-// - denyAll : personne
-// - authenticated : connecté
-// - anonymous : pas connecté
-// - hasRole : possède le rôle particulier (un rôle est une autorité commencant par ROLE_)
-// - hasAnyRole : possède au moins un des rôles mentionnés
-// - hasAuthority : possède l'authorité particulier
-// - hasAnyAuthorities : possède au moins une des authorités mentionnés
-
-// - not(): methode avant un droit donnée pour un chemin pour obtenir l'opposé
-
-
-// ROLES POSSIBLES:
-
-// - ADMIN
-// - USER
-
-// AUTHORITES POSSIBLES:
-
-// - RECUPERER
-// - MODIFIER
-
-// LIAISONS:
-
-// - ADMIN: RECUPERER et MODIFIER et ROLE_ADMIN
-// - USER: RECUPERER et ROLE_USER
-
-// je peux utiliser:
-// - ? : joker pour de 0 à 1 caractère
-// - * : joker pour un segment de 0 à N caractères
-// - **: joker pour de 0 à N segments
-// - {pathVar:regex}: pattern regex pour un segment

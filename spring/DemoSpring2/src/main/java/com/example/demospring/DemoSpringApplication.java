@@ -1,11 +1,11 @@
-package com.example.demorest;
+package com.example.demospring;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DemoRestApplication {
+public class DemoSpringApplication {
     public static void main(String[] args) {
-        SpringApplication.run(DemoRestApplication.class, args);
+        SpringApplication.run(DemoSpringApplication.class, args);
     }
 }
