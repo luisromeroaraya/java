@@ -95,12 +95,9 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
+                <version>3.10.1</version>
                 <configuration>
-                    <verbose>true</verbose>
-                    <fork>true</fork>
-                    <source>9</source>
-                    <target>9</target>
+                    <release>8</release>
                 </configuration>
             </plugin>
         </plugins>
