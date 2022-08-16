@@ -1,0 +1,17 @@
+Roles:
+- Personnel
+- Admin (peut tout faire)
+- Visiteur
+
+Fonctionn.:
+Enfant
+connecté - tout
+admin - delete
+
+Tuteur
+connecté - tout
+admin - delete
+
+Reservation
+connecté - tout
+Visiteur - checkDate
