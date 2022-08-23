@@ -12,6 +12,7 @@ import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/children")
 public class ChildController {
@@ -26,7 +27,7 @@ public class ChildController {
         return childService.getOne(id);
     }
 
-    @GetMapping("")
+    @GetMapping("/all")
     public List<ChildDTO> getAll() {
         return childService.getAll();
     }

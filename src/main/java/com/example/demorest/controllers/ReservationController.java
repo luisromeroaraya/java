@@ -11,6 +11,7 @@ import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/reservations")
 public class ReservationController {
@@ -25,7 +26,7 @@ public class ReservationController {
         return reservationService.getOne(id);
     }
 
-    @GetMapping("")
+    @GetMapping("/all")
     public List<ReservationDTO> getAll() {
         return reservationService.getAll();
     }

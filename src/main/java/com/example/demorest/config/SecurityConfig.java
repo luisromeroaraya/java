@@ -25,7 +25,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, JWTAuthFilter authFilter) throws Exception {
-        // http.httpBasic(); // we replace BasicAuth for Auth0
         http.csrf().disable(); // we disable this to avoid csrf errors
         http.addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class);
         http.sessionManagement().sessionCreationPolicy((SessionCreationPolicy.STATELESS));
@@ -44,8 +43,7 @@ public class SecurityConfig {
                 .antMatchers("/reservations/check-date").permitAll()
                 .antMatchers(HttpMethod.DELETE, "/**").hasRole("ADMIN")
                 .antMatchers("/user/**").permitAll()
-                .anyRequest().authenticated();
-
+                .anyRequest().permitAll();
         return http.build();
     }
 
@@ -74,21 +72,6 @@ public class SecurityConfig {
     // - **: joker pour de 0 à N segments
     // - {pathVar:regex}: pattern regex pour un segment
 
-//    @Bean
-//    public UserDetailsService userDetailsService() throws Exception {
-//        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-//        manager.createUser(User
-//                .withUsername("user")
-//                .password(encoder().encode("password"))
-//                .roles("USER")
-//                .build());
-//        manager.createUser(User
-//                .withUsername("admin")
-//                .password(encoder().encode("password"))
-//                .roles("ADMIN")
-//                .build());
-//        return manager;
-//    }
     @Bean
     public PasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
