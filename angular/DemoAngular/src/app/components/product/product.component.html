@@ -1,4 +1,4 @@
-<div class="row justify-content-center mb-3" *ngIf="products | getOne: id" >
+<div class="row justify-content-center mb-3" *ngIf="product; else noProduct">
   <div class="col-md-12 col-xl-10">
     <div class="card shadow-0 border rounded-3">
       <div class="card-body">
@@ -32,3 +32,10 @@
     </div>
   </div>
 </div>
+
+<ng-template #noProduct>
+  <div>
+    <p>The product doesn't exist.</p>
+  </div>
+  <button routerLink="products">Go back</button>
+</ng-template>

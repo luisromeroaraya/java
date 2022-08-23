@@ -60,17 +60,16 @@ export class ProductComponent implements OnInit {
       quantity: 1
     }
   ];
-  id: number = 0;
-  product: Product = this.products[0];
+  product?: Product;
 
   // constructor
   constructor(private route: ActivatedRoute) {
+     const id = route.snapshot.params['id']-1;
+    this.product = this.products.find((e)=>e.id == id);
   }
 
   // methods
   ngOnInit(): void {
-    this.id = this.route.snapshot.params['id']-1;
-    // this.product = this.products[this.id];
   }
 
   buy(value: Product) {

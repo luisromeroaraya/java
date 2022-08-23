@@ -15,7 +15,6 @@ import { HomeComponent } from './components/home/home.component';
 import { AccountComponent } from './components/account/account.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { ProductComponent } from './components/product/product.component';
-import { GetOnePipe } from './pipes/get-one.pipe';
 
 @NgModule({
   declarations: [
@@ -29,8 +28,7 @@ import { GetOnePipe } from './pipes/get-one.pipe';
     HomeComponent,
     AccountComponent,
     ContactComponent,
-    ProductComponent,
-    GetOnePipe
+    ProductComponent
   ],
   imports: [
     BrowserModule,
