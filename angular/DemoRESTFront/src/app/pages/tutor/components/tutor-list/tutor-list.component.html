@@ -1,1 +1,18 @@
-<p>{{tutors | json}}</p>
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">FirstName</th>
+    <th scope="col">LastName</th>
+    <th scope="col">ChildrenId</th>
+  </tr>
+  </thead>
+  <tbody class="table-group-divider">
+  <tr *ngFor="let tutor of Tutors" [routerLink]="[tutor.id]">
+    <th scope="row">{{tutor.id}}</th>
+    <td>{{tutor.firstName}}</td>
+    <td>{{tutor.lastName}}</td>
+    <td *ngFor="let child of tutor.childrenId"><span>{{child}}</span></td>
+  </tr>
+  </tbody>
+</table>
