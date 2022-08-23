@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import {Product} from "../../types/product";
+import { ActivatedRoute } from "@angular/router";
+import { Product } from "../../types/product";
+import { Subscription } from "rxjs";
 
 @Component({
-  selector: 'app-products',
-  templateUrl: './products.component.html',
-  styleUrls: ['./products.component.css']
+  selector: 'app-product-details',
+  templateUrl: './product-details.component.html',
+  styleUrls: ['./product-details.component.css']
 })
-export class ProductsComponent implements OnInit {
+export class ProductDetailsComponent implements OnInit {
 
   // variables
-  products: Product[] = [
+  private _products: Product[] = [
     {
       id: 1,
       title: "Car",
@@ -58,16 +60,30 @@ export class ProductsComponent implements OnInit {
       price: 2,
       quantity: 1
     }
-  ]
-  onlyAvailable : boolean = false;
-  sort : string = "priceAsc";
-  priceFilter : number = 2000;
+  ];
+  product?: Product;
+  private routeSubscription?: Subscription;
 
   // constructor
-  constructor() { }
+  constructor(private route: ActivatedRoute) {
+    this.routeSubscription = this.route.paramMap.subscribe(params => {
+      const id = params.get("id");
+      if (id != null)
+        this.product = this.Products.find(e => e.id == parseInt(id));
+    });
+  }
 
-  // methods
+  // getters
+  get Products(): Product[] {
+    return this._products;
+  }
+
+// methods
   ngOnInit(): void {
+  }
+
+  ngOnDestroy() {
+    this.routeSubscription?.unsubscribe()
   }
 
   buy(value: Product) {

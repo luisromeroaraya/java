@@ -1,16 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from "@angular/router";
-import { Product } from "../../types/product";
+import {Product} from "../../types/product";
 
 @Component({
-  selector: 'app-product',
-  templateUrl: './product.component.html',
-  styleUrls: ['./product.component.css']
+  selector: 'app-product-list',
+  templateUrl: './product-list.component.html',
+  styleUrls: ['./product-list.component.css']
 })
-export class ProductComponent implements OnInit {
+export class ProductListComponent implements OnInit {
 
   // variables
-  products: Product[] = [
+  private _products: Product[] = [
     {
       id: 1,
       title: "Car",
@@ -59,16 +58,20 @@ export class ProductComponent implements OnInit {
       price: 2,
       quantity: 1
     }
-  ];
-  product?: Product;
+  ]
+  onlyAvailable : boolean = false;
+  sort : string = "priceAsc";
+  priceFilter : number = 2000;
 
   // constructor
-  constructor(private route: ActivatedRoute) {
-     const id = route.snapshot.params['id']-1;
-    this.product = this.products.find((e)=>e.id == id);
+  constructor() { }
+
+  // getters
+  get Products(): Product[] {
+    return this._products;
   }
 
-  // methods
+// methods
   ngOnInit(): void {
   }
 
