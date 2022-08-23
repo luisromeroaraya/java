@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { FormsModule } from "@angular/forms";
+import { FormsModule } from "@angular/forms"; // we add this to manage forms
 
 import { AppRoutingModule } from "./app-routing";
 import { AppComponent } from './app.component';
@@ -23,7 +23,7 @@ import { ContactComponent } from './components/contact/contact.component';
   imports: [
     BrowserModule,
     NgbModule,
-    FormsModule, // we add this to manage forms
+    FormsModule,
     AppRoutingModule
   ],
   providers: [],
