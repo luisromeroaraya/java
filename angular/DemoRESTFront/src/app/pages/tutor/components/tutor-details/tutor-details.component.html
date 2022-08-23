@@ -1,0 +1,7 @@
+<div *ngIf="Tutor; else notFound">
+  <p>{{ Tutor | json }}</p>
+</div>
+
+<ng-template #notFound>
+  <p>Tutor not found</p>
+</ng-template>

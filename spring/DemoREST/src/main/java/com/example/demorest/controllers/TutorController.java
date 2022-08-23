@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/tutors")
-@CrossOrigin(origins = "http://localhost:4200")
 public class TutorController {
     private final TutorService tutorService;
 
@@ -24,7 +24,7 @@ public class TutorController {
         return tutorService.getOne(id);
     }
 
-    @GetMapping("")
+    @GetMapping("/all")
     public List<TutorDTO> getAll() {
         return tutorService.getAll();
     }
