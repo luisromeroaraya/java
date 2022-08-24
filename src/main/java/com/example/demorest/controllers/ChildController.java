@@ -6,15 +6,17 @@ import com.example.demorest.models.forms.ChildAddForm;
 import com.example.demorest.models.forms.ChildUpdateForm;
 import com.example.demorest.services.ChildService;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = {"http://localhost:4200"})
 @RestController
 @RequestMapping("/children")
+@Secured({"ROLE_USER"})
 public class ChildController {
     private final ChildService childService;
 

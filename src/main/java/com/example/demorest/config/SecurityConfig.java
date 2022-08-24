@@ -29,20 +29,20 @@ public class SecurityConfig {
         http.addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class);
         http.sessionManagement().sessionCreationPolicy((SessionCreationPolicy.STATELESS));
         http.authorizeRequests()
+//                .antMatchers("/security/test/all").permitAll()
+//                .antMatchers("/security/test/nobody").denyAll()
+//                .antMatchers("/security/test/connected").authenticated()
+//                .antMatchers("/security/test/not-connected").anonymous()
+//                .antMatchers("/security/test/role/user").hasRole("USER")
+//                .antMatchers("/security/test/role/admin").hasRole("ADMIN")
+//                .antMatchers("/security/test/role/any").hasAnyRole("USER", "ADMIN")
+//                .antMatchers("/security/test/authority/read").hasAuthority("ROLE_USER")
+//                .antMatchers("/security/test/authority/any").hasAnyAuthority("ROLE_USER", "READ", "WRITE")
                 .antMatchers("/swagger-ui/**").permitAll()
                 .antMatchers("/v3/**").permitAll()
-                .antMatchers("/security/test/all").permitAll()
-                .antMatchers("/security/test/nobody").denyAll()
-                .antMatchers("/security/test/connected").authenticated()
-                .antMatchers("/security/test/not-connected").anonymous()
-                .antMatchers("/security/test/role/user").hasRole("USER")
-                .antMatchers("/security/test/role/admin").hasRole("ADMIN")
-                .antMatchers("/security/test/role/any").hasAnyRole("USER", "ADMIN")
-                .antMatchers("/security/test/authority/read").hasAuthority("ROLE_USER")
-                .antMatchers("/security/test/authority/any").hasAnyAuthority("ROLE_USER", "READ", "WRITE")
-                .antMatchers("/reservations/check-date").permitAll()
-                .antMatchers(HttpMethod.DELETE, "/**").hasRole("ADMIN")
-                .antMatchers("/user/**").permitAll()
+//                .antMatchers("/reservations/check-date").permitAll()
+//                .antMatchers(HttpMethod.DELETE, "/**").hasRole("ADMIN")
+//                .antMatchers("/user/**").permitAll()
                 .anyRequest().permitAll();
         return http.build();
     }

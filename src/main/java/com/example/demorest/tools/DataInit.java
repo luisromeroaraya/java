@@ -29,9 +29,9 @@ public class DataInit implements InitializingBean {
     }
 
     private final List<Tutor> tutors = Arrays.asList(
-            new Tutor("Scarlett", "Johansson", "0123456789", new Address("Johansson Street", 123, "2E", "Brussels", "Brussels-Capital", 1000)),
+            new Tutor("Scarlett", "Johansson", "0123456789", new Address("Johansson Street", 123, "1E", "Brussels", "Brussels-Capital", 1000)),
             new Tutor("Jennifer", "Anniston", "0123456789",  new Address("Anniston Street", 123, "2E", "Brussels", "Brussels-Capital", 1000)),
-            new Tutor("Julia", "Roberts", "0123456789",  new Address("Roberts Street", 123, "2E", "Ostend", "West Flanders", 1000))
+            new Tutor("Julia", "Roberts", "0123456789",  new Address("Roberts Street", 123, "3E", "Ostend", "West Flanders", 8400))
     );
     private final List<Child> children = Arrays.asList(
             new Child("Ben", "Affleck", LocalDate.of(2020,1,1), false, List.of("peanut", "aspirin"), Set.of(tutors.get(0))),
