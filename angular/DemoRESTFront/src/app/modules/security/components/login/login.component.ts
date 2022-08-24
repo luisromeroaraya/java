@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onSubmit(): void {
+  login(): void {
     this._auth.login(this.username, this.password).subscribe(token => {
       this.token = token["token"];
       localStorage.setItem("token", this.token);
