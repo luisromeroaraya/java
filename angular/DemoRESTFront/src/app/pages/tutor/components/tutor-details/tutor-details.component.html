@@ -14,7 +14,11 @@
       {{Tutor.address.street}} {{Tutor.address.number}}, {{Tutor.address.extra}}, {{Tutor.address.zip}}, {{Tutor.address.region}}, {{Tutor.address.city}}</p>
   </div>
   <div class="card-footer text-muted">
-    <p>ChildrenId: <span *ngFor="let child of Tutor.childrenId">{{child}} </span></p>
+    <p>ChildrenId:
+      <span *ngFor="let childId of Tutor.childrenId">
+        <a routerLink="/children/{{childId}}"> {{childId}}</a>
+      </span>
+    </p>
   </div>
 </div>
 

@@ -22,7 +22,11 @@
     </p>
   </div>
   <div class="card-footer text-muted">
-    <p>TutorId: <span *ngFor="let tutor of Child.tutorsId">{{tutor}} </span></p>
+    <p>TutorId:
+      <span *ngFor="let tutorId of Child.tutorsId">
+        <a routerLink="/tutors/{{tutorId}}"> {{tutorId}}</a>
+      </span>
+    </p>
   </div>
 </div>
 
