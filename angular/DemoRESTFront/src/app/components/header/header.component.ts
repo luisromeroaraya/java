@@ -1,6 +1,6 @@
 import {Component, OnChanges, OnInit} from '@angular/core';
 import { Router } from "@angular/router";
-import {SessionService} from "../../services/session.service";
+import {SessionService} from "../../modules/security/services/session.service";
 
 @Component({
   selector: 'app-header',

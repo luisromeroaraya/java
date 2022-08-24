@@ -1,11 +1,11 @@
-<form class="container" novalidate>
+<form class="container" (submit)="onSubmit()">
   <div class="form-group mb-3">
-    <label for="username">Email address:</label>
+    <label for="username">Username:</label>
     <input type="text" class="form-control" id="username" name="username" placeholder="Enter username" required [(ngModel)]="username">
   </div>
   <div class="form-group mb-3">
     <label for="password">Password:</label>
     <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" required [(ngModel)]="password">
   </div>
-  <button type="btn" class="btn btn-primary" (click)="login()">Login</button>
+  <button type="submit" class="btn btn-primary">Login</button>
 </form>

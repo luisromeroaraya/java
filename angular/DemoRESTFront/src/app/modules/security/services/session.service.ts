@@ -5,8 +5,10 @@ import {BehaviorSubject, Observable} from "rxjs";
   providedIn: 'root'
 })
 export class SessionService {
-  private token$ = new BehaviorSubject<string | null>(null);
+  // variables
+  private token$: BehaviorSubject<string | null> = new BehaviorSubject<string | null>(null);
 
+  // constructor
   constructor() {
     const token = localStorage.getItem("token");
     if (token) {
@@ -14,9 +16,12 @@ export class SessionService {
     }
   }
 
+  // getters
+  get Token$(): Observable<string | null> {
+    return this.token$.asObservable();
+  }
 
-  get Token$(): Observable<string | null> { return this.token$.asObservable(); }
-
+  // methods
   login(token: string) {
     this.token$.next(token);
   }

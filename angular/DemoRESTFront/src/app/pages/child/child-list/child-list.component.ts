@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Child} from "../types/child";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Child } from "../types/child";
 
 @Component({
   selector: 'app-child-list',

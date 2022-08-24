@@ -9,22 +9,22 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component'
 import { HomeComponent} from "./pages/home/home.component";
 import { HttpClientModule } from "@angular/common/http";
-import { LoginComponent } from './pages/login/login.component';
+import { SecurityModule } from "./modules/security/security.module";
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     HeaderComponent,
-    FooterComponent,
-    LoginComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     NgbModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    SecurityModule
   ],
   providers: [],
   exports: [],

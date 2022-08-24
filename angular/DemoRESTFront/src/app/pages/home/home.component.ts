@@ -1,7 +1,7 @@
 import {Component, OnChanges, OnInit} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
-import {SessionService} from "../../services/session.service";
+import {SessionService} from "../../modules/security/services/session.service";
+import {AuthService} from "../../modules/security/services/auth.service";
 
 @Component({
   selector: 'app-home',
@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit, OnChanges{
   disconnected: boolean = true;
 
   //constructor
-  constructor(private _http: HttpClient, private router: Router, private _session: SessionService) {
+  constructor(private _session: SessionService, private _auth: AuthService, private router: Router) {
     this._session.Token$.subscribe(token => this.disconnected = token == null);
   }
 
@@ -32,8 +32,8 @@ export class HomeComponent implements OnInit, OnChanges{
     console.log("CHANGES");
   }
 
-  login(): void {
-    this._http.post<any>("http://localhost:8080/user/login", {"username": this.username, "password": this.password }).subscribe(token => {
+  onSubmit(): void {
+    this._auth.login(this.username, this.password).subscribe(token => {
       this.token = token["token"];
       localStorage.setItem("token", this.token);
       this._session.login(this.token);
