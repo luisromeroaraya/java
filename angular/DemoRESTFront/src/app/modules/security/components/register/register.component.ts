@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AuthService} from "../../services/auth.service";
 import {SessionService} from "../../services/session.service";
 import {Router} from "@angular/router";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-register',
@@ -10,9 +11,11 @@ import {Router} from "@angular/router";
 })
 export class RegisterComponent implements OnInit {
   // variables
-  username: string = "";
-  password: string = "";
-  repeatPassword: string = "";
+  registerForm = new FormGroup({
+    username: new FormControl("", [Validators.required, Validators.min(3)]),
+    password: new FormControl("", [Validators.required, Validators.min(4)]),
+    repeatPassword: new FormControl("", [Validators.required, Validators.min(4)])
+  });
   token: string = "";
 
   // constructor
@@ -23,9 +26,9 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
-    if (this.password == this.repeatPassword) {
-      this._auth.register(this.username, this.password).subscribe(_ => {
-        this._auth.login(this.username, this.password).subscribe(token => {
+    if (this.registerForm.get("password")?.value === this.registerForm.get("repeatPassword")?.value) {
+      this._auth.register(<string>this.registerForm.get("username")?.value, <string>this.registerForm.get("password")?.value).subscribe(_ => {
+        this._auth.login(<string>this.registerForm.get("username")?.value, <string>this.registerForm.get("password")?.value).subscribe(token => {
           this.token = token["token"];
           localStorage.setItem("token", this.token);
           this._session.login(this.token);
