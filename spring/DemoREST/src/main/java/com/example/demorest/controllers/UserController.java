@@ -1,5 +1,6 @@
 package com.example.demorest.controllers;
 
+import com.example.demorest.models.dto.TokenDTO;
 import com.example.demorest.models.forms.UserAddForm;
 import com.example.demorest.models.forms.UserLoginForm;
 import com.example.demorest.services.implementation.CustomUserDetailsServiceImpl;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = {"http://localhost:4200"})
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -31,8 +32,8 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String login(@Valid @RequestBody UserLoginForm form){
+    public TokenDTO login(@Valid @RequestBody UserLoginForm form){
         Authentication auth = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(form.getUsername(), form.getPassword()));
-        return jwtProvider.createToken(auth);
+        return new TokenDTO(jwtProvider.createToken(auth));
     }
 }

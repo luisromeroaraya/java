@@ -1,0 +1,18 @@
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th scope="col">ChildId</th>
+    <th scope="col">FirstName</th>
+    <th scope="col">LastName</th>
+    <th scope="col">TutorsId</th>
+  </tr>
+  </thead>
+  <tbody class="table-group-divider">
+  <tr *ngFor="let child of Children" [routerLink]="[child.id]">
+    <th scope="row">{{child.id}}</th>
+    <td>{{child.firstName}}</td>
+    <td>{{child.lastName}}</td>
+    <td *ngFor="let tutor of child.tutorsId"><span>{{tutor}}</span></td>
+  </tr>
+  </tbody>
+</table>

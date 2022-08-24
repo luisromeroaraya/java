@@ -11,7 +11,7 @@ import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = {"http://localhost:4200"})
 @RestController
 @RequestMapping("/reservations")
 public class ReservationController {

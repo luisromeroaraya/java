@@ -4,14 +4,16 @@ import com.example.demorest.models.dto.TutorDTO;
 import com.example.demorest.models.forms.TutorAddForm;
 import com.example.demorest.models.forms.TutorUpdateForm;
 import com.example.demorest.services.TutorService;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = {"http://localhost:4200"})
 @RestController
 @RequestMapping("/tutors")
+@Secured({"ROLE_USER"})
 public class TutorController {
     private final TutorService tutorService;
 

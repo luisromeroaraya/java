@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {HttpClient, HttpParams} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {ActivatedRoute} from "@angular/router";
 import {Tutor} from "../../types/tutor";
 import {Observable} from "rxjs";
@@ -10,26 +10,30 @@ import {Observable} from "rxjs";
   styleUrls: ['./tutor-details.component.css']
 })
 export class TutorDetailsComponent implements OnInit {
+  //variables
   private getOne$?: Observable<Tutor>;
   private _tutor?: Tutor;
+  token: string = "";
 
   // constructor
   constructor(private _http: HttpClient, private _route: ActivatedRoute) {
-    this._route.paramMap.subscribe(map => {
-      const params = new HttpParams().append("id", map.get("id")!);
-      this.getOne$ = this._http.get<Tutor>(`http://localhost:8080/tutors/${map.get("id")}`);
-      this.getOne$.subscribe((tutor => this._tutor = tutor));
-    });
   }
 
   // getters
-
-
   get Tutor(): Tutor {
     return <Tutor>this._tutor;
   }
 
-// methods
+  // methods
   ngOnInit(): void {
+    if (localStorage.getItem("token") != null)
+    { // @ts-ignore
+      this.token = localStorage.getItem("token");
+    }
+    this._route.paramMap.subscribe(map => {
+      const params = new HttpHeaders().append("Authorization", `Bearer ${this.token}`);
+      this.getOne$ = this._http.get<Tutor>(`http://localhost:8080/tutors/${map.get("id")}`, {headers: params});
+      this.getOne$.subscribe((tutor => this._tutor = tutor));
+    });
   }
 }
