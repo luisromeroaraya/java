@@ -11,9 +11,7 @@ import { Child } from "../types/child";
 })
 export class ChildDetailsComponent implements OnInit {
   //variables
-  private getOne$?: Observable<Child>;
-  private _child?: Child;
-  token: string = "";
+  private child?: Child;
 
   // constructor
   constructor(private _http: HttpClient, private _route: ActivatedRoute) {
@@ -21,20 +19,20 @@ export class ChildDetailsComponent implements OnInit {
 
   // getters
   get Child(): Child {
-    return <Child>this._child;
+    return <Child>this.child;
   }
 
   // methods
   ngOnInit(): void {
+    let token = "";
     if (localStorage.getItem("token") != null)
     { // @ts-ignore
-      this.token = localStorage.getItem("token");
+      token = localStorage.getItem("token");
     }
-    console.log(this.token);
     this._route.paramMap.subscribe(map => {
-      const params = new HttpHeaders().append("Authorization", `Bearer ${this.token}`);
-      this.getOne$ = this._http.get<Child>(`https://demo-rest-springboot.herokuapp.com/children/${map.get("id")}`, {headers: params});
-      this.getOne$.subscribe((child => this._child = child));
+      const headers = new HttpHeaders().append("Authorization", `Bearer ${token}`);
+      this._http.get<Child>(`https://demo-rest-springboot.herokuapp.com/children/${map.get("id")}`, {headers})
+        .subscribe((child => this.child = child));
     });
   }
 }

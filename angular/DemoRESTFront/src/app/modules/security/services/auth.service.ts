@@ -7,8 +7,10 @@ import { Observable } from "rxjs";
 })
 export class AuthService {
 
+  // constructors
   constructor(private _http: HttpClient) { }
 
+  // methods
   login(username: string, password: string): Observable<any> {
     return this._http.post<any>("https://demo-rest-springboot.herokuapp.com/user/login", {"username": username, "password": password });
   }

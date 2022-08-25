@@ -25,6 +25,7 @@ export class SessionService {
   login(token: string) {
     this.token$.next(token);
   }
+
   logout() {
     this.token$.next(null);
   }

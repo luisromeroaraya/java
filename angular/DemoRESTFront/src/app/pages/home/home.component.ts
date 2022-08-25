@@ -1,7 +1,7 @@
-import {Component, OnChanges, OnInit} from '@angular/core';
-import {Router} from "@angular/router";
-import {SessionService} from "../../modules/security/services/session.service";
-import {AuthService} from "../../modules/security/services/auth.service";
+import { Component, OnChanges, OnInit } from '@angular/core';
+import { Router } from "@angular/router";
+import { SessionService } from "../../modules/security/services/session.service";
+import { AuthService } from "../../modules/security/services/auth.service";
 
 @Component({
   selector: 'app-home',
@@ -19,8 +19,6 @@ export class HomeComponent implements OnInit, OnChanges{
   constructor(private _session: SessionService, private _auth: AuthService, private router: Router) {
     this._session.Token$.subscribe(token => this.disconnected = token == null);
   }
-
-  // getters
 
   //methods
   ngOnInit(): void {
@@ -40,5 +38,4 @@ export class HomeComponent implements OnInit, OnChanges{
       this.router.navigate(["/"]);
     });
   }
-
 }

@@ -23,7 +23,7 @@ export class HeaderComponent implements OnInit, OnChanges {
       this.disconnected = false;
   }
 
-  ngOnChanges(changes: any) {
+  ngOnChanges(changes: any): void {
     console.log("CHANGES");
   }
 
@@ -32,5 +32,4 @@ export class HeaderComponent implements OnInit, OnChanges {
     this._session.logout();
     this.router.navigate(["/"]);
   }
-
 }

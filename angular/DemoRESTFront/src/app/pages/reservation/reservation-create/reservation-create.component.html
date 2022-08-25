@@ -1,0 +1,26 @@
+<form class="container" [formGroup]="reservationForm" (submit)="createReservation()">
+  <div class="form-group mb-3">
+    <label for="tutor_id">tutor_id:</label>
+    <select class="form-control" id="tutor_id" name="tutor_id" formControlName="tutor_id">
+      <option value="" disabled selected>Select tutor...</option>
+      <option *ngFor="let tutor of Tutors" value="{{tutor.id}}">{{tutor.firstName}} {{tutor.lastName}}</option>
+    </select>
+  </div>
+  <div class="form-group mb-3">
+    <label for="child_id">child_id:</label>
+    <select class="form-control" id="child_id" name="child_id" formControlName="child_id">
+      <option value="" disabled selected>Select child...</option>
+      <option *ngFor="let child of Children" value="{{child.id}}">{{child.firstName}} {{child.lastName}}</option>
+    </select>
+  </div>
+  <div class="form-group mb-3">
+    <label for="timeArrival">timeArrival:</label>
+    <input type="datetime-local" class="form-control" id="timeArrival" name="timeArrival" formControlName="timeArrival">
+  </div>
+  <div class="form-group mb-3">
+    <label for="timeDeparture">timeDeparture:</label>
+    <input type="datetime-local" class="form-control" id="timeDeparture" name="timeDeparture" formControlName="timeDeparture">
+  </div>
+  <button type="submit" class="btn btn-primary">Register</button>
+</form>
+

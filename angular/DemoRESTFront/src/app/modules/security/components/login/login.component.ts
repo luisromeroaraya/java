@@ -12,20 +12,20 @@ export class LoginComponent implements OnInit {
   // variables
   username: string = "";
   password: string = "";
-  token: string = "";
 
+  // constructor
   constructor(private _auth: AuthService, private _session: SessionService, private _router: Router) { }
 
+  // methods
   ngOnInit(): void {
   }
 
   login(): void {
-    this._auth.login(this.username, this.password).subscribe(token => {
-      this.token = token["token"];
-      localStorage.setItem("token", this.token);
-      this._session.login(this.token);
+    this._auth.login(this.username, this.password).subscribe(data => {
+      let token = data["token"];
+      localStorage.setItem("token", token);
+      this._session.login(token);
       this._router.navigate(["/"]);
     });
   }
-
 }

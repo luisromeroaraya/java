@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
-import {ActivatedRoute} from "@angular/router";
-import {Tutor} from "../../types/tutor";
-import {Observable} from "rxjs";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { ActivatedRoute } from "@angular/router";
+import { Tutor } from "../../types/tutor";
+import { Observable } from "rxjs";
 
 @Component({
   selector: 'app-tutor-details',
@@ -11,9 +11,7 @@ import {Observable} from "rxjs";
 })
 export class TutorDetailsComponent implements OnInit {
   //variables
-  private getOne$?: Observable<Tutor>;
-  private _tutor?: Tutor;
-  token: string = "";
+  private tutor?: Tutor;
 
   // constructor
   constructor(private _http: HttpClient, private _route: ActivatedRoute) {
@@ -21,19 +19,20 @@ export class TutorDetailsComponent implements OnInit {
 
   // getters
   get Tutor(): Tutor {
-    return <Tutor>this._tutor;
+    return <Tutor>this.tutor;
   }
 
   // methods
   ngOnInit(): void {
+    let token = "";
     if (localStorage.getItem("token") != null)
     { // @ts-ignore
-      this.token = localStorage.getItem("token");
+      token = localStorage.getItem("token");
     }
     this._route.paramMap.subscribe(map => {
-      const params = new HttpHeaders().append("Authorization", `Bearer ${this.token}`);
-      this.getOne$ = this._http.get<Tutor>(`https://demo-rest-springboot.herokuapp.com/tutors/${map.get("id")}`, {headers: params});
-      this.getOne$.subscribe((tutor => this._tutor = tutor));
+      const headers = new HttpHeaders().append("Authorization", `Bearer ${token}`);
+      this._http.get<Tutor>(`https://demo-rest-springboot.herokuapp.com/tutors/${map.get("id")}`, {headers})
+        .subscribe((tutor => this.tutor = tutor));
     });
   }
 }

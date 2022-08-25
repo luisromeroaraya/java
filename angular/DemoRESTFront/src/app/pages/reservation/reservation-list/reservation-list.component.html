@@ -1,0 +1,21 @@
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th scope="col">ReservationId</th>
+    <th scope="col">TutorId</th>
+    <th scope="col">ChildId</th>
+    <th scope="col">TimeArrival</th>
+    <th scope="col">TimeDeparture</th>
+  </tr>
+  </thead>
+  <tbody class="table-group-divider">
+  <tr *ngFor="let reservation of Reservations; index as id" [routerLink]="[id]">
+    <th scope="row">{{id}}</th>
+    <td>{{reservation.tutor_id}}</td>
+    <td>{{reservation.child_id}}</td>
+    <td>{{reservation.timeArrival | date: "short" }}</td>
+    <td>{{reservation.timeDeparture | date: "short" }}</td>
+  </tr>
+  </tbody>
+</table>
+<button type="button" class="btn btn-success" (click)="addReservation()">Add reservation</button>

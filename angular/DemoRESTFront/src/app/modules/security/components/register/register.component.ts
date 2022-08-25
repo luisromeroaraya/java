@@ -16,7 +16,6 @@ export class RegisterComponent implements OnInit {
     password: new FormControl("", [Validators.required, Validators.min(4)]),
     repeatPassword: new FormControl("", [Validators.required, Validators.min(4)])
   });
-  token: string = "";
 
   // constructor
   constructor(private _auth: AuthService, private _session: SessionService, private _router: Router) { }
@@ -28,15 +27,13 @@ export class RegisterComponent implements OnInit {
   register() {
     if (this.registerForm.get("password")?.value === this.registerForm.get("repeatPassword")?.value) {
       this._auth.register(<string>this.registerForm.get("username")?.value, <string>this.registerForm.get("password")?.value).subscribe(_ => {
-        this._auth.login(<string>this.registerForm.get("username")?.value, <string>this.registerForm.get("password")?.value).subscribe(token => {
-          this.token = token["token"];
-          localStorage.setItem("token", this.token);
-          this._session.login(this.token);
+        this._auth.login(<string>this.registerForm.get("username")?.value, <string>this.registerForm.get("password")?.value).subscribe(data => {
+          let token = data["token"];
+          localStorage.setItem("token", token);
+          this._session.login(token);
           this._router.navigate(["/"]);
         });
       });
-
     }
   }
-
 }
