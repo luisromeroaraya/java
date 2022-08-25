@@ -10,10 +10,10 @@ export class AuthService {
   constructor(private _http: HttpClient) { }
 
   login(username: string, password: string): Observable<any> {
-    return this._http.post<any>("http://localhost:8080/user/login", {"username": username, "password": password });
+    return this._http.post<any>("https://demo-rest-springboot.herokuapp.com/user/login", {"username": username, "password": password });
   }
 
   register(username: string, password: string): Observable<any> {
-    return this._http.post<any>("http://localhost:8080/user/register", {"username": username, "password": password });
+    return this._http.post<any>("https://demo-rest-springboot.herokuapp.com/user/register", {"username": username, "password": password });
   }
 }

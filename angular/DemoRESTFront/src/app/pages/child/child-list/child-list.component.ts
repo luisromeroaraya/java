@@ -27,8 +27,7 @@ export class ChildListComponent implements OnInit {
       this.token = localStorage.getItem("token");
     }
     const params = new HttpHeaders().append("Authorization", `Bearer ${this.token}`);
-    // this._http.get('https://demo-rest-springboot.herokuapp.com/tutors/all', {headers: params}).subscribe(data => console.log(data));
-    this._http.get('http://localhost:8080/children/all', {headers: params}).subscribe(data => {
+    this._http.get('https://demo-rest-springboot.herokuapp.com/children/all', {headers: params}).subscribe(data => {
       const response: any = data;
       response.forEach((e: Child) => {
         let child: Child = e;

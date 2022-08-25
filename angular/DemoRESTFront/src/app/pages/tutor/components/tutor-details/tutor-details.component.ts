@@ -32,7 +32,7 @@ export class TutorDetailsComponent implements OnInit {
     }
     this._route.paramMap.subscribe(map => {
       const params = new HttpHeaders().append("Authorization", `Bearer ${this.token}`);
-      this.getOne$ = this._http.get<Tutor>(`http://localhost:8080/tutors/${map.get("id")}`, {headers: params});
+      this.getOne$ = this._http.get<Tutor>(`https://demo-rest-springboot.herokuapp.com/tutors/${map.get("id")}`, {headers: params});
       this.getOne$.subscribe((tutor => this._tutor = tutor));
     });
   }

@@ -33,7 +33,7 @@ export class ChildDetailsComponent implements OnInit {
     console.log(this.token);
     this._route.paramMap.subscribe(map => {
       const params = new HttpHeaders().append("Authorization", `Bearer ${this.token}`);
-      this.getOne$ = this._http.get<Child>(`http://localhost:8080/children/${map.get("id")}`, {headers: params});
+      this.getOne$ = this._http.get<Child>(`https://demo-rest-springboot.herokuapp.com/children/${map.get("id")}`, {headers: params});
       this.getOne$.subscribe((child => this._child = child));
     });
   }
