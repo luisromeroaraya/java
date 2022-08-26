@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable, Subject } from "rxjs";
+import { SessionService } from "../../../modules/security/services/session.service";
 
 @Injectable({
   providedIn: 'root'
@@ -15,11 +16,12 @@ export class ReservationService {
   }
 
   // constructor
-  constructor(private _http: HttpClient) { }
+  constructor(private _http: HttpClient, private _session: SessionService) { }
 
   // methods
 
   getAll(): Observable<any[]> {
+    this._session.Token$.subscribe(e => console.log(e));
     let token = "";
     if (localStorage.getItem("token") != null)
     { // @ts-ignore
@@ -36,7 +38,7 @@ export class ReservationService {
       token = localStorage.getItem("token");
     }
     const headers = new HttpHeaders().append("Authorization", `Bearer ${token}`);
-    this._http.post('https://demo-rest-springboot.herokuapp.com/reservations/add', reservation, {headers})
+    this._http.post('https://demo-rest-springboot.herokuapp.com/reservations/create', reservation, {headers})
       .subscribe(data => {
         this.refreshList$.next(true);
       });
