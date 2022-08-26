@@ -6,9 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./tutor.component.css']
 })
 export class TutorComponent implements OnInit {
-
+  // constructor
   constructor() {}
 
+  // methods
   ngOnInit(): void {
   }
 }

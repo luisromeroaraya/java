@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { ActivatedRoute } from "@angular/router";
-import { Tutor } from "../../types/tutor";
-import { Observable } from "rxjs";
+import { ITutor } from "../../types/ITutor";
 
 @Component({
   selector: 'app-tutor-details',
@@ -11,15 +10,15 @@ import { Observable } from "rxjs";
 })
 export class TutorDetailsComponent implements OnInit {
   //variables
-  private tutor?: Tutor;
+  private tutor?: ITutor;
 
   // constructor
   constructor(private _http: HttpClient, private _route: ActivatedRoute) {
   }
 
   // getters
-  get Tutor(): Tutor {
-    return <Tutor>this.tutor;
+  get Tutor(): ITutor {
+    return <ITutor>this.tutor;
   }
 
   // methods
@@ -31,7 +30,7 @@ export class TutorDetailsComponent implements OnInit {
     }
     this._route.paramMap.subscribe(map => {
       const headers = new HttpHeaders().append("Authorization", `Bearer ${token}`);
-      this._http.get<Tutor>(`https://demo-rest-springboot.herokuapp.com/tutors/${map.get("id")}`, {headers})
+      this._http.get<ITutor>(`https://demo-rest-springboot.herokuapp.com/tutors/${map.get("id")}`, {headers})
         .subscribe((tutor => this.tutor = tutor));
     });
   }

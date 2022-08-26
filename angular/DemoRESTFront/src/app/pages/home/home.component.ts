@@ -12,29 +12,26 @@ export class HomeComponent implements OnInit, OnChanges{
   // variables
   username: string = "";
   password: string = "";
-  token: string = "";
-  disconnected: boolean = true;
+
+  // getters
+  get isConnected(): boolean {
+    return this._session.isConnected();
+  }
 
   //constructor
-  constructor(private _session: SessionService, private _auth: AuthService, private router: Router) {
-    this._session.Token$.subscribe(token => this.disconnected = token == null);
-  }
+  constructor(private _session: SessionService, private _auth: AuthService, private router: Router) {}
 
   //methods
-  ngOnInit(): void {
-    if (localStorage.getItem("token") != null)
-      this.disconnected = false;
-  }
+  ngOnInit(): void {}
 
   ngOnChanges(changes: any) {
     console.log("CHANGES");
   }
 
   onSubmit(): void {
-    this._auth.login(this.username, this.password).subscribe(token => {
-      this.token = token["token"];
-      localStorage.setItem("token", this.token);
-      this._session.login(this.token);
+    this._auth.login(this.username, this.password).subscribe(data => {
+      let token = data["token"];
+      this._session.login(token);
       this.router.navigate(["/"]);
     });
   }

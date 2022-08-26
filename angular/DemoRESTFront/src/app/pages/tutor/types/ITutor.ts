@@ -1,10 +1,10 @@
-import { Address } from "./address";
+import { IAddress } from "./IAddress";
 
-export interface Tutor {
+export interface ITutor {
   id: number,
   firstName: string;
   lastName: string;
   telephone: string;
-  address: Address;
+  address: IAddress;
   childrenId: number[];
 }

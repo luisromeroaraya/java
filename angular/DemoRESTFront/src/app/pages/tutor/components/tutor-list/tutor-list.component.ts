@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Tutor } from "../../types/tutor";
+import { ITutor } from "../../types/ITutor";
 
 @Component({
   selector: 'app-tutor-list',
@@ -9,13 +9,13 @@ import { Tutor } from "../../types/tutor";
 })
 export class TutorListComponent implements OnInit {
   // variables
-  private tutors: Tutor[] = [];
+  private tutors: ITutor[] = [];
 
   // constructor
   constructor(private _http: HttpClient) { }
 
   // getters
-  get Tutors(): Tutor[] {
+  get Tutors(): ITutor[] {
     return this.tutors;
   }
 
@@ -29,8 +29,8 @@ export class TutorListComponent implements OnInit {
     const headers = new HttpHeaders().append("Authorization", `Bearer ${token}`);
     this._http.get('https://demo-rest-springboot.herokuapp.com/tutors/all', {headers}).subscribe(data => {
       const response: any = data;
-      response.forEach((e: Tutor) => {
-        let tutor: Tutor = e;
+      response.forEach((e: ITutor) => {
+        let tutor: ITutor = e;
         this.tutors.push(tutor);
       })
     });

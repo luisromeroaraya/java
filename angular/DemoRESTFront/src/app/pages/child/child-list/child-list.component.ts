@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Child } from "../types/child";
+import { IChild } from "../types/IChild";
 
 @Component({
   selector: 'app-child-list',
@@ -9,13 +9,13 @@ import { Child } from "../types/child";
 })
 export class ChildListComponent implements OnInit {
   // variables
-  private children: Child[] = [];
+  private children: IChild[] = [];
 
   // constructor
   constructor(private _http: HttpClient) { }
 
   // getters
-  get Children(): Child[] {
+  get Children(): IChild[] {
     return this.children;
   }
 
@@ -29,8 +29,8 @@ export class ChildListComponent implements OnInit {
     const params = new HttpHeaders().append("Authorization", `Bearer ${token}`);
     this._http.get('https://demo-rest-springboot.herokuapp.com/children/all', {headers: params}).subscribe(data => {
       const response: any = data;
-      response.forEach((e: Child) => {
-        let child: Child = e;
+      response.forEach((e: IChild) => {
+        let child: IChild = e;
         this.children.push(child);
       })
     });

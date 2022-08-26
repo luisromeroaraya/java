@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable, Subject } from "rxjs";
 import { SessionService } from "../../../modules/security/services/session.service";
+import {IReservation} from "../types/IReservation";
+import {IChild} from "../../child/types/IChild";
+import {ActivatedRoute} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -16,27 +19,38 @@ export class ReservationService {
   }
 
   // constructor
-  constructor(private _http: HttpClient, private _session: SessionService) { }
+  constructor(private _session: SessionService, private _http: HttpClient, private _route: ActivatedRoute) { }
 
   // methods
-
-  getAll(): Observable<any[]> {
-    this._session.Token$.subscribe(e => console.log(e));
-    let token = "";
-    if (localStorage.getItem("token") != null)
-    { // @ts-ignore
-      token = localStorage.getItem("token");
-    }
+  getAll(): IReservation[] {
+    let reservations: IReservation[] = [];
+    let token;
+    this._session.Token$.subscribe(data => token = data);
     const headers = new HttpHeaders().append("Authorization", `Bearer ${token}`);
-    return this._http.get<any[]>('https://demo-rest-springboot.herokuapp.com/reservations/all', {headers});
+    this._http.get<any[]>('https://demo-rest-springboot.herokuapp.com/reservations/all', {headers}).subscribe(data => {
+      const response: any = data;
+      response.forEach((e: IReservation) => {
+        let reservation: IReservation = e;
+        reservations.push(reservation);
+      });
+    });
+    return reservations;
   }
 
-  add(reservation: any) {
-    let token = "";
-    if (localStorage.getItem("token") != null)
-    { // @ts-ignore
-      token = localStorage.getItem("token");
-    }
+  getOne(id: number): any {
+    let reservation;
+    let token;
+    this._session.Token$.subscribe(data => token = data);
+    const headers = new HttpHeaders().append("Authorization", `Bearer ${token}`);
+    this._http.get<any>(`https://demo-rest-springboot.herokuapp.com/reservations/${id}`, {headers}).subscribe(data => {
+      reservation = data;
+    });
+    return reservation;
+  }
+
+  create(reservation: any) {
+    let token;
+    this._session.Token$.subscribe(data => token = data);
     const headers = new HttpHeaders().append("Authorization", `Bearer ${token}`);
     this._http.post('https://demo-rest-springboot.herokuapp.com/reservations/create', reservation, {headers})
       .subscribe(data => {

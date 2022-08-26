@@ -5,10 +5,11 @@
   </a>
   <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
     <a class="me-3 py-2 text-dark text-decoration-none" routerLink="" routerLinkActive="text-black-50" [routerLinkActiveOptions]="{exact: true}">Home</a>
-    <a class="me-3 py-2 text-dark text-decoration-none" routerLink="tutors" routerLinkActive="text-black-50" *ngIf="!disconnected">Tutors</a>
-    <a class="me-3 py-2 text-dark text-decoration-none" routerLink="children" routerLinkActive="text-black-50" *ngIf="!disconnected">Children</a>
-    <a class="me-3 py-2 text-dark text-decoration-none" routerLink="reservations" routerLinkActive="text-black-50" *ngIf="!disconnected">Reservations</a>
-    <a class="py-2 text-dark text-decoration-none" routerLink="register" routerLinkActive="text-black-50" *ngIf="disconnected">Register</a>
-    <a class="py-2 text-dark text-decoration-none" href="" (click)="logout()" *ngIf="!disconnected">Logout</a>
+    <a class="me-3 py-2 text-dark text-decoration-none" routerLink="tutors" routerLinkActive="text-black-50" *ngIf="isConnected">Tutors</a>
+    <a class="me-3 py-2 text-dark text-decoration-none" routerLink="children" routerLinkActive="text-black-50" *ngIf="isConnected">Children</a>
+    <a class="me-3 py-2 text-dark text-decoration-none" routerLink="reservations" routerLinkActive="text-black-50" *ngIf="isConnected">Reservations</a>
+    <a class="me-3 py-2 text-dark text-decoration-none" routerLink="users" routerLinkActive="text-black-50" *ngIf="isConnected && isAdmin">Users</a>
+    <a class="py-2 text-dark text-decoration-none" routerLink="register" routerLinkActive="text-black-50" *ngIf="!isConnected">Register</a>
+    <a class="py-2 text-dark text-decoration-none" href="" (click)="logout()" *ngIf="isConnected">Logout</a>
   </nav>
 </div>

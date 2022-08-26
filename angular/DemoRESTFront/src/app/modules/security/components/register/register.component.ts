@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthService} from "../../services/auth.service";
-import {SessionService} from "../../services/session.service";
-import {Router} from "@angular/router";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import { AuthService } from "../../services/auth.service";
+import { SessionService } from "../../services/session.service";
+import { Router } from "@angular/router";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 
 @Component({
   selector: 'app-register',
@@ -29,7 +29,6 @@ export class RegisterComponent implements OnInit {
       this._auth.register(<string>this.registerForm.get("username")?.value, <string>this.registerForm.get("password")?.value).subscribe(_ => {
         this._auth.login(<string>this.registerForm.get("username")?.value, <string>this.registerForm.get("password")?.value).subscribe(data => {
           let token = data["token"];
-          localStorage.setItem("token", token);
           this._session.login(token);
           this._router.navigate(["/"]);
         });

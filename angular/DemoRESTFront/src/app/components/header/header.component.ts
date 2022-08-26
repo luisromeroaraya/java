@@ -1,6 +1,6 @@
 import {Component, OnChanges, OnInit} from '@angular/core';
 import { Router } from "@angular/router";
-import {SessionService} from "../../modules/security/services/session.service";
+import { SessionService } from "../../modules/security/services/session.service";
 
 @Component({
   selector: 'app-header',
@@ -10,18 +10,21 @@ import {SessionService} from "../../modules/security/services/session.service";
 export class HeaderComponent implements OnInit, OnChanges {
   // variables
   date = Date();
-  disconnected: boolean = true;
 
   // constructor
-  constructor(private router: Router, private _session: SessionService) {
-    this._session.Token$.subscribe(token => this.disconnected = token == null);
+  constructor(private router: Router, private _session: SessionService) {}
+
+  // getters
+  get isConnected(): boolean {
+    return this._session.isConnected();
+  }
+
+  get isAdmin(): boolean {
+    return this._session.isAdmin();
   }
 
   // methods
-  ngOnInit(): void {
-    if (localStorage.getItem("token") != null)
-      this.disconnected = false;
-  }
+  ngOnInit(): void {}
 
   ngOnChanges(changes: any): void {
     console.log("CHANGES");

@@ -9,6 +9,7 @@ const routes: Routes = [
   { path: 'tutors', loadChildren: () => import("./pages/tutor/tutor.module").then(m => m.TutorModule) },
   { path: 'children', loadChildren: () => import("./pages/child/child.module").then(m => m.ChildModule) },
   { path: 'reservations', loadChildren: () => import("./pages/reservation/reservation.module").then(m => m.ReservationModule) },
+  { path: 'users', loadChildren: () => import("./pages/user/user.module").then(m => m.UserModule) },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
 ];

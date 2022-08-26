@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { Child } from "../../child/types/child";
+import { IChild } from "../../child/types/IChild";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Tutor } from "../../tutor/types/tutor";
+import { ITutor } from "../../tutor/types/ITutor";
 import { Router } from "@angular/router";
 import { ReservationService } from "../services/reservation.service";
+import { SessionService } from "../../../modules/security/services/session.service";
 
 @Component({
   selector: 'app-reservation-create',
@@ -13,8 +14,8 @@ import { ReservationService } from "../services/reservation.service";
 })
 export class ReservationCreateComponent implements OnInit {
   // variables
-  private children: Child[] = [];
-  private tutors: Tutor[] = [];
+  private children: IChild[] = [];
+  private tutors: ITutor[] = [];
 
   reservationForm = new FormGroup({
     tutorId: new FormControl("", [Validators.required]),
@@ -24,41 +25,38 @@ export class ReservationCreateComponent implements OnInit {
   });
 
   // getters
-  get Children(): Child[] {
+  get Children(): IChild[] {
     return this.children;
   }
-  get Tutors(): Tutor[] {
+  get Tutors(): ITutor[] {
     return this.tutors;
   }
 
   // constructor
-  constructor(private _http: HttpClient, private _router: Router, private _reservationService: ReservationService) { }
+  constructor(private _session: SessionService, private _http: HttpClient, private _router: Router, private _reservationService: ReservationService) { }
 
   // methods
   ngOnInit(): void {
-    let token = "";
-    if (localStorage.getItem("token") != null)
-    { // @ts-ignore
-      token = localStorage.getItem("token");
-    }
+    let token;
+    this._session.Token$.subscribe(data => token = data);
     const params = new HttpHeaders().append("Authorization", `Bearer ${token}`);
     this._http.get('https://demo-rest-springboot.herokuapp.com/tutors/all', {headers: params}).subscribe(data => {
       const response: any = data;
-      response.forEach((e: Tutor) => {
-        let tutor: Tutor = e;
+      response.forEach((e: ITutor) => {
+        let tutor: ITutor = e;
         this.tutors.push(tutor);
       })
     });
     this._http.get('https://demo-rest-springboot.herokuapp.com/children/all', {headers: params}).subscribe(data => {
       const response: any = data;
-      response.forEach((e: Child) => {
-        let child: Child = e;
+      response.forEach((e: IChild) => {
+        let child: IChild = e;
         this.children.push(child);
       })
     });
   }
 
   createReservation(): void {
-    this._reservationService.add(this.reservationForm.value);
+    this._reservationService.create(this.reservationForm.value);
   }
 }

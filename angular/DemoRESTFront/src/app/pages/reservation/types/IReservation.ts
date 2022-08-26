@@ -1,4 +1,4 @@
-export interface Reservation {
+export interface IReservation {
   timeArrival: Date;
   timeDeparture: Date;
   childId: number;
