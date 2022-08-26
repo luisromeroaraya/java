@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Set;
 
 @Data
-public class ChildAddForm {
+public class ChildCreateForm {
     @NotBlank
     @Size(max = 255)
     private String firstName;

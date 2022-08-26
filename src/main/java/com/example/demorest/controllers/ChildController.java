@@ -2,10 +2,11 @@ package com.example.demorest.controllers;
 
 import com.example.demorest.models.dto.ChildDTO;
 import com.example.demorest.models.dto.ReservationDTO;
-import com.example.demorest.models.forms.ChildAddForm;
+import com.example.demorest.models.forms.ChildCreateForm;
 import com.example.demorest.models.forms.ChildUpdateForm;
 import com.example.demorest.services.ChildService;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,9 +35,11 @@ public class ChildController {
         return childService.getAll();
     }
 
-    @PostMapping ("/add")
-    public ChildDTO save(@Valid @RequestBody ChildAddForm childAddForm) {
-        return childService.create(childAddForm);
+
+    @PostMapping ("/create")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ChildDTO save(@Valid @RequestBody ChildCreateForm childCreateForm) {
+        return childService.create(childCreateForm);
     }
 
     @PutMapping("/update/{id}") // PUT updates every attribute, PATCH updates ony the specified attributes

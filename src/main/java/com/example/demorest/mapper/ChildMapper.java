@@ -3,7 +3,7 @@ package com.example.demorest.mapper;
 import com.example.demorest.models.dto.ChildDTO;
 import com.example.demorest.models.entities.Child;
 import com.example.demorest.models.entities.Tutor;
-import com.example.demorest.models.forms.ChildAddForm;
+import com.example.demorest.models.forms.ChildCreateForm;
 import com.example.demorest.models.forms.ChildUpdateForm;
 import org.springframework.stereotype.Component;
 
@@ -25,7 +25,7 @@ public class ChildMapper {
                 .build();
     }
 
-    public Child toEntity(ChildAddForm form) {
+    public Child toEntity(ChildCreateForm form) {
         if (form == null)
             return null;
         Child child = new Child();

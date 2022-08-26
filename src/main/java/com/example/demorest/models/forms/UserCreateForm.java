@@ -7,7 +7,7 @@ import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Data
-public class UserAddForm {
+public class UserCreateForm {
     @NotBlank
     private String username;
     @NotBlank
