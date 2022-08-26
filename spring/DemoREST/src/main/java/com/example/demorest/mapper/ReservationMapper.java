@@ -5,7 +5,7 @@ import com.example.demorest.models.dto.ReservationDTO;
 import com.example.demorest.models.entities.Child;
 import com.example.demorest.models.entities.Reservation;
 import com.example.demorest.models.entities.Tutor;
-import com.example.demorest.models.forms.ReservationAddForm;
+import com.example.demorest.models.forms.ReservationCreateForm;
 import com.example.demorest.repositories.ChildRepository;
 import com.example.demorest.repositories.TutorRepository;
 import org.springframework.stereotype.Component;
@@ -29,12 +29,12 @@ public class ReservationMapper {
                 .timeDeparture(entity.getTimeDeparture())
                 .canceled(entity.isCanceled() ? "Yes" : "No")
                 .reason(entity.getReason())
-                .child_id(entity.getChild().getId())
-                .tutor_id(entity.getTutor().getId())
+                .childId(entity.getChild().getId())
+                .tutorId(entity.getTutor().getId())
                 .build();
     }
 
-    public Reservation toEntity(ReservationAddForm form) {
+    public Reservation toEntity(ReservationCreateForm form) {
         if (form == null)
             return null;
         Reservation reservation = new Reservation();
@@ -42,8 +42,8 @@ public class ReservationMapper {
         reservation.setTimeDeparture(form.getTimeDeparture());
         reservation.setCanceled(form.isCanceled());
         reservation.setReason(form.getReason());
-        reservation.setChild(childRepository.findById(form.getChild_id()).orElseThrow(() -> new ElementNotFoundException(Child.class, form.getChild_id())));
-        reservation.setTutor(tutorRepository.findById(form.getTutor_id()).orElseThrow(() -> new ElementNotFoundException(Tutor.class, form.getTutor_id())));
+        reservation.setChild(childRepository.findById(form.getChildId()).orElseThrow(() -> new ElementNotFoundException(Child.class, form.getChildId())));
+        reservation.setTutor(tutorRepository.findById(form.getTutorId()).orElseThrow(() -> new ElementNotFoundException(Tutor.class, form.getTutorId())));
         return reservation;
     }
 }

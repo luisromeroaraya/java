@@ -17,8 +17,8 @@ export class ReservationCreateComponent implements OnInit {
   private tutors: Tutor[] = [];
 
   reservationForm = new FormGroup({
-    tutor_id: new FormControl("", [Validators.required]),
-    child_id: new FormControl("", [Validators.required]),
+    tutorId: new FormControl("", [Validators.required]),
+    childId: new FormControl("", [Validators.required]),
     timeArrival: new FormControl(Date.now().toLocaleString(), [Validators.required]),
     timeDeparture: new FormControl(Date.now().toLocaleString(), [Validators.required])
   });

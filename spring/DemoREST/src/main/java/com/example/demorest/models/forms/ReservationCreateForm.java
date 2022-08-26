@@ -6,7 +6,7 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Data
-public class ReservationAddForm {
+public class ReservationCreateForm {
     @NotNull
     private LocalDateTime timeArrival;
     @NotNull
@@ -14,7 +14,7 @@ public class ReservationAddForm {
     private boolean canceled = false;
     private String reason = null;
     @NotNull
-    private Long child_id;
+    private Long childId;
     @NotNull
-    private Long tutor_id;
+    private Long tutorId;
 }

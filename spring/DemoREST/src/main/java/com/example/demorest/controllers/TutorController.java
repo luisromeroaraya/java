@@ -4,6 +4,7 @@ import com.example.demorest.models.dto.TutorDTO;
 import com.example.demorest.models.forms.TutorAddForm;
 import com.example.demorest.models.forms.TutorUpdateForm;
 import com.example.demorest.services.TutorService;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,7 +32,8 @@ public class TutorController {
         return tutorService.getAll();
     }
 
-    @PostMapping ("/add")
+    @PostMapping ("/create")
+    @ResponseStatus(HttpStatus.CREATED)
     public TutorDTO save(@Valid @RequestBody TutorAddForm tutorAddForm) {
         return tutorService.create(tutorAddForm);
     }

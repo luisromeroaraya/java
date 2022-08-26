@@ -1,10 +1,11 @@
 package com.example.demorest.controllers;
 
 import com.example.demorest.models.dto.TokenDTO;
-import com.example.demorest.models.forms.UserAddForm;
+import com.example.demorest.models.forms.UserCreateForm;
 import com.example.demorest.models.forms.UserLoginForm;
 import com.example.demorest.services.implementation.CustomUserDetailsServiceImpl;
 import com.example.demorest.tools.JWTProvider;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -27,8 +28,9 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public void addUser(@Valid @RequestBody UserAddForm form) {
-        userService.addUser(form);
+    @ResponseStatus(HttpStatus.CREATED)
+    public void addUser(@Valid @RequestBody UserCreateForm userCreateForm) {
+        userService.addUser(userCreateForm);
     }
 
     @PostMapping("/login")

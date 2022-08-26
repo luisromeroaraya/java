@@ -9,7 +9,7 @@ import com.example.demorest.models.dto.ReservationDTO;
 import com.example.demorest.models.entities.Child;
 import com.example.demorest.models.entities.Reservation;
 import com.example.demorest.models.entities.Tutor;
-import com.example.demorest.models.forms.ChildAddForm;
+import com.example.demorest.models.forms.ChildCreateForm;
 import com.example.demorest.models.forms.ChildUpdateForm;
 import com.example.demorest.repositories.ChildRepository;
 import com.example.demorest.repositories.ReservationRepository;
@@ -56,9 +56,9 @@ public class ChildServiceImpl implements ChildService {
     }
 
     @Override
-    public ChildDTO create(ChildAddForm childAddForm) {
-        Child child = childMapper.toEntity(childAddForm);
-        Set<Long> tutorsId = childAddForm.getTutorsId();
+    public ChildDTO create(ChildCreateForm childCreateForm) {
+        Child child = childMapper.toEntity(childCreateForm);
+        Set<Long> tutorsId = childCreateForm.getTutorsId();
 
         // check if every tutorsId exist
         Set<Tutor> tutors = new HashSet<>(tutorRepository.findAllById(tutorsId));

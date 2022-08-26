@@ -4,7 +4,7 @@ import com.example.demorest.exceptions.*;
 import com.example.demorest.mapper.ReservationMapper;
 import com.example.demorest.models.dto.ReservationDTO;
 import com.example.demorest.models.entities.Reservation;
-import com.example.demorest.models.forms.ReservationAddForm;
+import com.example.demorest.models.forms.ReservationCreateForm;
 import com.example.demorest.models.forms.ReservationCancelForm;
 import com.example.demorest.repositories.ReservationRepository;
 import com.example.demorest.services.ReservationService;
@@ -40,18 +40,18 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public ReservationDTO create(ReservationAddForm reservationAddForm) {
-        if (!checkDate(reservationAddForm.getTimeArrival().toLocalDate()))
-            throw new ReservationsLimitReachedException(reservationAddForm.getTimeArrival());
-        if (reservationAddForm.getTimeArrival().isBefore(LocalDateTime.now()))
-            throw new PastTimeException(reservationAddForm.getTimeArrival());
-        if (reservationAddForm.getTimeDeparture().isBefore(LocalDateTime.now()))
-            throw new PastTimeException(reservationAddForm.getTimeDeparture());
-        if ((reservationAddForm.getTimeArrival().getDayOfYear() != reservationAddForm.getTimeDeparture().getDayOfYear()) || (reservationAddForm.getTimeArrival().getYear() != reservationAddForm.getTimeDeparture().getYear()))
-            throw new SameDayReservationException(reservationAddForm.getTimeArrival(), reservationAddForm.getTimeDeparture());
-        if (reservationAddForm.getTimeArrival().isAfter(reservationAddForm.getTimeDeparture()))
-            throw new WrongDepartureTimeException(reservationAddForm.getTimeArrival(), reservationAddForm.getTimeDeparture());
-        Reservation reservation = reservationMapper.toEntity(reservationAddForm);
+    public ReservationDTO create(ReservationCreateForm reservationCreateForm) {
+        if (!checkDate(reservationCreateForm.getTimeArrival().toLocalDate()))
+            throw new ReservationsLimitReachedException(reservationCreateForm.getTimeArrival());
+        if (reservationCreateForm.getTimeArrival().isBefore(LocalDateTime.now()))
+            throw new PastTimeException(reservationCreateForm.getTimeArrival());
+        if (reservationCreateForm.getTimeDeparture().isBefore(LocalDateTime.now()))
+            throw new PastTimeException(reservationCreateForm.getTimeDeparture());
+        if ((reservationCreateForm.getTimeArrival().getDayOfYear() != reservationCreateForm.getTimeDeparture().getDayOfYear()) || (reservationCreateForm.getTimeArrival().getYear() != reservationCreateForm.getTimeDeparture().getYear()))
+            throw new SameDayReservationException(reservationCreateForm.getTimeArrival(), reservationCreateForm.getTimeDeparture());
+        if (reservationCreateForm.getTimeArrival().isAfter(reservationCreateForm.getTimeDeparture()))
+            throw new WrongDepartureTimeException(reservationCreateForm.getTimeArrival(), reservationCreateForm.getTimeDeparture());
+        Reservation reservation = reservationMapper.toEntity(reservationCreateForm);
         reservation = reservationRepository.save(reservation);
         return reservationMapper.toDTO(reservation);
     }

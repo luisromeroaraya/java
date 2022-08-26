@@ -1,7 +1,7 @@
 package com.example.demorest.services.implementation;
 
 import com.example.demorest.models.entities.User;
-import com.example.demorest.models.forms.UserAddForm;
+import com.example.demorest.models.forms.UserCreateForm;
 import com.example.demorest.repositories.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -25,7 +25,7 @@ public class CustomUserDetailsServiceImpl implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("Connection not possible."));
     }
 
-    public void addUser(UserAddForm form) {
+    public void addUser(UserCreateForm form) {
         User user = form.toEntity();
         user.setPassword(encoder.encode(user.getPassword()));
         userRepository.save(user);

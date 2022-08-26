@@ -13,6 +13,6 @@ public class ReservationDTO {
     private LocalDateTime timeDeparture;
     private String canceled;
     private String reason;
-    private Long child_id;
-    private Long tutor_id;
+    private Long childId;
+    private Long tutorId;
 }

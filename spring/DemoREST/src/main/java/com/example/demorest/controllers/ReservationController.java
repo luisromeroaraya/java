@@ -1,10 +1,11 @@
 package com.example.demorest.controllers;
 
 import com.example.demorest.models.dto.ReservationDTO;
-import com.example.demorest.models.forms.ReservationAddForm;
+import com.example.demorest.models.forms.ReservationCreateForm;
 import com.example.demorest.models.forms.ReservationCancelForm;
 import com.example.demorest.services.ReservationService;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -31,9 +32,10 @@ public class ReservationController {
         return reservationService.getAll();
     }
 
-    @PostMapping("/add")
-    public ReservationDTO save(@Valid @RequestBody ReservationAddForm reservationAddForm) {
-        return reservationService.create(reservationAddForm);
+    @PostMapping("/create")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ReservationDTO save(@Valid @RequestBody ReservationCreateForm reservationCreateForm) {
+        return reservationService.create(reservationCreateForm);
     }
 
     @PatchMapping("/cancel/{id}")
