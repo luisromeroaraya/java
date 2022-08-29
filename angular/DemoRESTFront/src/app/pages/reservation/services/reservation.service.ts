@@ -3,8 +3,8 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable, Subject } from "rxjs";
 import { SessionService } from "../../../modules/security/services/session.service";
 import {IReservation} from "../types/IReservation";
-import {IChild} from "../../child/types/IChild";
 import {ActivatedRoute} from "@angular/router";
+import {IReservationDAO} from "../types/IReservationDAO";
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +12,7 @@ import {ActivatedRoute} from "@angular/router";
 export class ReservationService {
   // variables
   private refreshList$ = new Subject<boolean>();
+  reservation?: IReservationDAO;
 
   // getters
   get RefreshList$(): Observable<boolean> {
@@ -37,15 +38,14 @@ export class ReservationService {
     return reservations;
   }
 
-  getOne(id: number): any {
-    let reservation;
+  getOne(id: number): IReservationDAO {
     let token;
     this._session.Token$.subscribe(data => token = data);
     const headers = new HttpHeaders().append("Authorization", `Bearer ${token}`);
-    this._http.get<any>(`https://demo-rest-springboot.herokuapp.com/reservations/${id}`, {headers}).subscribe(data => {
-      reservation = data;
+    this._http.get<IReservationDAO>(`https://demo-rest-springboot.herokuapp.com/reservations/${id}`, {headers}).subscribe(data => {
+      this.reservation = data;
     });
-    return reservation;
+    return <IReservationDAO>this.reservation;
   }
 
   create(reservation: any) {

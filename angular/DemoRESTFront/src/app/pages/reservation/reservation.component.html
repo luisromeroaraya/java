@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col d-flex justify-content-center">
-    <app-reservation-list (create)="split = !split"></app-reservation-list>
+    <app-reservation-list (create)="split = !split" (details)="split = !split"></app-reservation-list>
   </div>
   <div class="col d-flex justify-content-center" *ngIf="split">
     <router-outlet></router-outlet>

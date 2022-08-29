@@ -11,6 +11,7 @@ import { ReservationService } from "../services/reservation.service";
 export class ReservationListComponent implements OnInit {
   // variables
   @Output("create") createEvent = new EventEmitter();
+  @Output("details") detailsEvent = new EventEmitter();
   private reservations: IReservation[] = [];
 
   // getters
@@ -31,12 +32,17 @@ export class ReservationListComponent implements OnInit {
     this.getAllAction();
   }
 
-  getAllAction() {
+  getAllAction(): void {
     this.reservations = this._reservationService.getAll();
   }
 
-  createReservation() {
+  createReservation():void {
     this.createEvent.emit();
     this._router.navigateByUrl("/reservations/create");
+  }
+
+  seeDetails(id: number): void {
+    this.detailsEvent.emit();
+    this._router.navigateByUrl(`/reservations/${id}`);
   }
 }

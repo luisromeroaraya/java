@@ -9,7 +9,7 @@
   </tr>
   </thead>
   <tbody class="table-group-divider">
-  <tr *ngFor="let reservation of Reservations; index as id" [routerLink]="[id+1]">
+  <tr *ngFor="let reservation of Reservations; index as id" (click)="seeDetails(id+1)">
     <th scope="row">{{id+1}}</th>
     <td>{{reservation.tutorId}}</td>
     <td>{{reservation.childId}}</td>
