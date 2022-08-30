@@ -12,10 +12,10 @@ export class AuthService {
 
   // methods
   login(username: string, password: string): Observable<any> {
-    return this._http.post<any>("https://demo-rest-springboot.herokuapp.com/user/login", {"username": username, "password": password });
+    return this._http.post<any>("https://metaltravelguide.herokuapp.com/user/login", {"username": username, "password": password });
   }
 
   register(username: string, password: string): Observable<any> {
-    return this._http.post<any>("https://demo-rest-springboot.herokuapp.com/user/register", {"username": username, "password": password });
+    return this._http.post<any>("https://metaltravelguide.herokuapp.com/user/register", {"username": username, "password": password });
   }
 }
