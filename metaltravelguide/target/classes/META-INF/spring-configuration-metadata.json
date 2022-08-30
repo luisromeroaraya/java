@@ -1,0 +1,32 @@
+{
+  "groups": [
+    {
+      "name": "application.jwt",
+      "type": "com.metaltravelguide.places.tools.JWTProperties",
+      "sourceType": "com.metaltravelguide.places.tools.JWTProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "application.jwt.expires-at",
+      "type": "java.lang.Long",
+      "sourceType": "com.metaltravelguide.places.tools.JWTProperties"
+    },
+    {
+      "name": "application.jwt.header-key",
+      "type": "java.lang.String",
+      "sourceType": "com.metaltravelguide.places.tools.JWTProperties"
+    },
+    {
+      "name": "application.jwt.header-prefix",
+      "type": "java.lang.String",
+      "sourceType": "com.metaltravelguide.places.tools.JWTProperties"
+    },
+    {
+      "name": "application.jwt.secret",
+      "type": "java.lang.String",
+      "sourceType": "com.metaltravelguide.places.tools.JWTProperties"
+    }
+  ],
+  "hints": []
+}
