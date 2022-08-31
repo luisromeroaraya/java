@@ -5,8 +5,8 @@
   <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
     <a class="me-3 py-2 text-dark text-decoration-none" routerLink="" routerLinkActive="text-black-50" [routerLinkActiveOptions]="{exact: true}">Home</a>
     <a class="me-3 py-2 text-dark text-decoration-none" routerLink="places/all" routerLinkActive="text-black-50" *ngIf="isConnected">Places</a>
-    <a class="me-3 py-2 text-dark text-decoration-none" routerLink="profile" routerLinkActive="text-black-50" *ngIf="isConnected">My Profile</a>
     <a class="me-3 py-2 text-dark text-decoration-none" routerLink="users/all" routerLinkActive="text-black-50" *ngIf="isConnected && isAdmin">Users</a>
+    <a class="me-3 py-2 text-dark text-decoration-none" routerLink="profile" routerLinkActive="text-black-50" *ngIf="isConnected">My Profile</a>
     <a class="py-2 text-dark text-decoration-none" routerLink="register" routerLinkActive="text-black-50" *ngIf="!isConnected">Register</a>
     <a class="py-2 text-dark text-decoration-none" href="" (click)="logout()" *ngIf="isConnected">Logout</a>
   </nav>
