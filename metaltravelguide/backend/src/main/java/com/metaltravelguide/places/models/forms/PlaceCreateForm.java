@@ -9,7 +9,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Data
-public class PlaceAddForm {
+public class PlaceCreateForm {
     private String googleId;
     @NotBlank
     private String name;

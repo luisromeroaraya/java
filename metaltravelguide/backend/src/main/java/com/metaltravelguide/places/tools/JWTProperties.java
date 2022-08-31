@@ -20,6 +20,6 @@ public class JWTProperties implements InitializingBean {
     private String headerKey;
 
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() {
     }
 }

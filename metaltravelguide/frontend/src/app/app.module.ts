@@ -12,18 +12,22 @@ import { FooterComponent } from "./core/components/footer/footer.component";
 import { HomeComponent } from './core/components/home/home.component';
 import { PrivacyComponent } from './core/components/privacy/privacy.component';
 import { ContactComponent } from './core/components/contact/contact.component';
+import { ProfileComponent } from './core/components/profile/profile.component';
+import { SafePipe } from './core/pipes/safe.pipe';
 
 
 
 @NgModule({
-    declarations: [
-      AppComponent,
-      HeaderComponent,
-      FooterComponent,
-      HomeComponent,
-      PrivacyComponent,
-      ContactComponent
-    ],
+  declarations: [
+    AppComponent,
+    HeaderComponent,
+    FooterComponent,
+    HomeComponent,
+    PrivacyComponent,
+    ContactComponent,
+    ProfileComponent,
+    SafePipe
+  ],
   imports: [
     BrowserModule,
     FormsModule,
@@ -33,6 +37,9 @@ import { ContactComponent } from './core/components/contact/contact.component';
     SecurityModule
   ],
   providers: [],
+  exports: [
+    SafePipe
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

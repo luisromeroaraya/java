@@ -1,11 +1,11 @@
 package com.metaltravelguide.places.controllers;
 
 import com.metaltravelguide.places.models.dtos.PlaceDTO;
-import com.metaltravelguide.places.models.forms.PlaceAddForm;
+import com.metaltravelguide.places.models.forms.PlaceCreateForm;
 import com.metaltravelguide.places.models.forms.PlaceUpdateForm;
 import com.metaltravelguide.places.services.PlaceService;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,19 +24,20 @@ public class PlaceController {
 
     @GetMapping("/all")
     public List<PlaceDTO> getAll() {
-        return placeService.getAll();
+        return placeService.readAll();
     }
 
     @GetMapping("/{id:[0-9]+}")
     public PlaceDTO getOne(@PathVariable Long id) {
-        return placeService.getOne(id);
+        return placeService.readOne(id);
     }
 
-    @PostMapping("/add")
+    @PostMapping("/create")
+    @ResponseStatus(HttpStatus.CREATED)
     @Secured({"ROLE_USER"})
-    public PlaceDTO add(@Valid @RequestBody PlaceAddForm placeAddForm, Authentication auth) {
-        placeAddForm.setUsername(auth.getName());
-        return placeService.create(placeAddForm);
+    public PlaceDTO create(@Valid @RequestBody PlaceCreateForm placeCreateForm, Authentication auth) {
+        placeCreateForm.setUsername(auth.getName());
+        return placeService.create(placeCreateForm);
     }
 
     @PatchMapping("/update/{id:[0-9]+}")
@@ -47,7 +48,7 @@ public class PlaceController {
 
     @DeleteMapping("/delete/{id:[0-9]+}")
     @Secured({"ROLE_USER"})
-    public void delete(@Valid @PathVariable Long id, Authentication authentication) {
+    public void delete(@Valid @PathVariable Long id) {
         placeService.delete(id);
     }
 }

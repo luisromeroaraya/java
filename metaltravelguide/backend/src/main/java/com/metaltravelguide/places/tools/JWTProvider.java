@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @Component
 public class JWTProvider {
     //    Logger log = LoggerFactory.getLogger(JWTProvider.class); // activate Logger log manually
-    private UserDetailsService userDetailsService;
+    private final UserDetailsService userDetailsService;
     private final JWTProperties properties;
 
     public JWTProvider(UserDetailsService userDetailsService, JWTProperties properties) {

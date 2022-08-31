@@ -6,7 +6,7 @@ import {PlacesComponent} from "./places.component";
 
 const routes: Routes = [
   { path: "", component: PlacesComponent, children: [
-      { path: "list", component: PlacesListComponent },
+      { path: "all", component: PlacesListComponent },
       { path: ":id", component: PlaceDetailsComponent }
     ]
   }

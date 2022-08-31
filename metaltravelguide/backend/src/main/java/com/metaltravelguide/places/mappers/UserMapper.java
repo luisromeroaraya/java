@@ -3,7 +3,7 @@ package com.metaltravelguide.places.mappers;
 import com.metaltravelguide.places.models.dtos.UserDTO;
 import com.metaltravelguide.places.models.entities.Place;
 import com.metaltravelguide.places.models.entities.User;
-import com.metaltravelguide.places.models.forms.UserAddForm;
+import com.metaltravelguide.places.models.forms.UserCreateForm;
 import com.metaltravelguide.places.models.forms.UserUpdateForm;
 import org.springframework.stereotype.Component;
 
@@ -28,7 +28,7 @@ public class UserMapper {
                 .build();
     }
 
-    public User toEntity(UserAddForm form) {
+    public User toEntity(UserCreateForm form) {
         User user = new User();
         user.setUsername(form.getUsername());
         user.setPassword(form.getPassword());

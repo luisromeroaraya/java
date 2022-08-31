@@ -5,7 +5,7 @@ import com.metaltravelguide.places.exceptions.UserNotTheSameException;
 import com.metaltravelguide.places.mappers.PlaceMapper;
 import com.metaltravelguide.places.models.dtos.PlaceDTO;
 import com.metaltravelguide.places.models.entities.Place;
-import com.metaltravelguide.places.models.forms.PlaceAddForm;
+import com.metaltravelguide.places.models.forms.PlaceCreateForm;
 import com.metaltravelguide.places.models.forms.PlaceUpdateForm;
 import com.metaltravelguide.places.repositories.PlaceRepository;
 import com.metaltravelguide.places.services.PlaceService;
@@ -26,22 +26,22 @@ public class PlaceServiceImpl implements PlaceService {
     }
 
     @Override
-    public PlaceDTO getOne(Long id) {
+    public PlaceDTO readOne(Long id) {
         return placeRepository.findById(id)
                 .map(placeMapper::toDto)
                 .orElseThrow(() -> new ElementNotFoundException(Place.class, id));
     }
 
     @Override
-    public List<PlaceDTO> getAll() {
+    public List<PlaceDTO> readAll() {
         return placeRepository.findAll().stream()
                 .map(placeMapper::toDto)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public PlaceDTO create(PlaceAddForm placeAddForm) {
-        Place place = placeMapper.toEntity(placeAddForm);
+    public PlaceDTO create(PlaceCreateForm placeCreateForm) {
+        Place place = placeMapper.toEntity(placeCreateForm);
         place = placeRepository.save(place);
         return placeMapper.toDto(place);
     }

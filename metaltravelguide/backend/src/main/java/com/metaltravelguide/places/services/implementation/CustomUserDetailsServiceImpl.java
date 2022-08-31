@@ -3,9 +3,8 @@ package com.metaltravelguide.places.services.implementation;
 import com.metaltravelguide.places.exceptions.ElementNotFoundException;
 import com.metaltravelguide.places.mappers.UserMapper;
 import com.metaltravelguide.places.models.dtos.UserDTO;
-import com.metaltravelguide.places.models.entities.Place;
 import com.metaltravelguide.places.models.entities.User;
-import com.metaltravelguide.places.models.forms.UserAddForm;
+import com.metaltravelguide.places.models.forms.UserCreateForm;
 import com.metaltravelguide.places.models.forms.UserUpdateForm;
 import com.metaltravelguide.places.repositories.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,6 +12,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CustomUserDetailsServiceImpl implements UserDetailsService {
@@ -32,12 +34,18 @@ public class CustomUserDetailsServiceImpl implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("Connection not possible."));
     }
 
-    public UserDTO getOne(String username) {
+    public UserDTO readOne(String username) {
         return userMapper.toDto(userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Connection not possible.")));
     }
 
-    public void add(UserAddForm form) {
+    public List<UserDTO> readAll(String role) {
+        return userRepository.findUsersByRole(role).stream()
+                .map(userMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
+    public void create(UserCreateForm form) {
         User user = userMapper.toEntity(form);
         user.setPassword(encoder.encode(user.getPassword()));
         userRepository.save(user);

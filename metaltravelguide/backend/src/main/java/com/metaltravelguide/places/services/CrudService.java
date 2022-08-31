@@ -4,8 +4,8 @@ import java.util.List;
 
 public interface CrudService<TDTO, TID, TAFORM, TUFORM>{
     // READ
-    TDTO getOne(TID id);
-    List<TDTO> getAll();
+    TDTO readOne(TID id);
+    List<TDTO> readAll();
     // CREATE
     TDTO create(TAFORM taform);
     // UPDATE

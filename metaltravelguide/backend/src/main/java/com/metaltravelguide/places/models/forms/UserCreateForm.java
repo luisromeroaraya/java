@@ -1,12 +1,11 @@
 package com.metaltravelguide.places.models.forms;
 
-import com.metaltravelguide.places.models.entities.User;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 
 @Data
-public class UserAddForm {
+public class UserCreateForm {
     @NotBlank
     private String username;
     @NotBlank

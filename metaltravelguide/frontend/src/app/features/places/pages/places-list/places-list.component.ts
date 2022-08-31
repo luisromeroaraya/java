@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { IPlace } from "../../models/IPlace";
+import { PlacesService } from "../../services/places.service";
 
 @Component({
   selector: 'app-places-list',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PlacesListComponent implements OnInit {
 
-  constructor() { }
+  private places: IPlace[] = [];
+
+  constructor(private service: PlacesService) { }
 
   ngOnInit(): void {
+    this.service.readAll().subscribe((data: IPlace[]) => this.places = data);
   }
 
+  get Places(): IPlace[] {
+    return this.places;
+  }
 }

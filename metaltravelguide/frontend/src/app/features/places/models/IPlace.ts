@@ -3,7 +3,7 @@ import {IContact} from "./IContact";
 
 export interface IPlace {
   id: number;
-  googleId?: any;
+  googleId?: string;
   name: string;
   address: IAddress;
   contact: IContact;
