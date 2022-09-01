@@ -43,22 +43,40 @@ public class UserController {
         return new TokenDTO(jwtProvider.createToken(auth));
     }
 
-    @GetMapping("/profile")
-    @Secured({"ROLE_USER"})
-    public UserDTO profile(Authentication authentication) {
-        return userService.readOne(authentication.getName());
-    }
-
-    @PatchMapping("/update")
-    @Secured({"ROLE_USER"})
-    public UserDTO update(@Valid @RequestBody UserUpdateForm form, Authentication authentication) {
-        form.setUsername(authentication.getName());
-        return userService.update(form);
-    }
-
     @GetMapping("/all")
     @Secured({"ROLE_ADMIN"})
-    public List<UserDTO> getUsers() {
+    public List<UserDTO> readAll() {
         return userService.readAll("USER");
+    }
+
+    @GetMapping("/{id:[0-9]+}")
+    @Secured({"ROLE_USER", "ROLE_ADMIN"})
+    public UserDTO readOne(@Valid @PathVariable Long id) {
+        return userService.readOne(id);
+    }
+
+    @PatchMapping("/update/{id:[0-9]+}")
+    @Secured({"ROLE_ADMIN"})
+    public UserDTO update(@Valid @PathVariable Long id, @Valid @RequestBody UserUpdateForm form) {
+        return userService.update(id, form);
+    }
+
+    @GetMapping("/profile")
+    @Secured({"ROLE_USER", "ROLE_ADMIN"})
+    public UserDTO readProfile(Authentication authentication) {
+        return userService.readProfile(authentication.getName());
+    }
+
+    @PatchMapping("/updateProfile")
+    @Secured({"ROLE_USER", "ROLE_ADMIN"})
+    public UserDTO updateProfile(@Valid @RequestBody UserUpdateForm form, Authentication authentication) {
+        form.setUsername(authentication.getName());
+        return userService.updateProfile(form);
+    }
+
+    @DeleteMapping("/delete/{id:[0-9]+}")
+    @Secured({"ROLE_ADMIN"})
+    public void delete(@Valid @PathVariable Long id) {
+        userService.delete(id);
     }
 }

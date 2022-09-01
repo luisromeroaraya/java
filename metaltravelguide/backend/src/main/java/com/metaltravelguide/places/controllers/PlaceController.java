@@ -23,31 +23,31 @@ public class PlaceController {
     }
 
     @GetMapping("/all")
-    public List<PlaceDTO> getAll() {
+    public List<PlaceDTO> readAll() {
         return placeService.readAll();
     }
 
     @GetMapping("/{id:[0-9]+}")
-    public PlaceDTO getOne(@PathVariable Long id) {
+    public PlaceDTO readOne(@PathVariable Long id) {
         return placeService.readOne(id);
     }
 
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
-    @Secured({"ROLE_USER"})
+    @Secured({"ROLE_USER", "ROLE_ADMIN"})
     public PlaceDTO create(@Valid @RequestBody PlaceCreateForm placeCreateForm, Authentication auth) {
         placeCreateForm.setUsername(auth.getName());
         return placeService.create(placeCreateForm);
     }
 
     @PatchMapping("/update/{id:[0-9]+}")
-    @Secured({"ROLE_USER"})
+    @Secured({"ROLE_USER", "ROLE_ADMIN"})
     public PlaceDTO update(@Valid @PathVariable Long id, @Valid @RequestBody PlaceUpdateForm placeUpdateForm) {
         return placeService.update(id, placeUpdateForm);
     }
 
     @DeleteMapping("/delete/{id:[0-9]+}")
-    @Secured({"ROLE_USER"})
+    @Secured({"ROLE_USER", "ROLE_ADMIN"})
     public void delete(@Valid @PathVariable Long id) {
         placeService.delete(id);
     }

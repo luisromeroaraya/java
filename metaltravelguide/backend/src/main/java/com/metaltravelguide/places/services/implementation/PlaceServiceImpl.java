@@ -9,6 +9,7 @@ import com.metaltravelguide.places.models.forms.PlaceCreateForm;
 import com.metaltravelguide.places.models.forms.PlaceUpdateForm;
 import com.metaltravelguide.places.repositories.PlaceRepository;
 import com.metaltravelguide.places.services.PlaceService;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -26,10 +27,10 @@ public class PlaceServiceImpl implements PlaceService {
     }
 
     @Override
-    public PlaceDTO readOne(Long id) {
-        return placeRepository.findById(id)
-                .map(placeMapper::toDto)
-                .orElseThrow(() -> new ElementNotFoundException(Place.class, id));
+    public PlaceDTO create(PlaceCreateForm placeCreateForm) {
+        Place place = placeMapper.toEntity(placeCreateForm);
+        place = placeRepository.save(place);
+        return placeMapper.toDto(place);
     }
 
     @Override
@@ -40,18 +41,21 @@ public class PlaceServiceImpl implements PlaceService {
     }
 
     @Override
-    public PlaceDTO create(PlaceCreateForm placeCreateForm) {
-        Place place = placeMapper.toEntity(placeCreateForm);
-        place = placeRepository.save(place);
-        return placeMapper.toDto(place);
+    public PlaceDTO readOne(Long id) {
+        return placeRepository.findById(id)
+                .map(placeMapper::toDto)
+                .orElseThrow(() -> new ElementNotFoundException(Place.class, id));
     }
 
     @Override
     public PlaceDTO update(Long id, PlaceUpdateForm placeUpdateForm) {
         Place place = placeRepository.findById(id)
                 .orElseThrow(() -> new ElementNotFoundException(Place.class, id));
-        if (!place.getUser().getUsername().equals(SecurityContextHolder.getContext().getAuthentication().getName()))
-            throw new UserNotTheSameException(place.getUser().getUsername(), SecurityContextHolder.getContext().getAuthentication().getName());
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        boolean isAdmin = authentication.getAuthorities().stream().anyMatch(e -> e.getAuthority().equals("ROLE_ADMIN"));
+        boolean isOwner = place.getUser().getUsername().equals(authentication.getName());
+        if (!isAdmin && !isOwner)
+            throw new UserNotTheSameException(place.getUser().getUsername(), authentication.getName());
         if (placeUpdateForm.getGoogleId() != null)
             place.setGoogleId(placeUpdateForm.getGoogleId());
         if (placeUpdateForm.getName() != null)
@@ -74,8 +78,11 @@ public class PlaceServiceImpl implements PlaceService {
     public void delete(Long id) {
         Place place = placeRepository.findById(id)
                 .orElseThrow(() -> new ElementNotFoundException(Place.class, id));
-        if (!place.getUser().getUsername().equals(SecurityContextHolder.getContext().getAuthentication().getName()))
-            throw new UserNotTheSameException(place.getUser().getUsername(), SecurityContextHolder.getContext().getAuthentication().getName());
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        boolean isAdmin = authentication.getAuthorities().stream().anyMatch(e -> e.getAuthority().equals("ROLE_ADMIN"));
+        boolean isOwner = place.getUser().getUsername().equals(authentication.getName());
+        if (!isAdmin && !isOwner)
+            throw new UserNotTheSameException(place.getUser().getUsername(), authentication.getName());
         placeRepository.delete(place);
     }
 }

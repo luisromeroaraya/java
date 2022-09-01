@@ -5,7 +5,7 @@ public class UserNotTheSameException extends IllegalArgumentException {
     private final Object user;
 
     public UserNotTheSameException(Object owner, Object user) {
-        super("User {" + user + "} is not the same as the Owner {"+ owner + "}.");
+        super("User {" + user + "} is not the same as the Owner {" + owner + "}.");
         this.owner = owner;
         this.user = user;
     }

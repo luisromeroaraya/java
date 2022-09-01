@@ -1,11 +1,11 @@
 package com.metaltravelguide.places.exceptions;
 
-public class ElementNotFoundException extends RuntimeException {
+public class CannotChangeOtherAdminException extends IllegalArgumentException{
     private final Class<?> clazz;
     private final Object object;
 
-    public ElementNotFoundException(Class<?> clazz, Object object) {
-        super("Cannot find entity {" + clazz.getSimpleName() + "} for {" + object + "}");
+    public CannotChangeOtherAdminException(Class<?> clazz, Object object) {
+        super("Cannot change entity {" + clazz.getSimpleName()+ "} because {" + object + "} has 'ROLE_ADMIN'");
         this.clazz = clazz;
         this.object = object;
     }
