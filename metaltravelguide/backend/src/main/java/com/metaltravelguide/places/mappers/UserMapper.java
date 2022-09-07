@@ -1,5 +1,6 @@
 package com.metaltravelguide.places.mappers;
 
+import com.metaltravelguide.places.enums.Country;
 import com.metaltravelguide.places.models.dtos.UserDTO;
 import com.metaltravelguide.places.models.entities.Place;
 import com.metaltravelguide.places.models.entities.User;
@@ -7,6 +8,7 @@ import com.metaltravelguide.places.models.forms.UserCreateForm;
 import com.metaltravelguide.places.models.forms.UserUpdateForm;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
 import java.util.stream.Collectors;
 
 @Component
@@ -21,7 +23,7 @@ public class UserMapper {
                 .password(entity.getPassword())
                 .firstName(entity.getFirstName())
                 .lastName(entity.getLastName())
-                .countryIso(entity.getCountryIso())
+                .countryIso(entity.getCountryIso().name())
                 .enabled(entity.isEnabled())
                 .roles(entity.getRoles())
                 .places(entity.getPlaces().stream().map(Place::getId).collect(Collectors.toSet()))
@@ -35,7 +37,7 @@ public class UserMapper {
         user.setMail(form.getMail());
         user.setFirstName(form.getFirstName());
         user.setLastName(form.getLastName());
-        user.setCountryIso(form.getCountryIso());
+        user.setCountryIso(findByName(form.getCountryIso()));
         return user;
     }
 
@@ -46,8 +48,12 @@ public class UserMapper {
         user.setMail(form.getMail());
         user.setFirstName(form.getFirstName());
         user.setLastName(form.getLastName());
-        user.setCountryIso(form.getCountryIso());
+        user.setCountryIso(findByName(form.getCountryIso()));
         user.setEnabled(form.isEnabled());
         return user;
+    }
+
+    public static Country findByName(String countryIso) {
+        return Arrays.stream(Country.values()).filter(country -> country.name().equalsIgnoreCase(countryIso)).findFirst().orElse(null);
     }
 }

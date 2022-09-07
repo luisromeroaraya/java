@@ -1,5 +1,6 @@
 package com.metaltravelguide.places.tools;
 
+import com.metaltravelguide.places.enums.Country;
 import com.metaltravelguide.places.models.entities.*;
 import com.metaltravelguide.places.repositories.PlaceRepository;
 import com.metaltravelguide.places.repositories.UserRepository;
@@ -21,9 +22,9 @@ public class DataInit implements InitializingBean {
     }
 
     private final List<User> users = Arrays.asList(
-            new User("admin", new BCryptPasswordEncoder().encode("password"), "admin@mail.com", "Admin", "Admin", "BE", List.of("ADMIN")),
-            new User("marcelo", new BCryptPasswordEncoder().encode("password"),"marcelo@mail.com", "Marcelo", "Martins", "CL", List.of("ADMIN")),
-            new User("fred", new BCryptPasswordEncoder().encode("password"),"fred@mail.com","Fred", "Freddo ", "BE")
+            new User("admin", new BCryptPasswordEncoder().encode("password"), "admin@mail.com", "Admin", "Admin", Country.BE, List.of("ADMIN")),
+            new User("marcelo", new BCryptPasswordEncoder().encode("password"),"marcelo@mail.com", "Marcelo", "Martins", Country.CL, List.of("ADMIN")),
+            new User("fred", new BCryptPasswordEncoder().encode("password"),"fred@mail.com","Fred", "Freddo ", Country.BE)
     );
 
     private final List<Place> places = Arrays.asList(

@@ -20,6 +20,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.metaltravelguide.places.mappers.UserMapper.findByName;
+
 @Service
 public class CustomUserDetailsServiceImpl implements UserDetailsService {
     private final UserRepository userRepository;
@@ -70,7 +72,7 @@ public class CustomUserDetailsServiceImpl implements UserDetailsService {
         if (form.getLastName() != null)
             user.setLastName(form.getLastName());
         if (form.getCountryIso() != null)
-            user.setCountryIso(form.getCountryIso());
+            user.setCountryIso(findByName(form.getCountryIso()));
         userRepository.save(user);
         return userMapper.toDto(user);
     }
@@ -97,7 +99,7 @@ public class CustomUserDetailsServiceImpl implements UserDetailsService {
         if (form.getLastName() != null)
             user.setLastName(form.getLastName());
         if (form.getCountryIso() != null)
-            user.setCountryIso(form.getCountryIso());
+            user.setCountryIso(findByName(form.getCountryIso()));
         userRepository.save(user);
         return userMapper.toDto(user);
     }

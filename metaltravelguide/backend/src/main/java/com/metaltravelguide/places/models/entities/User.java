@@ -1,5 +1,6 @@
 package com.metaltravelguide.places.models.entities;
 
+import com.metaltravelguide.places.enums.Country;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -33,7 +34,7 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String lastName;
     @Column(columnDefinition = "CHAR(2)")
-    private String countryIso;
+    private Country countryIso;
     private boolean enabled = true;
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles = List.of("USER");
@@ -49,12 +50,12 @@ public class User implements UserDetails {
         this.lastName = lastName;
     }
 
-    public User(String username, String password, String mail, String firstName, String lastName, String countryIso) {
+    public User(String username, String password, String mail, String firstName, String lastName, Country countryIso) {
         this(username, password, mail, firstName, lastName);
         this.countryIso = countryIso;
     }
 
-    public User(String username, String password, String mail, String firstName, String lastName, String countryIso, List<String> roles) {
+    public User(String username, String password, String mail, String firstName, String lastName, Country countryIso, List<String> roles) {
         this(username, password, mail, firstName, lastName, countryIso);
         this.roles = roles;
     }
