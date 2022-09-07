@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { PlacesRoutingModule } from './places-routing.module';
 import { PlacesListComponent } from './pages/places-list/places-list.component';
 import { PlaceDetailsComponent } from './pages/place-details/place-details.component';
@@ -23,7 +22,7 @@ import { SafePipe } from "../../core/pipes/safe.pipe";
     CommonModule,
     PlacesRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
   ]
 })
 export class PlacesModule { }

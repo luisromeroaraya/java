@@ -2,7 +2,9 @@
   <div class="card shadow-sm">
     <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="{{place.image}}" alt="{{place.name}}"/>
     <div class="card-body">
-      <p class="card-text">{{place.address.street}} {{place.address.number}}, {{place.address.city}}, {{place.address.country}}</p>
+      <div class="d-flex justify-content-between">
+        <p>{{place.address.street}} {{place.address.number}}, {{place.address.city}} <span class="fi fi-{{place.address.country.toLowerCase()}}"></span></p>
+      </div>
       <div class="d-flex justify-content-between align-items-center">
         <small class="text-muted">{{place.type}}</small>
         <a class="btn btn-sm btn-outline-success" routerLink="/places/{{place.id}}">More Info</a>

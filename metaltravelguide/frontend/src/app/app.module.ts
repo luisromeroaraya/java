@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from "@angular/common/http";
 import { SecurityModule } from "./core/security/security.module";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+
 import { AppComponent } from './app.component';
 import { HeaderComponent } from "./core/components/header/header.component";
 import { FooterComponent } from "./core/components/footer/footer.component";
@@ -25,12 +25,12 @@ import { ProfileComponent } from "./core/pages/profile/profile.component";
     ProfileComponent
   ],
   imports: [
-    BrowserModule,
-    FormsModule,
     NgbModule,
+    BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     SecurityModule,
+    FormsModule,
     ReactiveFormsModule
   ],
   providers: [],

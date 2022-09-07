@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PlacesService } from "../../services/places.service";
 import { IPlace } from "../../models/IPlace";
 import { ActivatedRoute } from "@angular/router";
-import {environment} from "../../../../../environments/environment";
+import { environment } from "../../../../../environments/environment";
 
 @Component({
   selector: 'app-IPlace-details',
@@ -28,7 +28,6 @@ export class PlaceDetailsComponent implements OnInit {
   get Place(): IPlace {
     return <IPlace>this.place;
   }
-
 
   get MapURL(): string {
     return this.mapURL;
