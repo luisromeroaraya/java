@@ -29,6 +29,8 @@ public class PlaceMapper {
                 .description(entity.getDescription())
                 .image(entity.getImage())
                 .username(entity.getUser().getUsername())
+                .dateCreated(entity.getDateCreated())
+                .dateLastModified(entity.getDateLastModified())
                 .build();
     }
 

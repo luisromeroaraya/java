@@ -8,6 +8,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { FormsModule } from "@angular/forms";
 import { PlaceCardComponent } from './components/place-card/place-card.component';
 import { SafePipe } from "../../core/pipes/safe.pipe";
+import { DateAsAgoPipe } from "../../core/pipes/date-as-ago.pipe";
 
 
 @NgModule({
@@ -16,13 +17,14 @@ import { SafePipe } from "../../core/pipes/safe.pipe";
     PlaceDetailsComponent,
     PlacesComponent,
     PlaceCardComponent,
-    SafePipe
+    SafePipe,
+    DateAsAgoPipe
   ],
-  imports: [
-    CommonModule,
-    PlacesRoutingModule,
-    HttpClientModule,
-    FormsModule,
-  ]
+    imports: [
+        CommonModule,
+        PlacesRoutingModule,
+        HttpClientModule,
+        FormsModule,
+    ]
 })
 export class PlacesModule { }

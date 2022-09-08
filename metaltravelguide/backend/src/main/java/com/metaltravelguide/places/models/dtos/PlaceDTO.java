@@ -6,6 +6,9 @@ import com.metaltravelguide.places.models.entities.Type;
 import lombok.Builder;
 import lombok.Data;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+
 @Data
 @Builder
 public class PlaceDTO {
@@ -18,4 +21,6 @@ public class PlaceDTO {
     private String description;
     private String image;
     private String username;
+    private Instant dateCreated;
+    private Instant dateLastModified;
 }

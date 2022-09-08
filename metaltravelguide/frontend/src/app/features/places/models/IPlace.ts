@@ -11,4 +11,6 @@ export interface IPlace {
   description: string;
   image: string;
   username: string;
+  dateCreated: string;
+  dateLastModified: string;
 }

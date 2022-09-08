@@ -4,9 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 @Entity
 @Table(name = "places")
@@ -31,7 +33,10 @@ public class Place {
     private String description;
     private String image;
     private boolean status = false;
-    private LocalDateTime submit_date = LocalDateTime.now();
+    @CreationTimestamp
+    private Instant dateCreated;
+    @UpdateTimestamp
+    private Instant dateLastModified;
     @ManyToOne
     @JoinColumn(name="user_id")
     private User user;
