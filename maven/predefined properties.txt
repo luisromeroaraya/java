@@ -1,0 +1,1 @@
+https://github.com/cko/predefined_maven_properties/blob/master/README.md
