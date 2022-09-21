@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"> 
+  
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- module -->
+    <modules>
+        <module>child-app</module>
+    </modules>
+
+    <!-- Identification -->  
+    <groupId>be.bstorm.akimts</groupId>
+    <artifactId>MavenPrep</artifactId>
+    <version>0.0.1-FINAL</version>
+
+    <packaging>pom</packaging>
+        
+    <!-- How to build the project (default: jar) -->
+    <!-- <packaging>pom</packaging> -->
+        
+    <!-- Metadonnees du projet -->
+    <name>MavenPrep-${profile.active}</name>
+    <description>Ce projet a pour but de preparer le cours de Maven</description>      
+    <inceptionYear>2022</inceptionYear>
+        
+    <organization>
+        <name>BStorm</name>
+        <url>https://www.bstorm.be/</url>
+    </organization>
+        
+    <developers>
+        <developer>    
+            <name>Alexandre Kimtsaris</name>
+            <email>alexandre.kimtsaris@bstorm.be</email>
+            <timezone>+1</timezone>
+            <roles>
+                <role>maven writer</role>
+            </roles>
+        </developer>        
+    </developers>
+
+    <!-- Properties -->
+    <properties>        
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <ma.prop>ma valeur</ma.prop>
+        <maven.demo.version>1.1-FINAL</maven.demo.version>
+        <maven.home>${ env.MAVEN_HOME }</maven.home>
+    </properties>
+        
+    <!-- Dependencies -->
+    <dependencies>
+<!--    provient du repo distant    -->
+<!--        <dependency>-->
+<!--            <groupId>org.projectlombok</groupId>-->
+<!--            <artifactId>lombok</artifactId>-->
+<!--            <version>1.18.24</version>-->
+<!--        </dependency>-->
+
+<!--    provient du repo local   -->
+        <dependency>
+            <groupId>be.bstorm.akimts</groupId>
+            <artifactId>maven-demo</artifactId>
+            <version>${maven.demo.version}</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+        
+    <!-- Profiles -->
+    <profiles>
+        <profile>      
+        <id>dev</id>     
+        <activation>      
+            <activeByDefault>true</activeByDefault>  
+        </activation>
+        <properties>     
+            <profile.active>dev</profile.active>  
+        </properties>
+        </profile>
+
+        <profile>    
+        <id>prod</id>              
+        <properties>     
+            <profile.active>prod</profile.active>  
+        </properties>
+        </profile>
+    </profiles>
+
+    <!-- Dependency management for parent POM -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>  
+                <groupId>com.google.guava</groupId>  
+                <artifactId>guava</artifactId>
+                <version>31.1-jre</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>exec-maven-plugin</artifactId>
+                    <version>3.1.0</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+
+
+</project>
