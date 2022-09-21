@@ -1,0 +1,21 @@
+Exo 1) 
+
+Créez un projet maven mettant en place une dépendance à hibernate-core version 5.5.7.Final. La version de la dépendance devra être donnée via une propriété créée au préalable. Installez ce projet dans le repository local. (POM parent)
+
+Exo 2)
+
+ Dans le pom parent de l’exercice précédent, mettez à disposition(dependencyManagement ) :
+driver mysql 
+driver postgresql
+
+
+Mettez en place une base de données “ProdDB” en postgresql dans laquelle on retrouvera une table Person avec une PK “id” auto incrémenté et une colonne “Nom”. (en SQL)
+
+Insérez y les Person suivantes:
+mike
+marie
+ben
+
+Créez un projet maven enfant sur IntelliJ héritant du pom parent. Ajoutez-y la dépendance postgresql mise en place dans le parent.
+
+Ce projet devra permettre d’afficher les noms des différentes personnes présentes dans ProdDB grâce à JPA/Hibernate. (au minimum connection fonctionnelle)
